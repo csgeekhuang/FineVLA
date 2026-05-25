@@ -3,145 +3,130 @@ const DEMO_DATA = {
   "recap": {
     "samples": [
       {
-        "sample_id": "bridge-29608",
+        "sample_id": "bridge-30494",
         "dataset": "Bridge",
         "robot_type": "widowx",
-        "instruction_raw": "cooking the food",
-        "instruction_word_count": 3,
+        "instruction_raw": "saca el maiz del cajon",
+        "instruction_word_count": 5,
         "human_review": [
-          "Grasp the yellow teddy bear with a red scarf from above using the black gripper.",
-          "Lift the yellow teddy bear vertically upward from the stove surface and move it diagonally upward to the left.",
-          "Move the teddy bear diagonally downward to the right toward the silver pot on the closer edge of the burner.",
-          "Lower the yellow teddy bear into the silver pot, positioning it next to the white spoon inside.",
-          "Release the yellow teddy bear inside the pot, allowing it to rest next to the spoon."
+          "Grasp the yellow corn cob resting on top of the left wooden box section using the gripper from above.",
+          "Lift the corn cob vertically away from the box surface.",
+          "Move the corn cob horizontally to the right, positioning it directly above the open drawer containing the blue cloth.",
+          "Lower the corn cob into the drawer, placing it on top of the blue cloth.",
+          "Release the grip on the corn cob and retract the arm upwards."
         ],
-        "human_review_word_count": 87,
-        "word_count_ratio": 29.0
+        "human_review_word_count": 75,
+        "word_count_ratio": 15.0
       },
       {
-        "sample_id": "robomindv1-place_in_block_1-46",
+        "sample_id": "robomindv1-place_in_bread_on_table_2-119",
         "dataset": "RoboMIND V1",
         "robot_type": "franka_3rgb",
-        "instruction_raw": "place in cube",
-        "instruction_word_count": 3,
+        "instruction_raw": "put the bread on the table",
+        "instruction_word_count": 6,
         "human_review": [
-          "Lower the robot arm from above, positioning the open gripper over the purple block located on right center of the table between the blue plate and the light purple block, and close the fingers around the block's vertical sides to grasp it.",
-          "Lifts the grasped purple block upwards from the table surface near the left of the blue plate.",
-          "Move the purple block held in the gripper from the vicinity of the blue plate horizontally towards the right, approaching the position directly above the purple plate on the left of the table.",
-          "Places the purple block flat in the center of the purple plate from above.",
-          "Retracts the open gripper upwards and away from the purple plate positioned on the left side of the table.",
-          "Lower the gripper from above, grasp the blue block on the middle-left side of the table between the blue plate and the light purple block, lift the blue block held in the gripper upward, and move it rightward above the blue plate.",
-          "Place the blue block into the blue plate, release the gripper, and retract it slightly upward."
+          "Approaches the piece of bread on the blue plate by moving the gripper vertically downwards from above.",
+          "Grasps the bread resting on the blue plate by closing the gripper from above and lifting the pastry slightly.",
+          "Moves the grasped bread laterally to the left, transporting it from above the blue plate to an open area on the white table surface.",
+          "Places the bread onto the white table surface by lowering the gripper and releasing the grasp.",
+          "Retracts the gripper vertically upwards and away from the placed bread on the table."
         ],
-        "human_review_word_count": 183,
-        "word_count_ratio": 61.0
+        "human_review_word_count": 90,
+        "word_count_ratio": 15.0
       },
       {
-        "sample_id": "robomindv2-pour_water_task-27",
+        "sample_id": "robomindv2-turn_on_light_switch_1-105",
         "dataset": "RoboMIND V2",
-        "robot_type": "ur_dex",
-        "instruction_raw": "pour water task",
-        "instruction_word_count": 3,
+        "robot_type": "tienkung",
+        "instruction_raw": "turn on light switch 1",
+        "instruction_word_count": 5,
         "human_review": [
-          "Grasp the left side of the light blue cup on the left and the right side of the grey cup on the right simultaneously using the left and right robot arms respectively.",
-          "Lift both cups vertically and move them towards the center of the workspace using the left and right robot arms respectively.",
-          "Tilt the light blue cup held by the left arm over the grey cup held by the right arm to simulate pouring water.",
-          "Tilting the cups back to their original orientations using the left and right robot arms respectively.",
-          "Separate the arms, moving the light blue cup back onto the table on the left side and moving the grey cup back onto the table on the right side using the left and right robot arms respectively.",
-          "The right arm releases grey cup and retracts away, while rotating it clockwise to lie on the table.",
-          "The left arm releases the light blue cup, dropping it upright on the table."
+          "Move the robotic arm from the bottom left towards the key switch located on the lower section of the left control panel, below the digital display.",
+          "Grasp the grey key switch lever firmly from the front.",
+          "Rotate the key switch counter clockwise by approximately 45 degrees to the 'on' position, causing the white indicator light above it to illuminate.",
+          "Release the key switch lever.",
+          "Retract the robotic arm downwards and away from the control panel."
         ],
-        "human_review_word_count": 161,
-        "word_count_ratio": 53.7
+        "human_review_word_count": 75,
+        "word_count_ratio": 15.0
       },
       {
-        "sample_id": "droid_robointer-96198",
+        "sample_id": "droid_robointer-1334",
         "dataset": "DROID",
         "robot_type": "franka_robotiq",
-        "instruction_raw": "open the drawer",
-        "instruction_word_count": 3,
+        "instruction_raw": "pick up the pot on the stove",
+        "instruction_word_count": 7,
         "human_review": [
-          "Approach the silver handle of the drawer located on the side face of the white counter, Grasp its handle with one finger of the gripper and pull it backward by approximately 10 centimeters, grasp its upper edge by the handle once again and pull it backward to slide the drawer fully open.",
-          "Reach towards the orange basket on the front of the counter above the open drawer, lower the gripper from above to grasp the yellow pineapple plush toy situated inside, and lift it upward.",
-          "Lift Yellow pineapple plush toy upward and move it backward toward the open drawer and place it into the open drawer.",
-          "Lower the gripper into the orange basket and close the jaws around yellow banana toy to grasp it.",
-          "Lift it slightly to touch the edge of the orange basket, tilt it over, causing all fruit toys inside the basket to fall out.",
-          "Press against the rear upper edge of the orange basket, straighten it up, making it stand upright at the front of the white table.",
-          "Approach the upper edge of the opened drawer, and push the drawer forward, sliding it back into the counter until fully closed."
+          "Descend to grasp the handle of the pot on the front burner from above, close the gripper, and lift the pot slightly off the stovetop.",
+          "Move the pot forward and to the left lower it onto the back left burner adjacent to the frying pan.",
+          "Descend to grasp the handle of the wooden spoon lying on the stovetop to the left of the front burner from above, close the gripper, and lift the spoon slightly off the surface.",
+          "Translate the wooden spoon counterclockwise by 90 degrees and to the left from the right side of the stovetop and place it flat on the white plate."
         ],
-        "human_review_word_count": 194,
-        "word_count_ratio": 64.7
+        "human_review_word_count": 105,
+        "word_count_ratio": 15.0
       },
       {
-        "sample_id": "rt1-RT-1-34988",
+        "sample_id": "rt1-RT-1-44751",
         "dataset": "RT-1",
         "robot_type": "google_robot",
-        "instruction_raw": "pick rxbar blueberry",
-        "instruction_word_count": 3,
+        "instruction_raw": "move water bottle near apple",
+        "instruction_word_count": 5,
         "human_review": [
-          "Move the robot arm from the upper right side towards the small blue RXBAR located on the back-right side of the table.",
-          "Try to grasp the small blue RXBAR, but the gripper loses its grip accidentally, causing the RXBAR to fall back onto the table surface.",
-          "Push the RXBAR slightly to the left, adjusting its position closer to the center of the table.",
-          "Retract the arm upwards and to the right, then move back to approach the RXBAR again.",
-          "Repeatedly grasp the RXBAR firmly from above using the gripper fingers.",
-          "Lift the RXBAR vertically off the table surface and hold it in the air."
+          "Grasp the clear plastic water bottle located in the center of the table by its upper neck, approaching from the right side.",
+          "Lift the water bottle vertically upwards off the table surface.",
+          "Move the held water bottle horizontally forward and to the left towards the red apple.",
+          "Place the water bottle down upright on the table surface immediately to the right of the apple.",
+          "Release the grip on the bottle and retract the arm upwards."
         ],
-        "human_review_word_count": 104,
-        "word_count_ratio": 34.7
+        "human_review_word_count": 75,
+        "word_count_ratio": 15.0
       },
       {
-        "sample_id": "bc_z-BC_Z-1952",
+        "sample_id": "bc_z-BC_Z-17536",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "stack cups into tray",
-        "instruction_word_count": 4,
+        "instruction_raw": "place banana in paper cup",
+        "instruction_word_count": 5,
         "human_review": [
-          "Grasp the front rim of the brown cup near the center of the table.",
-          "Lift the brown cup vertically into the air and move it over the white cup located to the right of the green tray and place it down briefly.",
-          "Grasp the cup stack of the brown cup and the white cup by the back inner rim of the brown cup and the back outer rim of the white cup.",
-          "Lift the lying cup stack by the back rim and move it to the left towards the green tray.",
-          "Place the cup stack right of the green tray and release the gripper.",
-          "Grasp the cup stack by the right side of the cup boddy.",
-          "Move the cup stack to the right and hold it above the empty spot in the right area inside the green tray."
+          "Grab the banana repeatedly in the green tray. The first time grabbing bananas, the tray shakes, the bananas move backward in the tray and fall off.",
+          "The second time grabbing the banana, the tray moves to the right, and after grabbing the banana, the banana falls off.",
+          "Grasp and lift the yellow banana vertically to clear the edge of the green tray.",
+          "Move the yellow banana horizontally and slightly back towards the white paper cup."
         ],
-        "human_review_word_count": 138,
-        "word_count_ratio": 34.5
+        "human_review_word_count": 75,
+        "word_count_ratio": 15.0
       },
       {
-        "sample_id": "galaxea-Arrange_The_Fruits_20250731_012-31",
+        "sample_id": "galaxea-Turn_On_And_Off_The_Air_Conditioner_20250802_012-19",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "arrange the fruits",
-        "instruction_word_count": 3,
+        "instruction_raw": "turn on and off the air conditioner",
+        "instruction_word_count": 7,
         "human_review": [
-          "The robot approaches the table from the front, moving forward approximately 50 cm toward a round dining table covered with a light blue cloth, positioning itself in front of a basket containing red and green fruits.",
-          "The right arm approaches the dark red apple inside the basket from above, grasps it with the gripper closing around its sides, lifts it vertically upward and moves it leftward to place it upright in the back left of the white plate located on the front left of the table.",
-          "The right arm approaches the green pear from above in the basket on the front right of the table, grasps it with its gripper, lifts it vertically, causing the dark green lemon to tilt clockwise approximately 90 degrees, moves it leftward over the white plate located on the front left of the table, and places it upright next to the right of the dark red apple.",
-          "Right arm approaches the red apple in the basket from above, grasps it firmly with its gripper, lifts it vertically, moves it leftward over the white plate located on the front left of the table, and places it upright next to the front of the dark apple already on the plate.",
-          "The right arm approaches the yellow potato from above in the basket, grasps it centrally with its gripper, causing the green lemon to shake slightly, and lifts it vertically, moves it leftward over the plate located on the front left of the table, and places it lying flat on the front of the green pear.",
-          "The right arm approaches the green lemon from above in the basket, grasps it with its gripper, lifts it vertically, moves it leftward over the plate located on the front left of the table, and places it gently on top of the other fruits, settling it lying flat among them.",
-          "Both arms retract from the table area, moving backward and slightly upward to return to their initial standby positions away from the fruit arrangement."
+          "The right arm approaches the air conditioner control panel from the right side and presses the power button with its gripper, activating the display.",
+          "The right arm approaches the thermostat from the front, using its gripper to press the down arrow button below the display, reducing the temperature setting from 19.0°C to 18.5°C with a slight downward motion.",
+          "Both arms remain stationary, with no visible movement or interaction with the air conditioner control panel.",
+          "The right arm approaches the air conditioner control panel from the front and presses the power button to turn off the device.",
+          "The right arm retracts backward after turning off the device."
         ],
-        "human_review_word_count": 332,
-        "word_count_ratio": 110.7
+        "human_review_word_count": 106,
+        "word_count_ratio": 15.1
       },
       {
-        "sample_id": "rh20t_robointer-RH20T-RoboInter-59375",
+        "sample_id": "rh20t_robointer-RH20T-RoboInter-81632",
         "dataset": "RH20T",
         "robot_type": "rh20t",
-        "instruction_raw": "the remaining operations",
-        "instruction_word_count": 3,
+        "instruction_raw": "pick up the dropper from the beaker",
+        "instruction_word_count": 7,
         "human_review": [
-          "The robotic arm approaches the red short cup from above.",
-          "It knocks the two red cups on the shelf onto the table surface, while grasping one red-bottom cup and one blue-bottom cup, lifts them vertically, moves left and down to the table, and places them at the front center of the table.",
-          "The robotic arm approaches the red cups from above, grasps two red cups at the same time, moves them above the two existing cups, aligns them with the openings, releases the gripper to stack them together.",
-          "The robotic arm approaches the cups again from above, grasps a blue short cup and a green short cup, moves them above the four existing cups, aligns with the openings, and releases the gripper to stack them.",
-          "The robotic arm approaches the cups once more, grasps a red-bottom cup and a green-bottom cup from above, moves them above the existing cups, aligns with the openings and releases the gripper to stack again.",
-          "The robotic arm approaches the cups and grasps a blue-bottom cup, placing it on top of the existing cups to complete stacking.",
-          "Then retract the robotic arm."
+          "Lowers the gripper from above to grasp the top of the dropper situated inside the rightmost small beaker on the wooden table.",
+          "Lifts the red dropper vertically from inside the rightmost small beaker and moves it to the left.",
+          "Lowers the tip vertically inside, and presses the bulb to extract liquid.",
+          "Moves the red dropper to the right towrds the large beaker,lowers the tip vertically and presses the bulb to release liquid.",
+          "Move the red dropper to the right towards the small beaker, releases the gripper to deposit the dropper fall into the small beaker, and retracts the arm slightly upwards and to the right."
         ],
-        "human_review_word_count": 187,
-        "word_count_ratio": 62.3
+        "human_review_word_count": 105,
+        "word_count_ratio": 15.0
       }
     ],
     "stats": {

@@ -83,16 +83,18 @@ def sample_recap():
         candidates = []
         for entry in data:
             hr = entry.get("Human_Review", [])
-            if not isinstance(hr, list) or not (4 <= len(hr) <= 7):
+            if not isinstance(hr, list) or not (4 <= len(hr) <= 6):
                 continue
             instr = entry.get("meta", {}).get("instruction_raw", "")
             if not instr:
                 continue
             instr_wc = len(instr.split())
-            if not (3 <= instr_wc <= 15):
+            if not (5 <= instr_wc <= 15):
                 continue
             hr_text = " ".join(hr)
             hr_wc = len(hr_text.split())
+            if not (50 <= hr_wc <= 150):
+                continue
             ratio = hr_wc / max(instr_wc, 1)
             # Skip entries with Chinese text in Human_Review
             has_chinese = any(
@@ -113,8 +115,8 @@ def sample_recap():
                 }
             )
 
-        # Sort by ratio descending, pick top
-        candidates.sort(key=lambda x: -x["word_count_ratio"])
+        # Pick a sample with moderate ratio (~10-20x), not extreme
+        candidates.sort(key=lambda x: abs(x["word_count_ratio"] - 15))
         if candidates:
             samples.append(candidates[0])
             print(

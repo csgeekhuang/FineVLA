@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="FineVLA: A fully open-source framework for scaling fine-grained VLA data, robotic video understanding, and steerable vision-language-action policies.">
+  <meta name="keywords" content="FineVLA, VLA, Vision-Language-Action, Embodied AI, Robot Learning, Fine-Grained Instructions, Steerable Policies, Robotics">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FineVLA: Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<!-- Hero / Title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">FineVLA: Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Xintong Hu<sup>*1</sup>,</span>
+            <span class="author-block">Xuhong Huang<sup>*1</sup>,</span>
+            <span class="author-block">Jinyu Zhang<sup>1</sup>,</span>
+            <span class="author-block">Yutong Yao<sup>1</sup>,</span>
+            <span class="author-block">Yuchong Sun<sup>2</sup>,</span>
+            <span class="author-block">Qiuyue Wang<sup>2</sup>,</span>
+            <span class="author-block">Mingsheng Li<sup>2</sup>,</span>
+            <span class="author-block">Sicheng Xie<sup>2</sup>,</span>
+            <span class="author-block">Yitao Liu<sup>1</sup>,</span>
+            <span class="author-block">Junhao Chen<sup>1</sup>,</span>
+            <span class="author-block">Yixuan Chen<sup>1</sup>,</span>
+            <span class="author-block">Yingming Zheng<sup>1</sup>,</span>
+            <span class="author-block">Shuai Bai<sup>2</sup>,</span>
+            <span class="author-block">Tao Yu<sup>&dagger;1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>XLANG Lab, The University of Hong Kong,</span>
+            <span class="author-block"><sup>2</sup>Qwen Team, Alibaba Inc.</span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 5px;">
+            <span class="author-block"><sup>*</sup>Equal Contribution,</span>
+            <span class="author-block"><sup>&dagger;</sup>Corresponding Author</span>
+          </div>
+
+          <!-- Link Buttons -->
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="./static/pdfs/paper.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-database"></i></span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-robot"></i></span>
+                  <span>Model</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-play-circle"></i></span>
+                  <span>Demo</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="FineVLA Overview" style="width: 100%;">
+      <h2 class="subtitle has-text-centered" style="margin-top: 15px;">
+        <strong>FineVLA</strong> builds a closed loop for action-instruction alignment,
+        connecting fine-grained data construction, robotic video understanding,
+        scalable annotation, and steerable VLA policy learning.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Vision-Language-Action (VLA) models are moving beyond task-level robot control
+            toward policies that can be <i>steered</i> by human instructions. However, existing robot
+            datasets typically pair trajectories with coarse goal-level language, leaving action-relevant
+            execution details&mdash;such as active arm, target object, approach direction,
+            contact region, motion path, and final configuration&mdash;unspecified. This limits both
+            policy learning and robotic video understanding, and the field still lacks scalable
+            infrastructure, dedicated benchmarks, and training recipes for action-aligned fine-grained supervision.
+          </p>
+          <p>
+            We introduce <strong>FineVLA</strong>, a fully open-source framework for
+            scaling fine-grained VLA data, robotic video understanding, and steerable VLA
+            policies. FineVLA includes:
+            (1) <strong>FineVLA-Tool</strong>, which unifies 972,247 trajectories
+            across 85K tasks from 10 open-source datasets and constructs <strong>FineVLA-Data</strong>,
+            a human-verified dataset of 47,159 fine-grained action-aligned trajectories;
+            (2) <strong>RoboFine-Bench</strong>, a held-out benchmark with 500 videos, 10,816 atomic facts,
+            and 1,030 VQA questions;
+            (3) <strong>RoboFine-VLM</strong>, a robotics-specialized VLM for scalable annotation; and
+            (4) <strong>FineVLA-Policy</strong>, a steerable policy trained with
+            controlled mixtures of fine-grained and raw goal-level instructions.
+          </p>
+          <p>
+            Experiments show that fine-grained supervision improves policy learning without hurting
+            goal-level success. In simulation, the best mixed setting reaches <strong>86.8%/82.5%</strong> success
+            on AlohaMix-OFT Easy/Hard. In real-world dual-arm manipulation, FG:Raw = 1:1
+            achieves <strong>62.7</strong>/100 versus 49.9 for Raw-only and reduces instruction violations from
+            34% to <strong>12%</strong>. On the held-out RoboFine-Bench, RoboFine-VLM achieves <strong>71.0%</strong>
+            VQA accuracy and <strong>83.6%</strong> captioning score. We release the complete FineVLA
+            suite to support future research on steerable VLA systems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- News -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">News</h2>
+        <div class="content">
+          <ul>
+            <li><strong>[2025.05]</strong> Paper released. Check out our <a href="#">arXiv preprint</a>.</li>
+            <li><strong>[2025.05]</strong> FineVLA-Data and RoboFine-Bench are coming soon.</li>
+            <li><strong>[2025.05]</strong> Code and models will be released soon. Stay tuned!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>FineVLA-Tool</strong> converts large-scale heterogeneous robot demonstrations
+            into fine-grained, action-aligned instruction data through four stages:
+          </p>
+          <ol>
+            <li><strong>Data Collection &amp; Format Conversion:</strong> Aggregate 972,247 trajectories from 10 open-source robot datasets into a unified LeRobot-style format.</li>
+            <li><strong>Canonicalization &amp; Cleaning:</strong> Standardize action and state representations across embodiments, and remove corrupted or inconsistent trajectories.</li>
+            <li><strong>Clustering &amp; Sampling:</strong> Use dynamic time warping (DTW) to identify representative trajectories, reducing redundancy while preserving manipulation diversity.</li>
+            <li><strong>Annotation Pipeline:</strong> Annotate selected trajectories with a ten-dimensional fine-grained schema covering action sequence, active actor, target object, contact &amp; approach, trajectory &amp; orientation, object interaction, failure &amp; recovery, and body motion, followed by human verification.</li>
+          </ol>
+        </div>
+        <img src="./static/images/method.png" alt="FineVLA-Tool Pipeline" style="width: 100%;">
+        <p class="has-text-centered" style="margin-top: 10px; color: #555;">
+          <strong>Pipeline of FineVLA-Tool.</strong> Four stages convert heterogeneous robot demonstrations into fine-grained, action-aligned instruction data.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dataset -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">FineVLA-Data &amp; RoboFine-Bench</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>FineVLA-Data</strong> is a human-verified corpus of <strong>47,159</strong> fine-grained
+            action-aligned trajectories drawn from 10 source datasets. Fine-grained annotations
+            dramatically increase instruction information density: the average word count per
+            trajectory rises from 9.3 to 96.8, an approximately <strong>10.4&times;</strong> increase,
+            while covering 47 unique action verbs across all sources.
+          </p>
+          <p>
+            <strong>RoboFine-Bench</strong> evaluates fine-grained robotic video understanding
+            through complementary VQA and captioning tracks. The benchmark contains
+            <strong>500</strong> videos from 10 robot datasets, covering 32 embodiments,
+            diverse camera views, and a wide range of manipulation tasks. Each trajectory is paired
+            with human-reviewed step-level annotations decomposed into <strong>10,816</strong> atomic facts
+            across ten action-relevant dimensions, with <strong>1,030</strong> VQA questions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experiments / Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiments &amp; Results</h2>
+        <div class="content has-text-justified">
+          <h3 class="title is-4">RoboFine-Bench Results</h3>
+          <p>
+            RoboFine-VLM achieves the best performance among evaluated VLMs on
+            RoboFine-Bench, reaching <strong>71.0%</strong> VQA accuracy and <strong>83.6%</strong>
+            captioning score under the hard setting.
+            Compared with its base model Qwen3.5-Plus, SFT on FineVLA-Data improves
+            overall accuracy from 52.6% to <strong>71.0%</strong>, with consistent gains
+            across grounding, action, and state reasoning.
+          </p>
+
+          <h3 class="title is-4">Simulation Results</h3>
+          <p>
+            In RoboTwin simulation, fine-grained supervision improves over Raw-only across all
+            evaluated settings. The best setting, FG:Raw = 1:1, reaches
+            <strong>86.8%/82.5%</strong> on AlohaMix-OFT Easy/Hard, a gain of
+            +15.0/+11.1 over the Raw-only baseline (71.8%/71.4%).
+          </p>
+
+          <h3 class="title is-4">Real-World Steerability</h3>
+          <p>
+            In real-world dual-arm manipulation, the FG:Raw = 1:1 policy achieves
+            <strong>62.7</strong>/100 versus 49.9 for Raw-only and reduces instruction
+            violations from 34% to <strong>12%</strong>. Fine-grained supervision directly
+            improves language-conditioned controllability on instruction-sensitive tasks
+            such as approach direction, rotation direction, and active arm selection.
+          </p>
+        </div>
+        <img src="./static/images/results.png" alt="Experimental Results" style="width: 100%;">
+        <p class="has-text-centered" style="margin-top: 10px; color: #555;">
+          <strong>Key experimental results.</strong> Fine-grained and raw instructions are complementary,
+          with the optimal FG:Raw ratio around 1:1 across simulation and real-world settings.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo Videos -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Demo</h2>
+        <div class="content has-text-justified">
+          <p>
+            Below are example demonstrations of FineVLA-Policy executing steerable control
+            in real-world dual-arm manipulation tasks. Each column shows the same visual scene
+            with different fine-grained language instructions, producing distinct execution behaviors.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video controls muted loop playsinline width="100%" style="border-radius: 10px;">
+            <source src="./static/videos/demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{hu2025finevla,
+  title={FineVLA: Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies},
+  author={Hu, Xintong and Huang, Xuhong and Zhang, Jinyu and Yao, Yutong and Sun, Yuchong and Wang, Qiuyue and Li, Mingsheng and Xie, Sicheng and Liu, Yitao and Chen, Junhao and Chen, Yixuan and Zheng, Yingming and Bai, Shuai and Yu, Tao},
+  journal={arXiv preprint},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<!-- Acknowledgements -->
+<section class="section">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgements</h2>
+    <p>
+      We thank all contributors and annotators who participated in the construction
+      and verification of FineVLA-Data and RoboFine-Bench.
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website template adapted from <a href="https://nerfies.github.io">Nerfies</a>.
+            Licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

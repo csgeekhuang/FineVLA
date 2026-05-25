@@ -36,7 +36,7 @@ $(document).ready(function () {
     s.human_review.forEach(function (step) {
       $list.append('<li>' + step + '</li>');
     });
-    $('#recap-fg-wc').text(s.human_review_word_count + ' words (' + s.word_count_ratio + 'x increase)');
+    $('#recap-fg-wc').text(s.human_review_word_count + ' words');
   }
 
   // ===== DEMO 2: VLM Caption Comparison =====

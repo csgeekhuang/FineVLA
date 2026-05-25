@@ -1,6 +1,17 @@
 // Interactive demo logic for FineVLA project page
 $(document).ready(function () {
 
+  // Helper: render a video player for a sample
+  function renderVideo(containerId, sampleId) {
+    var $c = $(containerId).empty();
+    var src = './static/videos/demos/' + sampleId + '.mp4';
+    $c.append(
+      '<video controls muted loop playsinline style="max-width:480px;width:100%;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">' +
+      '<source src="' + src + '" type="video/mp4">' +
+      '</video>'
+    );
+  }
+
   // ===== DEMO 1: Fine-Grained Annotation Showcase =====
   function initRecap() {
     var samples = DEMO_DATA.recap.samples;
@@ -16,6 +27,7 @@ $(document).ready(function () {
 
   function renderRecap(idx) {
     var s = DEMO_DATA.recap.samples[idx];
+    renderVideo('#recap-video-container', s.sample_id);
     $('#recap-dataset-tag').text(s.dataset);
     $('#recap-robot-tag').text(s.robot_type);
     $('#recap-instruction-text').text('"' + s.instruction_raw + '"');
@@ -49,6 +61,7 @@ $(document).ready(function () {
   function renderVLM(idx) {
     var s = DEMO_DATA.vlm_comparison.samples[idx];
     $('#vlm-instruction').text(s.instruction_raw || '(vision-only, no instruction provided)');
+    renderVideo('#vlm-video-container', s.sample_id);
     var $cards = $('#vlm-caption-cards').empty();
     var modelOrder = [
       "RoboFine-VLM (Ours)", "GPT-5.4", "Gemini 3.1 Pro",
@@ -118,6 +131,7 @@ $(document).ready(function () {
 
     // Show instruction
     $('#bench-instruction').text(s.instruction_raw || '(not available)');
+    renderVideo('#bench-video-container', s.sample_id);
 
     // Capability badges
     var $tags = $('#bench-cap-tags').empty();

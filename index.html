@@ -22,6 +22,8 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="./static/js/demo-data.js"></script>
+  <script src="./static/js/demo-interactions.js"></script>
 </head>
 <body>
 
@@ -293,24 +295,267 @@
   </div>
 </section>
 
-<!-- Demo Videos -->
-<section class="section">
+<!-- Demo Navigation -->
+<section class="section" id="demos" style="padding-bottom: 0;">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
+    <h2 class="title is-3 has-text-centered">Interactive Demos</h2>
+    <div id="demo-nav-tabs">
+      <div class="tabs is-centered is-boxed is-medium">
+        <ul>
+          <li class="is-active"><a href="#demo-recap"><span class="icon"><i class="fas fa-exchange-alt"></i></span><span>Fine-Grained Annotations</span></a></li>
+          <li><a href="#demo-vlm"><span class="icon"><i class="fas fa-chart-bar"></i></span><span>VLM Comparison</span></a></li>
+          <li><a href="#demo-benchmark"><span class="icon"><i class="fas fa-flask"></i></span><span>Benchmark Explorer</span></a></li>
+          <li><a href="#demo-vla"><span class="icon"><i class="fas fa-robot"></i></span><span>VLA Results</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo 1: Fine-Grained Annotation Showcase -->
+<section class="section" id="demo-recap">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Demo</h2>
-        <div class="content has-text-justified">
-          <p>
-            Below are example demonstrations of FineVLA-Policy executing steerable control
-            in real-world dual-arm manipulation tasks. Each column shows the same visual scene
-            with different fine-grained language instructions, producing distinct execution behaviors.
-          </p>
+        <h3 class="title is-4">FineVLA-Data: Fine-Grained Annotation Results</h3>
+        <p class="content has-text-justified">
+          FineVLA-Tool transforms coarse goal-level instructions into detailed, step-by-step
+          process descriptions verified by human annotators. Select an example below to see
+          how a short task instruction is expanded into fine-grained action steps.
+        </p>
+
+        <!-- Stats callout -->
+        <div class="notification is-info is-light demo-stats">
+          <div class="columns is-mobile has-text-centered">
+            <div class="column">
+              <p class="heading">Total Trajectories</p>
+              <p class="title is-4">47,159</p>
+            </div>
+            <div class="column">
+              <p class="heading">Avg. Raw Words</p>
+              <p class="title is-4">9.3</p>
+            </div>
+            <div class="column">
+              <p class="heading">Avg. Fine-Grained Words</p>
+              <p class="title is-4">96.8</p>
+            </div>
+            <div class="column">
+              <p class="heading">Word Count Increase</p>
+              <p class="title is-4 has-text-danger">10.4x</p>
+            </div>
+          </div>
         </div>
-        <div class="content has-text-centered">
-          <video controls muted loop playsinline width="100%" style="border-radius: 10px;">
-            <source src="./static/videos/demo.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+
+        <!-- Sample selector -->
+        <div class="field">
+          <label class="label">Select Example:</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select id="recap-sample-select"></select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side-by-side comparison -->
+        <div class="columns" id="recap-comparison">
+          <div class="column is-5">
+            <div class="box">
+              <h5 class="title is-6"><span class="icon"><i class="fas fa-comment"></i></span> Goal-Level Instruction</h5>
+              <div class="tags">
+                <span class="tag is-link is-light" id="recap-dataset-tag"></span>
+                <span class="tag is-info is-light" id="recap-robot-tag"></span>
+              </div>
+              <blockquote id="recap-instruction-text" class="recap-quote"></blockquote>
+              <p class="is-size-7 has-text-grey" id="recap-raw-wc"></p>
+            </div>
+          </div>
+          <div class="column is-2 recap-arrow">
+            <span class="icon is-large has-text-success">
+              <i class="fas fa-arrow-right fa-2x"></i>
+            </span>
+          </div>
+          <div class="column is-5">
+            <div class="box">
+              <h5 class="title is-6"><span class="icon"><i class="fas fa-list-ol"></i></span> Human-Reviewed Fine-Grained Steps</h5>
+              <ol id="recap-steps-list" class="recap-steps"></ol>
+              <p class="is-size-7 has-text-grey" id="recap-fg-wc"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo 2: VLM Caption Comparison -->
+<section class="section" id="demo-vlm">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h3 class="title is-4 has-text-centered">RoboFine-VLM: Caption Quality Comparison</h3>
+        <p class="content has-text-justified">
+          We compare RoboFine-VLM (fine-tuned on FineVLA-Data) against leading VLMs on
+          fine-grained robotic video captioning. Select a sample to see how different models
+          describe the same manipulation trajectory under the <strong>hard</strong> setting (vision-only, no task instruction).
+        </p>
+
+        <!-- Sample tabs -->
+        <div class="tabs is-centered" id="vlm-sample-tabs"><ul></ul></div>
+
+        <!-- Task context -->
+        <div class="notification is-light" style="padding: 0.75rem 1.25rem;">
+          <strong>Task Instruction (GT):</strong> <span id="vlm-instruction"></span>
+        </div>
+
+        <!-- Model caption cards -->
+        <div class="columns is-multiline" id="vlm-caption-cards"></div>
+
+        <!-- Score Table -->
+        <h4 class="title is-5 has-text-centered" style="margin-top: 2rem;">
+          Captioning Scores on RoboFine-Bench (Hard Setting, %)
+        </h4>
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth" id="vlm-score-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Caption Score</th>
+                <th>Consistency</th>
+                <th>Coverage</th>
+                <th>Anti-Hallucination</th>
+              </tr>
+            </thead>
+            <tbody id="vlm-score-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo 3: Benchmark Explorer -->
+<section class="section" id="demo-benchmark">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4 has-text-centered">RoboFine-Bench: Benchmark Explorer</h3>
+        <p class="content has-text-justified">
+          RoboFine-Bench evaluates fine-grained robotic video understanding through two tracks:
+          <strong>Caption Evaluation</strong> (measuring consistency, coverage, and anti-hallucination
+          against atomic facts) and <strong>VQA</strong> (discriminative question-answering across 10 dimensions).
+          Explore examples below to see how ground-truth annotations are decomposed into atomic facts
+          and converted into evaluation questions.
+        </p>
+
+        <!-- Benchmark stats -->
+        <div class="notification is-warning is-light demo-stats">
+          <div class="columns is-mobile has-text-centered">
+            <div class="column"><p class="heading">Videos</p><p class="title is-5">500</p></div>
+            <div class="column"><p class="heading">Atomic Facts</p><p class="title is-5">10,816</p></div>
+            <div class="column"><p class="heading">VQA Pairs</p><p class="title is-5">1,030</p></div>
+            <div class="column"><p class="heading">Dimensions</p><p class="title is-5">10</p></div>
+          </div>
+        </div>
+
+        <!-- Sample tabs -->
+        <div class="tabs is-centered is-toggle is-small" id="bench-sample-tabs"><ul></ul></div>
+
+        <!-- Task instruction -->
+        <div class="notification is-light" style="padding: 0.75rem 1.25rem; margin-bottom: 1rem;">
+          <strong>Task:</strong> <span id="bench-instruction"></span>
+        </div>
+
+        <!-- Capability badges -->
+        <div class="box">
+          <h5 class="title is-6">Capability Dimensions Covered</h5>
+          <div id="bench-cap-tags"></div>
+        </div>
+
+        <!-- Atomic facts accordion -->
+        <div class="box">
+          <h5 class="title is-6">Atomic Facts Breakdown</h5>
+          <p class="is-size-7 has-text-grey" style="margin-bottom: 0.75rem;">
+            Click each dimension to expand its ground-truth atomic facts.
+          </p>
+          <div id="bench-facts-accordion"></div>
+        </div>
+
+        <!-- VQA questions -->
+        <div class="box">
+          <h5 class="title is-6">VQA Questions</h5>
+          <p class="is-size-7 has-text-grey" style="margin-bottom: 0.75rem;">
+            These questions test fine-grained understanding across different capability dimensions.
+          </p>
+          <div id="bench-vqa-cards"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo 4: VLA Policy Results -->
+<section class="section" id="demo-vla">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h3 class="title is-4 has-text-centered">FineVLA-Policy: Steerable Control Results</h3>
+        <p class="content has-text-justified">
+          FineVLA-Policy is trained with controlled mixtures of fine-grained and raw goal-level
+          instructions. The mixed supervision (FG:Raw = 1:1) achieves the best results, demonstrating
+          that fine-grained and raw instructions are complementary.
+        </p>
+
+        <!-- Video placeholders -->
+        <div class="columns is-multiline">
+          <div class="column is-half">
+            <div class="box has-text-centered">
+              <video controls muted loop playsinline width="100%" style="border-radius: 10px;">
+                <source src="./static/videos/demo.mp4" type="video/mp4">
+              </video>
+              <p class="is-size-7 has-text-grey" style="margin-top:5px;">Simulation Demo</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="box has-text-centered vla-placeholder">
+              <p><i class="fas fa-video fa-3x has-text-grey-lighter"></i></p>
+              <p class="has-text-grey" style="margin-top: 0.5rem;">Real-world demo coming soon</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Steerability Results Table -->
+        <h4 class="title is-5" style="margin-top: 1rem;">Real-World Steerability Results</h4>
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>Setting</th>
+                <th>FG:Raw Ratio</th>
+                <th>Avg. Score (/100)</th>
+                <th>Instruction Violations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Raw-only</td>
+                <td>0:1</td>
+                <td>49.9</td>
+                <td>34%</td>
+              </tr>
+              <tr>
+                <td>FG-only</td>
+                <td>1:0</td>
+                <td>55.3</td>
+                <td>18%</td>
+              </tr>
+              <tr class="is-selected">
+                <td><strong>Mixed (Best)</strong></td>
+                <td><strong>1:1</strong></td>
+                <td><strong>62.7</strong></td>
+                <td><strong>12%</strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

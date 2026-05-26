@@ -104,7 +104,7 @@ const DEMO_DATA = {
         "sample_id": "galaxea-Take_Out_The_Laundry_From_The_Washing_Machine20250618_001-40",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "take out the laundry from the washing machine20250618",
+        "instruction_raw": "take out the laundry from the washing machine",
         "instruction_word_count": 8,
         "human_review": [
           "Left arm approaches the left washing machine door from the front, contacts the handle with its open gripper, and pulls the door open outward to the left, then uses its closed gripper to push the top edge of the door to open it further.",

@@ -145,20 +145,23 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Existing robot datasets pair trajectories with coarse goal-level language, leaving
+            Vision-Language-Action (VLA) models are moving beyond task-level robot control
+            toward policies that can be <i>steered</i> by human instructions. However, existing robot
+            datasets pair trajectories with coarse goal-level language, leaving
             execution details&mdash;active arm, target object, approach direction, contact region,
-            motion path, and final configuration&mdash;unspecified. We introduce
-            <strong>FineVLA</strong>, a fully open-source framework that closes the loop between
-            fine-grained data construction, robotic video understanding, scalable annotation,
-            and steerable VLA policy learning.
+            motion path, and final configuration&mdash;unspecified. This limits both policy learning
+            and robotic video understanding, and the field still lacks scalable infrastructure,
+            dedicated benchmarks, and training recipes for action-aligned fine-grained supervision.
           </p>
           <p>
-            FineVLA includes:
-            <strong>FineVLA-Tool &amp; FineVLA-Data</strong> (47,159 human-verified fine-grained trajectories from 10 datasets),
-            <strong>RoboFine-Bench</strong> (500 videos, 10,816 atomic facts, 1,030 VQA questions),
-            <strong>RoboFine-VLM</strong> (a robotics-specialized VLM annotator), and
-            <strong>FineVLA-Policy</strong> (a steerable policy achieving <strong>86.8%/82.5%</strong>
-            in simulation and <strong>62.7</strong>/100 in real-world dual-arm manipulation).
+            We introduce <strong>FineVLA</strong>, a fully open-source framework that closes the loop between
+            fine-grained data construction, robotic video understanding, scalable annotation,
+            and steerable VLA policy learning. FineVLA includes:
+            (1) <strong>FineVLA-Tool &amp; FineVLA-Data</strong>, which unifies 972,247 trajectories from 10 datasets and constructs 47,159 human-verified fine-grained trajectories;
+            (2) <strong>RoboFine-Bench</strong>, a held-out benchmark with 500 videos, 10,816 atomic facts, and 1,030 VQA questions;
+            (3) <strong>RoboFine-VLM</strong>, a robotics-specialized VLM annotator; and
+            (4) <strong>FineVLA-Policy</strong>, a steerable policy trained with controlled mixtures
+            of fine-grained and raw goal-level instructions.
           </p>
         </div>
       </div>
@@ -192,9 +195,12 @@
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <p>
-            <strong>FineVLA-Tool</strong> unifies <strong>972,247</strong> trajectories from
-            10 open-source datasets, applies DTW-based clustering to select representative demonstrations,
-            and annotates them with a ten-dimensional fine-grained schema followed by human verification.
+            <strong>FineVLA-Tool</strong> converts large-scale heterogeneous robot demonstrations
+            into fine-grained, action-aligned instruction data through four stages:
+            (1) aggregate <strong>972,247</strong> trajectories from 10 open-source datasets into a unified format;
+            (2) canonicalize action representations and remove corrupted trajectories;
+            (3) apply DTW-based clustering to select representative demonstrations; and
+            (4) annotate with a ten-dimensional fine-grained schema followed by human verification.
           </p>
         </div>
         <img src="./static/images/method.png" alt="FineVLA-Tool Pipeline" style="width: 100%;">
@@ -211,11 +217,14 @@
         <h2 class="title is-3">FineVLA-Data &amp; RoboFine-Bench</h2>
         <div class="content has-text-justified">
           <p>
-            <strong>FineVLA-Data</strong> contains <strong>47,159</strong> human-verified fine-grained
-            trajectories with a <strong>10.4&times;</strong> increase in instruction detail.
-            <strong>RoboFine-Bench</strong> is a held-out benchmark with <strong>500</strong> videos,
-            <strong>10,816</strong> atomic facts across 10 dimensions, and <strong>1,030</strong> VQA
-            questions for evaluating fine-grained robotic video understanding.
+            <strong>FineVLA-Data</strong> is a human-verified corpus of <strong>47,159</strong> fine-grained
+            action-aligned trajectories drawn from 10 source datasets, with a
+            <strong>10.4&times;</strong> increase in instruction information density.
+          </p>
+          <p>
+            <strong>RoboFine-Bench</strong> evaluates fine-grained robotic video understanding
+            through complementary VQA and captioning tracks, containing <strong>500</strong> videos,
+            <strong>10,816</strong> atomic facts across 10 dimensions, and <strong>1,030</strong> VQA questions.
           </p>
         </div>
       </div>
@@ -231,11 +240,12 @@
         <h2 class="title is-3">Experiments &amp; Results</h2>
         <div class="content has-text-justified">
           <p>
-            RoboFine-VLM achieves <strong>71.0%</strong> VQA accuracy and <strong>83.6%</strong>
-            captioning score on RoboFine-Bench. Fine-grained and raw supervision are complementary:
-            the optimal FG:Raw = 1:1 setting reaches <strong>86.8%/82.5%</strong> in simulation
-            and <strong>62.7</strong>/100 in real-world dual-arm manipulation, reducing instruction
-            violations from 34% to <strong>12%</strong>.
+            On RoboFine-Bench, RoboFine-VLM achieves <strong>71.0%</strong> VQA accuracy and
+            <strong>83.6%</strong> captioning score, outperforming GPT-5.4 and Gemini 3.1 Pro.
+            In RoboTwin simulation, the optimal FG:Raw = 1:1 setting reaches
+            <strong>86.8%/82.5%</strong> on AlohaMix-OFT Easy/Hard (+15.0/+11.1 over Raw-only).
+            In real-world dual-arm manipulation, this setting achieves <strong>62.7</strong>/100
+            versus 49.9 for Raw-only and reduces instruction violations from 34% to <strong>12%</strong>.
           </p>
         </div>
         <img src="./static/images/results.png" alt="Experimental Results" style="width: 100%;">

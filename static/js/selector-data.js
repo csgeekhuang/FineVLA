@@ -451,18 +451,6 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "rt1-RT-1-34586",
-        "dataset": "RT-1",
-        "robot_type": "google_robot",
-        "instruction_raw": "pick 7up can from top shelf of fridge",
-        "human_review": [
-          "Move the robotic arm towards the left side of the topmost fridge shelf where the 7up cans are located.",
-          "Position the open gripper in front of the leftmost 7up can on the shelf.",
-          "Grasp the 7up can firmly by its cylindrical body from the front.",
-          "Pull the can backward and slightly upward towards the edge of the shelf to begin extraction."
-        ]
-      },
-      {
         "sample_id": "rt1-RT-1-29100",
         "dataset": "RT-1",
         "robot_type": "google_robot",
@@ -499,17 +487,6 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "rt1-RT-1-20675",
-        "dataset": "RT-1",
-        "robot_type": "google_robot",
-        "instruction_raw": "move green jalapeno chip bag near 7up can",
-        "human_review": [
-          "Grasp the green jalapeno chip bag on its right edge, approaching from the right side.",
-          "Move the bag backward and to the left across the table surface towards the 7up can.",
-          "Release the bag, pushing the 7up can slightly backward so the bag rests back of the 7up can, then release the grip and retract the arm upwards."
-        ]
-      },
-      {
         "sample_id": "rt1-RT-1-68100",
         "dataset": "RT-1",
         "robot_type": "google_robot",
@@ -519,6 +496,32 @@ const SELECTOR_DATA = [
           "Lift the green can and move it backward and to the left towards the green chip bag.",
           "Place the green can back right of  the green chip bag, lying on its side.",
           "Release the green can and retract  the arm upwards."
+        ]
+      },
+      {
+        "sample_id": "rt1-RT-1-17194",
+        "dataset": "RT-1",
+        "robot_type": "google_robot",
+        "instruction_raw": "move rxbar blueberry near green jalapeno chip bag",
+        "human_review": [
+          "Grasp the rxbar blueberry located on the front-right side of the table from above using the gripper by its middle front-back edge.",
+          "Lift the rxbar slightly off the table surface.",
+          "Move the rxbar horizontally to the left towards the green jalapeno chip bag.",
+          "Place the rxbar flat on top of the green jalapeno chip bag, leaning against on its right side, causing the green chip bag to shake slightly.",
+          "Release the rxbar."
+        ]
+      },
+      {
+        "sample_id": "rt1-RT-1-11166",
+        "dataset": "RT-1",
+        "robot_type": "google_robot",
+        "instruction_raw": "move green jalapeno chip bag near orange can",
+        "human_review": [
+          "Grasp the green jalapeno chip bag from the right side using the gripper fingers.",
+          "Lift the bag vertically off the table surface.",
+          "Move the bag slightly backward and to the left, then forward towards the back left corner where the orange can is positioned.",
+          "Place the bag down on the table surface in front of the orange can.",
+          "Release the grip on the bag and retract the arm slightly."
         ]
       }
     ]
@@ -539,88 +542,89 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-29616",
+        "sample_id": "bc_z-BC_Z-2494",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "place the white sponge in the ceramic bowl",
         "human_review": [
-          "Move the gripper with the held white sponge slightly backward and to the right towards the white cup located on the right side of the table.",
-          "Align the held white sponge with the mouth of the white cup, touching the left rim of the cup and causing it to oscillates a bit during the process.",
-          "Lower the gripper to let the bottom of the sponge be at the center of the cup.",
-          "Release the grip to drop the sponge into the cup and retract the arm slightly."
+          "Move the arm from the center area backward and to the left to approach the white sponge.",
+          "Grasp the white sponge from above using the gripper fingers.",
+          "Lift the sponge off the table surface.",
+          "Move the sponge forward and to the right, positioning it over the ceramic bowl."
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-23556",
+        "sample_id": "bc_z-BC_Z-9322",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "place the ceramic cup in the ceramic bowl",
         "human_review": [
-          "Grasp the blue sponge located to the right of the white bottle from the right side.",
-          "Lift the sponge vertically off the table surface.",
-          "Move the sponge horizontally to the left towards the white cup.",
-          "Place the sponge inside the white cup."
+          "Grasp the white ceramic cup located to the left of the green bowl from above.",
+          "Lift the cup vertically upward to clear the table surface.",
+          "Move the cup to the right to align it over the green bowl.",
+          "Lower the cup carefully into the center of the green bowl.",
+          "Release the grip to leave the cup resting inside the bowl."
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-30407",
+        "sample_id": "bc_z-BC_Z-38560",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "move the arm in a circular motion",
         "human_review": [
-          "Move the forward towards the blue sponge located at the further side of the table.",
-          "Grasp the blue sponge from above using the gripper fingers.",
-          "Pick up the sponge by lifting it off the table surface.",
-          "Move the sponge backward, positioning it over the beige cup.",
-          "Place the sponge into the cup by lowering it down inside the cup."
+          "Move the robotic arm to hover above the wooden table, aligned with the clear plastic cup.",
+          "Move the end-effector down and to the left, approaching the plastic cup closely.",
+          "Sweep the arm up and to the right, tracing a circular arc away from the cup.",
+          "Move the arm back down and to the left to complete the circular loop.",
+          "Repeat the circular motion sequence multiple times without grasping or displacing the cup."
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-35548",
+        "sample_id": "bc_z-BC_Z-5534",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "drag the ceramic bowl in a circle",
         "human_review": [
-          "Move the arm towards the white sponge located at the back-right edge of the table and grab it by its lower half from the right side using gripper.",
-          "Lift the sponge slightly and move it diagonally backwards to the left towards the white cup.",
-          "Align the sponge above the ceramic cup and lower it.",
-          "Release the sponge, dropping the sponge into the cup."
+          "Drag the bowl  to the right across the table surface.",
+          "Try turning it clockwise about 2 times",
+          "The bowl touched the surface of the table .",
+          "Drag the bowl counterclockwise about 2 times"
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-24434",
+        "sample_id": "bc_z-BC_Z-31301",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "place the bottle in the ceramic bowl",
         "human_review": [
-          "Move the robotic arm horizontally from the right side towards the white sponge located on the far left of the table.",
-          "Grasp the blue sponge from above using the gripper, ensuring a secure hold on its body.",
-          "Lift the blue sponge vertically upwards, clearing it from the table surface.",
-          "Move the sponge to backward and the right ."
+          "Grasp the white bottle lying horizontally on the table near the blue sponge by closing the gripper around its mid-section from above.",
+          "Pick up the bottle by lifting it vertically off the wooden table surface, during the grasping the battle, touching the dark object and colorful object.",
+          "Move the bottle horizontally to the left, translating it from the center of the table towards the orange ceramic bowl.",
+          "Place the bottle into the orange ceramic bowl by lowering it, the bowl is moving,touching the object and moving until it rests inside the bowl."
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-6222",
+        "sample_id": "bc_z-BC_Z-12825",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "place the ceramic cup over the eraser",
         "human_review": [
-          "Grasp the blue sponge located behind the green bowl, approaching from above and slightly to the right.",
-          "Lift the sponge vertically upwards to clear the table surface.",
-          "Move the sponge horizontally to the left towards the white cup."
+          "Grasp the upside-down white ceramic cup on the left side of the table from above.",
+          "Lift the cup vertically.",
+          "Move the cup horizontally to the right towards the black marker.",
+          "Place the upside-down cup over the black marker so that the marker cannot be seen."
         ]
       },
       {
-        "sample_id": "bc_z-BC_Z-22410",
+        "sample_id": "bc_z-BC_Z-5611",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place the white sponge in the ceramic cup",
+        "instruction_raw": "place the pepper in the ceramic bowl",
         "human_review": [
-          "Lower the robotic arm and grasp the black sponge located to the front right of the cup by its upper part from above.",
-          "Pick up the black sponge by lifting it vertically off the wooden table.",
-          "Move the black sponge diagonally forward to the left towards the white cup.",
-          "Position the blue sponge over the ceramic cup",
-          "Release the grip, letting it drop into the ceramic cup."
+          "Grasp the red pepper lying on the table from above.",
+          "Lift the pepper vertically off the table surface.",
+          "Move the pepper  to the upper-right towards the ceramic bowl.",
+          "Lower the pepper into the ceramic bowl."
         ]
       }
     ]
@@ -644,99 +648,88 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-85",
+        "sample_id": "galaxea-Open_And_Close_The_Nightstand_To_Place_Items_20250802_012-10",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "open and close the nightstand to place items",
         "human_review": [
-          "The left arm lowers toward the floor, approaches the white crumpled towel from above and slightly to the left, grasps it with its gripper.",
-          "The right arm approaches the left edge of the gray carpet from below, uses its gripper to grasp the front left corner, and lifts it upward and slightly to the right, exposing the wooden floor underneath.",
-          "The left arm, holding a white towel in its gripper, performs a back-and-forth wiping motion on the wooden floor near the base of the sofa about five times, moving approximately 20 cm horizontally while maintaining light downward pressure.",
-          "The right arm lowers the bottom-left corner of the carpet it is holding, places it back to its original position, and presses it twice to smooth the carpet, then the right arm retracts.",
-          "The left arm lowers the white towel from above and releases it onto the wooden floor to the left of the rug's front left corner, then the left arm retracts.",
-          "The robot retracts from the carpet area toward its initial position above the floor, with no active manipulation or contact occurring during this motion."
+          "The left arm approaches the nightstand drawer from the front, attaches to the top surface with its gripper from above, and drags it backward toward itself until fully extended.",
+          "Left arm approaches the white air conditioner remote from above, grasps it near its center using a top-down grip, lifts it vertically approximately 5 cm, then moves backward and downward and rightward to place it flat inside the open drawer.",
+          "Left arm pushes the open drawer of the nightstand closed by applying force to the front edge of the drawer, moving it inward approximately 30 cm until fully shut.",
+          "Both arms retract upward and backward approximately 30 cm from the nightstand area."
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-66",
+        "sample_id": "galaxea-Pick_And_Place_Items_On_The_Bread_Shelf_20250701_003-610",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "pick and place items on the bread shelf",
         "human_review": [
-          "The left arm lowers from above and grasps the edge of a dark cloth lying on the wooden floor near the wall, then lifts it upward.",
-          "The right arm approaches the left edge of the carpet from the right side, grasps the corner with its gripper, and begins to lift it diagonally upward and to the right, partially folding the carpet over itself.",
-          "The left arm, holding a gray cloth, performs a back-and-forth wiping motion on the wooden floor to the left of the stationary right arm.",
-          "The right arm grasps the lifted corner of the carpet from above, drags it downward and to the left across the wooden floor to flatten it back into place, then releases the corner once the carpet lies flat.",
-          "The left arm lowers the towel from above and releases it onto the wooden floor to the left of the rug, leaving it lying flat.",
-          "The right arm retracts backward and upward, moving away from the carpet edge to return to its initial standby position near the wall socket."
+          "The right arm approaches the white snack bag on the right side of the second shelf from above, grasps its front right side using its gripper repeatedly, lifts it slightly upward, and then moves it out of frame backward and to the right.",
+          "Right arm holds the white packaged item in the air and moves it slightly leftward and forward, then places it back onto the second shelf from above in a lying flat orientation, to the right of the left white items.",
+          "Release the gripper, then retract the right arm away."
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-90",
+        "sample_id": "galaxea-Retrieving_And_Placing_Items_Inside_The_TV_Cabinet_20250805_012-9",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "retrieving and placing items inside the tv cabinet",
         "human_review": [
-          "The left arm lowers toward the floor, approaches a yellow cloth from above near the edge of the rug, grasps it with its gripper, and lifts it upward.",
-          "The right arm approaches the left edge of the carpet from above, grasps it with its gripper, grasps repeatedly and lifts the corner upward to expose the wooden floor beneath.",
-          "Left arm drags the towel in a diagonal back-and-forth motion across the floor, moving approximately 20 cm to wipe the surface.",
-          "The right arm lowers its gripper from above to grasp the lifted edge of the beige carpet, then drags it downward and leftward across the wooden floor to lay it flat, covering the previously exposed area.",
-          "The left arm lowers the black-and-yellow cloth from above and releases it onto the wooden floor, positioning it flat just to the left of the rug's edge near the sofa base, then retracts upwards."
+          "The left arm approaches behind the left edge of the closed left drawer, and pulls outward to fully open the drawer.",
+          "The right arm approaches the white remote control from above, grasps it near its center using a top-down grip, lifts it vertically, then moves it backward and diagonally downward-left into the open drawer, releasing it to lie flat next to the black remote.",
+          "Right arm pushes the left drawer closed by contacting its front edge and moving forward until flush with the cabinet frame.",
+          "The left arm approaches behind the top edge of the closed left drawer, and pulls outward to fully open the drawer.",
+          "The right arm approaches the white remote control from above, grasps it near its center using a top-down grip, lifts it vertically out of the drawer, moves it diagonally forward-right over the table surface, and places it flat on the table with its buttons facing upward.",
+          "The right arm pushes the left drawer closed by contacting its front edge and moving forward until fully shut."
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-1",
+        "sample_id": "galaxea-Take_Out_The_Laundry_From_The_Washing_Machine20250618_001-40",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "take out the laundry from the washing machine20250618",
         "human_review": [
-          "The right arm approaches the yellow cloth lying on the wooden floor to the right of the carpet from above, grasps it with its gripper, and lifts it vertically upward.",
-          "The left arm approaches the right edge of the carpet from the side, grasps the corner with its gripper, pulls it slightly to the left, lifts the cloth upward, exposing the wooden floor beneath.",
-          "The right arm, holding a yellow cloth, performs a wiping motion on the wooden floor by moving in circles near the edge of the carpet.",
-          "Left arm drags the left edge of the gray carpet from right to left across the wooden floor, flattening it back into its original position.",
-          "The right arm lowers the yellow cloth from above onto the wooden floor, positioning it to the right of the carpet edge near a white cabinet, and releases it so that it lies flat on the surface.",
-          "The robot remains stationary with both arms idle, maintaining its current position without any visible movement or interaction."
+          "Left arm approaches the left washing machine door from the front, contacts the handle with its open gripper, and pulls the door open outward to the left, then uses its closed gripper to push the top edge of the door to open it further.",
+          "The right arm grasps a piece of denim clothing from inside the washing machine drum and lifts it upward, moving it toward the laundry basket positioned in front of the machine, then releases it flat into the laundry basket.",
+          "Left arm closes the washing machine door by pushing it from the left side toward the right with closed gripper, rotating it counterclockwise around its hinge until fully sealed."
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-55",
+        "sample_id": "galaxea-Turn_On_And_Off_Central_Air_Conditioning_System_20250623_002-95",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "turn on and off central air conditioning system",
         "human_review": [
-          "Left arm approaches the right edge of the carpet from above, grasps it with its gripper, and begins lifting the corner upward to expose the wooden floor beneath.",
-          "The right arm approaches the orange towel from above, grasps it with its gripper, and lifts it upward while moving slightly to the left.",
-          "The right arm, holding the orange towel, slid it back and forth in a wiping motion across the floor directly beneath it.",
-          "The right arm lowers the orange towel from above and releases it onto the wooden floor to the right of the rolled carpet, leaving the cloth lying flat.",
-          "Left arm presses the lifted edge of the carpet downward from above, smoothing it flat against the wooden floor with a slight forward drag to restore its original position.",
-          "Retract both arms and close the gripper."
+          "The right arm approaches the wall-mounted air conditioning switch from the front, positions its gripper near the lower half of the device, and presses the rightmost button to activate it.",
+          "The right arm approaches the second button from the right and presses it for three times to adjust the temperature setting from 21.5°C to 23°C before retracting slightly.",
+          "The right arm approaches the air conditioning control panel from the front-right, positions its gripper over the power button area, and presses the rightmost button to turn off the system."
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-31",
+        "sample_id": "galaxea-Turn_On_And_Turn_Off_The_Air_Conditioner_20250724_010-16",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "turn on and turn off the air conditioner",
         "human_review": [
-          "The right arm approaches the yellow towel lying on the wooden floor from above, grasps it with its gripper, and lifts it upward.",
-          "Left arm approaches the bottom-right corner of the white carpet from above, grasps it with its gripper, and begins lifting upward and leftward to expose the wooden floor beneath.",
-          "The right arm moves the yellow towel towards the floor underneath the lifted carpet, drags it across the wooden floor in a back-and-forth motion to wipe the surface near the edge of the rug, and then lifts the towel away.",
-          "Left arm releases the rug onto the floor and presses the carpet from above.",
-          "Right arm places the yellow towel onto the wooden floor by lowering it from above and releasing it flat near the center-right of the visible area."
+          "Left arm approaches the Hitachi air conditioner control panel from the left side, positioning its gripper near the lower-left circular button to press it.",
+          "The left arm approaches the Hitachi air conditioner control panel from the front-left, using its gripper to press the temperature increase button located on the right side of the panel, raising the set temperature from 20°C to 22°C.",
+          "Left arm retarcts to the original resting position.",
+          "Left arm approaches the Hitachi air conditioner control panel from the left, positions its gripper near the power button on the lower-left of the display, presses it to turn off the air conditioner, then retracts backwards and downwards."
         ]
       },
       {
-        "sample_id": "galaxea-Lift_up_the_carpet_and_wipe_the_floor_20250625_002-59",
+        "sample_id": "galaxea-Use_The_Drawer_To_Store_The_Hair_Dryer20250625_002-53",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "lift up the carpet and wipe the floor",
+        "instruction_raw": "use the drawer to store the hair dryer20250625",
         "human_review": [
-          "Left arm approaches the bottom right edge of the light gray carpet from above, grasps the corner with its gripper, and lifts it upward and slightly to the left, exposing the wooden floor beneath.",
-          "The right arm approaches the yellow towel from above, grasps it with its gripper, and lifts it vertically upward to clear the wooden floor surface.",
-          "The right arm, holding a yellow cloth, performs a back-and-forth wiping motion on the wooden floor below the gray carpet, moving approximately 10 cm left and right while maintaining light downward pressure.",
-          "Right arm moves the yellow towel rightward and lowers it from above and releases it crumpled on the wooden floor, positioning it near the right edge of the frame while retracting its gripper upward after placement.",
-          "Left arm releases the gray carpet from its lifted edge toward the right, laying it flat over the wooden floor to restore coverage.",
-          "The right arm moves backward approximately 30 cm along the wooden floor toward its starting position near the white cabinet."
+          "The right arm approaches the gap of the bottom drawer from the right side, grasps it with the gripper, and pulls it outward to fully open the drawer.",
+          "The right arm grasps the white hair dryer on the countertop from above, lifts it vertically, moves it downward and slightly to the left, then places it horizontally into the open drawer to the right of the box, with the nozzle facing toward the back-left corner.",
+          "The right arm grasps the front edge of the bottom drawer from above and pushes it inward with a smooth linear motion until fully closed, aligning flush with the cabinet frame.",
+          "The right arm approaches the gap of the bottom drawer from the front, grasps it with the gripper, and pulls it outward to open the drawer.",
+          "The right arm approaches the hair dryer from above, grasps it by its handle, lifts it vertically out of the drawer, then moves it forward and places it back on the right side of the sink area, maintaining an upright orientation.",
+          "The right arm applies force to the front edge of the bottom sink drawer, pushing it inward until fully aligned and closed with the cabinet frame."
         ]
       }
     ]
@@ -858,21 +851,6 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "rdt-hook_keys-18",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Hang the bunch of keys on the hook.",
-        "human_review": [
-          "Right arm approaches the bunch of keys from top-right.",
-          "Right arm repeatedly grasps the key ring of the bunch of keys.",
-          "Right arm lifts the bunch of keys vertically off the table.",
-          "Right arm moves the bunch of keys upwards and to the right towards the white circular hook on the partition board.",
-          "Right arm aligns the key ring with the hook.",
-          "Right arm hangs the bunch of keys onto the hook.",
-          "Right arm releases the grip and retracts away from the hook."
-        ]
-      },
-      {
         "sample_id": "rdt-move_object_near_mirror-18",
         "dataset": "RDT",
         "robot_type": "aloha",
@@ -884,47 +862,6 @@ const SELECTOR_DATA = [
           "Right arm moves horizontally leftward toward the center of the wooden board in front of the mirror, and rotates the cube slightly clockwise so that the orange face faces slightly to the right of the center of the wooden board.",
           "Right arm lowers the cube gently onto the front of the wooden board, positioning it upright with orange face forward, directly centered before the mirror__ reflection.",
           "Right gripper releases the cube and retracts upward and backward away from the scene."
-        ]
-      },
-      {
-        "sample_id": "rdt-hook_keys-6",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Hang the bunch of keys on the hook.",
-        "human_review": [
-          "Right arm approaches the bunch of keys from above, positioning its gripper over the key ring.",
-          "Right arm tries repeatedly to grasp the bunch of keys by closing the gripper around the key ring.",
-          "Right arm lifts the bunch of keys vertically off the table surface.",
-          "Right arm moves forward to the right, carrying the keys toward the white hexagonal hook mounted on the gray partition panel.",
-          "Right arm tries repeatedly to align the key ring with the hook and lowers it slightly to engage the hook.",
-          "Right arm releases the grip, allowing the bunch of keys to hang freely from the hook.",
-          "Right arm retracts upward and away from the hook to complete the task."
-        ]
-      },
-      {
-        "sample_id": "rdt-move_object_near_mirror-2",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Move the the Rubik's Cube near the mirror.",
-        "human_review": [
-          "Grasp the Rubik's Cube on the left side of the table using the left arm __ gripper, approaching from above and slightly from the front.",
-          "Lift the cube vertically upward approximately 15 cm while maintaining a firm grip on its center.",
-          "Move the cube horizontally to the right across the table surface toward the mirror, traveling about 30 cm until aligned with the center of the mirror__ base.",
-          "Place the cube gently onto the white rectangular platform directly in front of the mirror, ensuring it sits upright with orange faces visible toward the camera.",
-          "Left arm retracts upward and exits the frame."
-        ]
-      },
-      {
-        "sample_id": "rdt-move_object_near_mirror-1",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Move the the Rubik's Cube near the mirror.",
-        "human_review": [
-          "Left arm approaches the Rubik's Cube from the front-left side, grasping it by its both sides  using a precision grip.",
-          "Lifts the cube vertically approximately 15 cm to clear the table surface.",
-          "Moves the cube horizontally to the right along a straight path toward the mirror__ base, stopping just in front of it.",
-          "Rotates the cube slightly clockwise (approx. 30 degrees) to align one face parallel to the mirror plane.",
-          "Releases the cube gently onto the wooden platform directly in front of the mirror, ensuring it stands upright with red face forward."
         ]
       },
       {
@@ -952,6 +889,61 @@ const SELECTOR_DATA = [
           "Right arm places the main body of the orange pen on the right side of the table, lying flat.",
           "Both arms release their grip and retract upward out of the frame."
         ]
+      },
+      {
+        "sample_id": "rdt-put_badminton_in_order-11",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Stack the badminton balls on the table vertically.",
+        "human_review": [
+          "The right arm approaches from above and grasps the cork base of the first shuttlecock, which is lying horizontally near the center-right of the table.",
+          "The right arm rotates the shuttlecock outward, releases it, grasps its cork base again, and rotates it clockwise into a vertical position to ensure the skirt faces down and the cork base up.",
+          "The right arm places the shuttlecock standing upright on the table, with the cork base up and the skirt down",
+          "The right arm retracts slightly upward, moves leftward, and approaches the second shuttlecock located to the left of the first one.",
+          "The right arm attempts three times to grasp the cork base of the second shuttlecock from above and rotate it clockwise into a vertical position, with the cork base up and the skirt down.",
+          "The right arm moves rightward to position itself directly above the first shuttlecock.",
+          "The right arm carefully places the second shuttlecock on top of the first, fitting its base into the top of the first to form a vertical stack, then releases its grip and fully retracts upward."
+        ]
+      },
+      {
+        "sample_id": "rdt-take_clothes_into_backpack-6",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Take the gray clothes out of the backpack.",
+        "human_review": [
+          "Right arm approaches the white backpack from above and grasps the top flap near the zipper.",
+          "Right arm pulls the flap upwards and rightwards to open the backpack compartment.",
+          "Left arm reaches into the opened compartment and grasps the gray cloth located inside.",
+          "Left arm lifts the gray cloth out of the backpack, pulling it leftwards.",
+          "Left arm moves the extracted gray cloth away from the backpack to the further left side of the table, then retracts."
+        ]
+      },
+      {
+        "sample_id": "rdt-plug_charger-7",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Plug the white charger into the left socket.",
+        "human_review": [
+          "Right arm approaches the white charger from above and grasps it by its body.",
+          "Right arm lifts the white charger vertically off the table surface.",
+          "Rotate it clockwise 90 degree .,The left arm grasps the white charger and rotate it counter clockwise 90 degree so that the head of the charger point to the down .The right arm takes the white charging head from the left arm.",
+          "Right arm moves the charger horizontally to the left toward the socket on the white power strip.",
+          "Right arm aligns the prongs of the charger with the leftmost socket opening .",
+          "Left arm inserts the charger into the socket with a downside press motion until fully seated.",
+          "Both arms release the charger and retract upward slightly."
+        ]
+      },
+      {
+        "sample_id": "rdt-close_laptop-15",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Close the lid of the black laptop.",
+        "human_review": [
+          "Both arms move into frame from above and position themselves on either side of the open laptop lid _ left arm approaches the laptop base from front, right arm approaches the laptop lid from behind.",
+          "Left arm touches the front edge of the laptop base from front; Right arm simultaneously touches the upper-right edge of the lid from behind.",
+          "Right arms apply downward pressure first, rotating the lid clockwise around its hinge axis by 45 degrees, then left arm lifts upward and place its grip behind the lid and simultaneously pushes the lid downward with right arm until it lies flat against the keyboard base.",
+          "After confirming full closure, retract upward out of frame."
+        ]
       }
     ]
   },
@@ -970,62 +962,6 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-170",
-        "dataset": "RoboCoin",
-        "robot_type": "ruantong_a2d",
-        "instruction_raw": "using a robotic arm to pick up battery.",
-        "human_review": [
-          "Right arm grasps the silver battery with red and black wires from the cardboard box compartment using a top-down grip and lifts it vertically.",
-          "Right arm moves the silver battery with red and black wires backward and to the right and places it upright onto the clear plastic tray to the right.",
-          "Right arm releases the gripper and retracts the arm."
-        ]
-      },
-      {
-        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-277",
-        "dataset": "RoboCoin",
-        "robot_type": "ruantong_a2d",
-        "instruction_raw": "using a robotic arm to pick up battery.",
-        "human_review": [
-          "Right arm grasps a bundle of power supply cables from a front left compartment in the cardboard box from above, lifts the bundle vertically and translate to the right, places it in the front-right compartment",
-          "Places it repeatedly the until the bundle is settled into the front-right compartment, bumping other cables during the process.",
-          "Right arm releases the grip on the bundle and retracts upward and away from the workspace."
-        ]
-      },
-      {
-        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-299",
-        "dataset": "RoboCoin",
-        "robot_type": "ruantong_a2d",
-        "instruction_raw": "using a robotic arm to pick up battery.",
-        "human_review": [
-          "Right arm approaches the silver power supply unit located at the top-right of the cardboard compartment and grasps it from above by the bundled wires.",
-          "Right arm lifts the power supply unit vertically out of the cardboard compartment and translates it rightward toward the clear tray.",
-          "Right arm lowers the unit into an empty slot on the left row of the gray tray, releases it so it stands upright, and retracts upward."
-        ]
-      },
-      {
-        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-65",
-        "dataset": "RoboCoin",
-        "robot_type": "ruantong_a2d",
-        "instruction_raw": "using a robotic arm to pick up battery.",
-        "human_review": [
-          "Right arm grasps the leftmost battery in the second row in the cardboard box by its cables  and lifts it upward. The first attempt fails: the battery slips from the gripper.",
-          "Right arm re-grasp the battery, then lifts it vertically out of the cardboard box compartment.",
-          "Right arm translates the battery diagonally backward-right and lowers it into the grid of the clear plastic tray. During the motion, the battery bumps into the cables of the existing batteries.",
-          "Right arm releases the battery and retracts to the left. During the motion, the gripper touches the cables of the battery on the clear plastic tray."
-        ]
-      },
-      {
-        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-294",
-        "dataset": "RoboCoin",
-        "robot_type": "ruantong_a2d",
-        "instruction_raw": "using a robotic arm to pick up battery.",
-        "human_review": [
-          "Right arm grasps repeatedly bundle of red and black wires closer to you from a compartment in the cardboard box from above and lifts it vertically.",
-          "Right arm moves to the right and backward , places it in the front-right compartment of the storage bin on the right.",
-          "Right arm release the gripper and retracts upward and leftward."
-        ]
-      },
-      {
         "sample_id": "robocoin-R1_Lite_move_the_position_of_the_black_marker-16",
         "dataset": "RoboCoin",
         "robot_type": "galaxea_r1_lite",
@@ -1041,14 +977,79 @@ const SELECTOR_DATA = [
         ]
       },
       {
-        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-255",
+        "sample_id": "robocoin-Cobot_Magic_twist_bottle_cap-364",
         "dataset": "RoboCoin",
-        "robot_type": "ruantong_a2d",
-        "instruction_raw": "using a robotic arm to pick up battery.",
+        "robot_type": "agilex_cobot_decoupled_magic",
+        "instruction_raw": "loosen the cap of the green tea bottle.",
         "human_review": [
-          "Right arm moves down and grasps a bundle of multicolored cables from the top-left compartment of the cardboard box from above and lifts it vertically.",
-          "Right arm places the bundle flat on the clear plastic tray to the right.",
-          "Right arm retracts to its original position."
+          "Left arm approaches the upright Peach Oolong Tea bottle from the left side and grasps its mid-section, closing the gripper fingers around the body to secure it.",
+          "Left arm lifts the Peach Oolong Tea bottle vertically off the table surface to adjust its position for cap manipulation.",
+          "Left arm stabilizes the bottle upright while the right arm positions its gripper above the white bottle cap.",
+          "Right arm places the white bottle cap on the table to the right of the bottle, while the left arm holds the bottle upright, right arm turn the bottle cap counterclockwise to open it.",
+          "Left arm places the Peach Oolong Tea bottle back onto the table surface and opens its gripper to release.",
+          "Both arms retract from the workspace, with the left arm moving leftward away from the bottle and the right arm moving rightward and upward away from the cap, leaving both objects stationary on the table."
+        ]
+      },
+      {
+        "sample_id": "robocoin-Cobot_Magic_twist_bottle_cap-710",
+        "dataset": "RoboCoin",
+        "robot_type": "agilex_cobot_decoupled_magic",
+        "instruction_raw": "tighten the cap of the yili changqing bottle.",
+        "human_review": [
+          "Left arm places the white bottle upright on the table, retracts slightly, and returns to secure a steady hold on the bottle body.",
+          "Right arm grasps the white bottle cap from above and rotates it to unscrew it, while the left arm maintains the hold to stabilize the bottle.",
+          "Right arm releases the white bottle cap on the table to the right of the bottle and retracts upward and to the left away from the workspace.",
+          "Left arm releases the white bottle onto the table and begins retracting upward.",
+          "Left arm completes retraction to the left and exits the frame away from the bottle and cap."
+        ]
+      },
+      {
+        "sample_id": "robocoin-RMC-AIDA-L_fold_towel-19",
+        "dataset": "RoboCoin",
+        "robot_type": "realman_rmc_aidal",
+        "instruction_raw": "take out a white towel and unfold it.",
+        "human_review": [
+          "Right arm extends from the right and holds the upper-right position of the towel stationary to stabilize it, while the left arm approaches from the left and grasps the bottom-left corner of the towel.",
+          "Left arm pulls the bottom-left corner of the folded towel diagonally downward and leftward to unfold the fabric.",
+          "Both arms release the towel and retract outward to their resting positions, leaving the fully unfolded towel lying flat on the white table."
+        ]
+      },
+      {
+        "sample_id": "robocoin-Cobot_Magic_pour_drink-954",
+        "dataset": "RoboCoin",
+        "robot_type": "agilex_cobot_decoupled_magic",
+        "instruction_raw": "fill the paper cup completely with red wine.",
+        "human_review": [
+          "Both arms remain stationary above the workspace, leaving the collection of mugs, cups, and beverage bottles undisturbed on the white table.",
+          "Left arm extends from the left side to grasp the grey cup situated at the front-left, closing its gripper around the handle and side of the cup, and lifts it up.",
+          "Right arm grasps the green Sprite bottle at the neck from a top-down approach, securing the object while it remains upright on the table, and lifts it up.",
+          "Right arm tilts the green sprite bottle to the left to pour liquid into the grey cup, while the left arm lifts and holds the cup steady underneath.",
+          "Left arm places the grey cup upright on the white table surface in the front-left area, positioning it slightly forward of the black mug and to the left of the central cluster of bottles.",
+          "Right arm places the green Sprite bottle upright on the table to the right of the white mug, releasing the neck and retracting upward.",
+          "Both arms retract upward and backward away from the workspace, leaving the dark grey cup and green Sprite bottle standing upright on the table."
+        ]
+      },
+      {
+        "sample_id": "robocoin-RMC-AIDA-L_organise_the_document_bag-451",
+        "dataset": "RoboCoin",
+        "robot_type": "realman_rmc_aidal",
+        "instruction_raw": "open the red document bag with right hand.",
+        "human_review": [
+          "The right arm grasp the bag the right side, left arm at the left end and right arm at the right end, and lift the bag slightly off the white table surface, the left arm grasp the zipper to pull the right to left to close the bag.",
+          "Both arms place the transparent plastic bag flat on the white table surface, releasing it centrally with the red zipper strip aligned horizontally at the bottom.",
+          "The both arms arm retracts upward and to the left away from the placed bag."
+        ]
+      },
+      {
+        "sample_id": "robocoin-RMC-AIDA-L_organise_the_document_bag-253",
+        "dataset": "RoboCoin",
+        "robot_type": "realman_rmc_aidal",
+        "instruction_raw": "open the red document bag with left hand.",
+        "human_review": [
+          "Left arm grasps the bottom-left corner of the red zipper seal from above, then lifts the bag slightly off the table surface.",
+          "Right arm grasps the red zipper track on the transparent plastic bag from the right and pulls upward to close it, while the left arm grasps the bag body from the left.",
+          "Right arm places the transparent plastic bag with the red zipper flat on the white table surface and releases it.",
+          "Both arms retract upward and outward away from the central workspace to their resting positions."
         ]
       }
     ]

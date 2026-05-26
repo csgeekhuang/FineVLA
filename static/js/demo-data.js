@@ -526,19 +526,11 @@ const DEMO_DATA = {
     ],
     "score_table": [
       {
-        "model": "RoboFine-VLM T0.7",
+        "model": "RoboFine-VLM (Ours)",
         "caption_score": 0.8363,
         "consistency": 0.8191,
         "coverage": 0.753,
         "anti_hallucination": 0.937,
-        "is_ours": false
-      },
-      {
-        "model": "RoboFine-VLM (Ours)",
-        "caption_score": 0.8334,
-        "consistency": 0.8134,
-        "coverage": 0.7495,
-        "anti_hallucination": 0.9372,
         "is_ours": true
       },
       {

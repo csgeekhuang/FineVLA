@@ -185,6 +185,13 @@ body {
 .vlm-steps li {
   margin-bottom: 0.4rem;
 }
+.vlm-stats {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+  font-size: 0.78rem;
+  color: #888;
+}
 #vlm-score-table tr.model-ours {
   background: #effaf3;
   font-weight: 600;

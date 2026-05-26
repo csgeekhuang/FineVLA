@@ -93,11 +93,18 @@ $(document).ready(function () {
         steps.forEach(function (st) { stepsHtml += '<li>' + st + '</li>'; });
         stepsHtml += '</ol>';
       }
+      // Token/time stats
+      var statsHtml = '';
+      if (s.token_stats && s.token_stats[model]) {
+        var ts = s.token_stats[model];
+        var tokens = ts.total_tokens > 1000 ? (ts.total_tokens / 1000).toFixed(1) + 'K' : ts.total_tokens;
+        statsHtml = '<div class="vlm-stats"><span class="icon is-small"><i class="fas fa-coins"></i></span> ' + tokens + ' tokens &nbsp; <span class="icon is-small"><i class="fas fa-clock"></i></span> ' + ts.elapsed_sec + 's</div>';
+      }
       $cards.append(
         '<div class="column is-one-third-desktop is-half-tablet">' +
         '<div class="card ' + cardClass + '">' +
         '<div class="card-header"><p class="card-header-title">' + model + crown + '</p></div>' +
-        '<div class="card-content">' + stepsHtml + '</div>' +
+        '<div class="card-content">' + stepsHtml + statsHtml + '</div>' +
         '</div></div>'
       );
     });

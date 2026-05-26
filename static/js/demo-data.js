@@ -243,6 +243,32 @@ const DEMO_DATA = {
             "slide the frame slightly to the left along the table surface",
             "maintain grasp and adjust frame orientation to be more perpendicular to the camera view"
           ]
+        },
+        "token_stats": {
+          "RoboFine-VLM (Ours)": {
+            "total_tokens": 8240,
+            "elapsed_sec": 96.5
+          },
+          "GPT-5.4": {
+            "total_tokens": 11662,
+            "elapsed_sec": 88.3
+          },
+          "Gemini 3.1 Pro": {
+            "total_tokens": 96587,
+            "elapsed_sec": 24.2
+          },
+          "Doubao Seed 2.0 Pro": {
+            "total_tokens": 115502,
+            "elapsed_sec": 107.6
+          },
+          "Qwen3.5-Plus": {
+            "total_tokens": 9523,
+            "elapsed_sec": 110.9
+          },
+          "Qwen3-VL-Plus": {
+            "total_tokens": 3627,
+            "elapsed_sec": 6.6
+          }
         }
       },
       {
@@ -325,6 +351,32 @@ const DEMO_DATA = {
             "maintain grasp on the purple bowl while adjusting its position slightly leftward",
             "release the purple bowl"
           ]
+        },
+        "token_stats": {
+          "RoboFine-VLM (Ours)": {
+            "total_tokens": 6614,
+            "elapsed_sec": 34.0
+          },
+          "GPT-5.4": {
+            "total_tokens": 5286,
+            "elapsed_sec": 64.2
+          },
+          "Gemini 3.1 Pro": {
+            "total_tokens": 36976,
+            "elapsed_sec": 28.0
+          },
+          "Doubao Seed 2.0 Pro": {
+            "total_tokens": 46481,
+            "elapsed_sec": 133.1
+          },
+          "Qwen3.5-Plus": {
+            "total_tokens": 7216,
+            "elapsed_sec": 102.6
+          },
+          "Qwen3-VL-Plus": {
+            "total_tokens": 1686,
+            "elapsed_sec": 4.2
+          }
         }
       },
       {
@@ -374,6 +426,32 @@ const DEMO_DATA = {
             "the gripper opens and releases the steamer",
             "the arm retracts upward and away from the steamer"
           ]
+        },
+        "token_stats": {
+          "RoboFine-VLM (Ours)": {
+            "total_tokens": 7795,
+            "elapsed_sec": 56.3
+          },
+          "GPT-5.4": {
+            "total_tokens": 9220,
+            "elapsed_sec": 52.7
+          },
+          "Gemini 3.1 Pro": {
+            "total_tokens": 92863,
+            "elapsed_sec": 48.7
+          },
+          "Doubao Seed 2.0 Pro": {
+            "total_tokens": 110164,
+            "elapsed_sec": 93.4
+          },
+          "Qwen3.5-Plus": {
+            "total_tokens": 4421,
+            "elapsed_sec": 21.9
+          },
+          "Qwen3-VL-Plus": {
+            "total_tokens": 3430,
+            "elapsed_sec": 4.7
+          }
         }
       },
       {
@@ -417,6 +495,32 @@ const DEMO_DATA = {
             "lift the dark bowl slightly upward and tilt it clockwise, causing a small blue object inside to shift toward the rim",
             "release the dark bowl back onto the table in its original position"
           ]
+        },
+        "token_stats": {
+          "RoboFine-VLM (Ours)": {
+            "total_tokens": 5378,
+            "elapsed_sec": 17.9
+          },
+          "GPT-5.4": {
+            "total_tokens": 3537,
+            "elapsed_sec": 44.2
+          },
+          "Gemini 3.1 Pro": {
+            "total_tokens": 28894,
+            "elapsed_sec": 15.1
+          },
+          "Doubao Seed 2.0 Pro": {
+            "total_tokens": 36821,
+            "elapsed_sec": 124.5
+          },
+          "Qwen3.5-Plus": {
+            "total_tokens": 4100,
+            "elapsed_sec": 51.5
+          },
+          "Qwen3-VL-Plus": {
+            "total_tokens": 1421,
+            "elapsed_sec": 3.5
+          }
         }
       }
     ],

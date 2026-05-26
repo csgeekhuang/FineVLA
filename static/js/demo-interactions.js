@@ -31,7 +31,20 @@ $(document).ready(function () {
     $('#recap-dataset-tag').text(s.dataset);
     $('#recap-robot-tag').text(s.robot_type);
     $('#recap-instruction-text').text('"' + s.instruction_raw + '"');
-    $('#recap-raw-wc').text(s.instruction_word_count + ' words');
+    // Show steps_raw if available
+    var $rawSteps = $('#recap-raw-steps').empty();
+    if (s.steps_raw && s.steps_raw.length > 0) {
+      $('#recap-raw-label').text('Original Step Annotation');
+      s.steps_raw.forEach(function (step) {
+        $rawSteps.append('<li>' + step + '</li>');
+      });
+      $rawSteps.show();
+      $('#recap-raw-wc').text(s.steps_raw.length + ' steps');
+    } else {
+      $('#recap-raw-label').text('Goal-Level Instruction');
+      $rawSteps.hide();
+      $('#recap-raw-wc').text(s.instruction_word_count + ' words');
+    }
     var $list = $('#recap-steps-list').empty();
     s.human_review.forEach(function (step) {
       $list.append('<li>' + step + '</li>');

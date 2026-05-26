@@ -63,7 +63,12 @@ const DEMO_DATA = {
           "Repeatedly places the yellow soft pineapple on the table surface immediately to the right of the light blue toaster, then releases the grip, during the process, the paw touches the orange basket, causing the orange basket to move, and retracts vertically upward."
         ],
         "human_review_word_count": 97,
-        "word_count_ratio": 12.1
+        "word_count_ratio": 12.1,
+        "steps_raw": [
+          "pick up the soft pineapple from the table",
+          "transfer the soft pineapple from the table to beside the oven",
+          "place the soft pineapple beside the oven"
+        ]
       },
       {
         "sample_id": "rt1-RT-1-34586",
@@ -107,7 +112,15 @@ const DEMO_DATA = {
           "Left arm closes the washing machine door by pushing it from the left side toward the right with closed gripper, rotating it counterclockwise around its hinge until fully sealed."
         ],
         "human_review_word_count": 112,
-        "word_count_ratio": 14.0
+        "word_count_ratio": 14.0,
+        "steps_raw": [
+          "Open the washing machine lid with the left hand.",
+          "Move left to align with the washing machine.",
+          "Rotate body left to face the washing machine.",
+          "Put the brown clothes into the laundry basket with your right hand.",
+          "Rotate body right to face the washing machine.",
+          "Close the washing machine lid with your left hand."
+        ]
       },
       {
         "sample_id": "rh20t_robointer-RH20T-RoboInter-38843",
@@ -123,7 +136,12 @@ const DEMO_DATA = {
           "Release the gripper and retract the arm upward."
         ],
         "human_review_word_count": 104,
-        "word_count_ratio": 13.0
+        "word_count_ratio": 13.0,
+        "steps_raw": [
+          "pick up the plate from the green table",
+          "transfer the plate from the green table to the dish rack",
+          "place the plate on the dish rack"
+        ]
       },
       {
         "sample_id": "rdt-open_laptop-5",
@@ -155,7 +173,14 @@ const DEMO_DATA = {
           "Both arms retract from the workspace, with the left arm moving leftward away from the bottle and the right arm moving rightward and upward away from the cap, leaving both objects stationary on the table."
         ],
         "human_review_word_count": 153,
-        "word_count_ratio": 19.1
+        "word_count_ratio": 19.1,
+        "steps_raw": [
+          "Grab the Peach Oolong Tea with the left hand",
+          "Lift the Peach Oolong Tea with the left hand",
+          "Secure the Peach Oolong Tea with the left hand",
+          "Place the bottle cap on the right",
+          "Place the Peach Oolong Tea with the left hand"
+        ]
       }
     ],
     "stats": {

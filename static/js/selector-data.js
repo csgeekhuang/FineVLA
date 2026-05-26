@@ -940,113 +940,6 @@ const SELECTOR_DATA = [
     ]
   },
   {
-    "name": "BC-Z (Rotation)",
-    "samples": [
-      {
-        "sample_id": "bc_z-BC_Z-20457",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place brush in paper cup",
-        "human_review": [
-          "Move the robot arm from the right side of the table towards the left side where the brush and cup are located.",
-          "Grasp the handle of the brush lying on the table from above using the gripper, while rotating the brush counterclockwise by 45 degrees.",
-          "Pick up the brush by lifting it vertically off the table surface.",
-          "Move the brush forwards to position it directly above the white paper cup.",
-          "Insert the head of the brush into the white paper cup by lowering it and releasing the grip."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-18051",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place apple in paper cup",
-        "human_review": [
-          "Grasp the red apple located on the right side of the table by closing the gripper from above.",
-          "Pick up the apple by lifting it vertically off the wooden surface.",
-          "Move the apple horizontally to the left while rotating the gripper clockwise about 90 degrees in the vertical plane, passing over the green tray towards the white paper cup."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-1051",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place eraser in plastic cup",
-        "human_review": [
-          "Grasp the eraser placed on the table next to the orange bowl from above.",
-          "Lift the eraser and move it horizontally to the left across the table towards the green plastic cup.",
-          "During the movement, the gripper rotates counterclockwise to make it parallel to the tabletop.",
-          "Lower the eraser into the small plastic cup located at the bottom left corner and release."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-38560",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "move the arm in a circular motion",
-        "human_review": [
-          "Move the robotic arm to hover above the wooden table, aligned with the clear plastic cup.",
-          "Move the end-effector down and to the left, approaching the plastic cup closely.",
-          "Sweep the arm up and to the right, tracing a circular arc away from the cup.",
-          "Move the arm back down and to the left to complete the circular loop.",
-          "Repeat the circular motion sequence multiple times without grasping or displacing the cup."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-37882",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place brush in table surface",
-        "human_review": [
-          "Grasp the handle of the white brush inside the green tray from above.",
-          "Lift the  white brush vertically out of the tray.",
-          "Move the brush horizontally to the closer side.",
-          "The gripper rotates counterclockwise by a certain angle, and places the brush obliquely on the wooden tabletop under the tray."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-19773",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place banana in tray",
-        "human_review": [
-          "Grasp the yellow banana located in the center of the table from above.",
-          "Lift the yellow banana vertically off the table surface.",
-          "During the gripping process, the gripper rotates counterclockwise by a certain angle, causing the other end of the yellow banana to touch the brown block below.",
-          "Move the yellow banana horizontally backward toward the yellow tray.",
-          "Lower the fruit into the yellow tray.",
-          "Release the fruit by opening the gripper."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-37756",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place brush in tray",
-        "human_review": [
-          "Grasp the handle of the dark brush lying onto the rim of the purple bowl from the right side, causing the movement of the bowl.",
-          "Lift the brush vertically to clear the table surface.",
-          "Translate the brush to the left towards the green tray, while rotating it counterclockwise by 45 degrees.",
-          "Lower the brush into the green tray adjacent to the white cup.",
-          "Release the brush handle and retract the gripper."
-        ]
-      },
-      {
-        "sample_id": "bc_z-BC_Z-13811",
-        "dataset": "BC-Z (Rotation)",
-        "robot_type": "google_robot",
-        "instruction_raw": "place brush in metal cup",
-        "human_review": [
-          "Grasp the black brush lying on the right side of the wooden board by its handle from above.",
-          "Move the brush backward . Grasps the brush, rotate the brush clockwise and it move the towl to the back . Pick up the brush by lifting it vertically off the table surface.",
-          "Rotate the brush counter clockwise to orient it vertically with the handle pointing downwards.",
-          "Move the brush horizontally to the left towards the green tray.",
-          "Place the brush into the green tray and touch the back rim of the green tray. Move the blue sponge is shake .",
-          "Release the grip and the brush keep upright."
-        ]
-      }
-    ]
-  },
-  {
     "name": "RDT (Batch 2)",
     "samples": [
       {
@@ -1156,6 +1049,108 @@ const SELECTOR_DATA = [
           "Right arm moves horizontally leftward across the desk, transporting the mouse toward the black mouse pad located in the front-left side of the desk (closer to the camera).",
           "Right arm lowers the mouse gently onto the black mouse pad, close to the front-right of the mouse pad, aligning it flat and upright for optimal use.",
           "Right arm releases the mouse completely and retracts upward and backward away from the workspace."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "BC-Z (Circular Motion)",
+    "samples": [
+      {
+        "sample_id": "bc_z-BC_Z-38560",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Move the robotic arm to hover above the wooden table, aligned with the clear plastic cup.",
+          "Move the end-effector down and to the left, approaching the plastic cup closely.",
+          "Sweep the arm up and to the right, tracing a circular arc away from the cup.",
+          "Move the arm back down and to the left to complete the circular loop.",
+          "Repeat the circular motion sequence multiple times without grasping or displacing the cup."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-36523",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Move the arm from the green plate area upwards and to the left towards the white sponge.",
+          "Move the arm downwards and to the right towards the white cup.",
+          "Move the arm upwards and to the left towards the white sponge again.",
+          "Move the arm downwards and to the right towards the white cup again.",
+          "Repeat the above movement for three and a half cycles."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-24953",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Close the gripper, and Position the gripper near the right edge of the black bowl.",
+          "Move the arm in a counter-clockwise circular path.",
+          "Complete the circular motion by returning the arm towards the starting position on the right side of the bowl."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-25201",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Move the arm in a circular motion with clockwise above the black rectangular object located at the center of the table and repeat four times.",
+          "Close the gripper, move the robotic arm to the left, and hover it near the sideways-placed red chili pepper and white paper cup.",
+          "Open the gripper, move the robotic arm back to the right, and return it to the initial position above the black rectangular object.",
+          "Move the arm in a circular motion above the black rectangular object again."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-32288",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Lift the arm slightly and move the end-effector to the right from the white cup towards the blue sponge.",
+          "Curve the arm's path downwards and back to the left above the green plate.",
+          "Complete the circular loop by returning to the starting position near the cup.",
+          "Repeat the motion above the table surface without contacting objects."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-15297",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Move the arm from the bottom right position.",
+          "Move the end-effector to the center of the table above the gap between the green bowl and the brown box.",
+          "Execute a clockwise circular motion in the air, keeping the gripper pointed downwards.",
+          "Repeat the circular trajectory for multiple revolutions without making contact with the table or objects."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-23242",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Lift the arm vertically upwards from the position above the white cup.",
+          "Move the arm horizontally to the right side of the table, away from the cup.",
+          "Move the arm horizontally to the left, returning towards the white cup.",
+          "Repeat the movement, circling along a circular trajectory.",
+          "Move the arm to the front-right and lower it towards the blue sponge."
+        ]
+      },
+      {
+        "sample_id": "bc_z-BC_Z-27337",
+        "dataset": "BC-Z (Circular)",
+        "robot_type": "google_robot",
+        "instruction_raw": "move the arm in a circular motion",
+        "human_review": [
+          "Move the arm downwards and to the right, hovering the end effector above the center of the table near the wrapped item.",
+          "Move the arm upwards and to the right, returning to the initial position near the right edge of the table.",
+          "Repeat the circular motion cycle by moving down-right and up-left again without touching any objects."
         ]
       }
     ]

@@ -3,130 +3,159 @@ const DEMO_DATA = {
   "recap": {
     "samples": [
       {
-        "sample_id": "bridge-30494",
+        "sample_id": "bridge-39043",
         "dataset": "Bridge",
         "robot_type": "widowx",
-        "instruction_raw": "saca el maiz del cajon",
-        "instruction_word_count": 5,
+        "instruction_raw": "Place the red spoon near the steel pan.",
+        "instruction_word_count": 8,
         "human_review": [
-          "Grasp the yellow corn cob resting on top of the left wooden box section using the gripper from above.",
-          "Lift the corn cob vertically away from the box surface.",
-          "Move the corn cob horizontally to the right, positioning it directly above the open drawer containing the blue cloth.",
-          "Lower the corn cob into the drawer, placing it on top of the blue cloth.",
-          "Release the grip on the corn cob and retract the arm upwards."
+          "Grasp the handle of the red spoon located on the left side of the countertop from above.",
+          "Pick up the red spoon by lifting it vertically off the wooden surface.",
+          "Move the spoon diagonally forward-right towards the steel pan.",
+          "Place the spoon on the wooden surface adjacent to the steel pan.",
+          "Release the spoon and retract the gripper upwards."
         ],
-        "human_review_word_count": 75,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 59,
+        "word_count_ratio": 7.4
       },
       {
-        "sample_id": "robomindv1-place_in_bread_on_table_2-119",
+        "sample_id": "robomindv1-place_plate_table_241211_12-100",
         "dataset": "RoboMIND V1",
-        "robot_type": "franka_3rgb",
-        "instruction_raw": "put the bread on the table",
-        "instruction_word_count": 6,
+        "robot_type": "tienkung_gello_1rgb",
+        "instruction_raw": "pick plate from rack and place on table",
+        "instruction_word_count": 8,
         "human_review": [
-          "Approaches the piece of bread on the blue plate by moving the gripper vertically downwards from above.",
-          "Grasps the bread resting on the blue plate by closing the gripper from above and lifting the pastry slightly.",
-          "Moves the grasped bread laterally to the left, transporting it from above the blue plate to an open area on the white table surface.",
-          "Places the bread onto the white table surface by lowering the gripper and releasing the grasp.",
-          "Retracts the gripper vertically upwards and away from the placed bread on the table."
+          "Grasp the white plate at the front of the rack from the right side using the right robot arm.",
+          "Lift the white plate vertically off the wooden rack.",
+          "Move the plate forward and slightly to the left over the empty table surface.",
+          "Lower the plate gently onto the center of the table surface, in front left of the rack, keeping it flat.",
+          "Release the grip on the plate and retract the arm."
         ],
-        "human_review_word_count": 90,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 72,
+        "word_count_ratio": 9.0
       },
       {
-        "sample_id": "robomindv2-turn_on_light_switch_1-105",
+        "sample_id": "robomindv2-pour_fried_egg_into_plate_with_right_arm-39",
         "dataset": "RoboMIND V2",
-        "robot_type": "tienkung",
-        "instruction_raw": "turn on light switch 1",
-        "instruction_word_count": 5,
+        "robot_type": "agilex",
+        "instruction_raw": "pour fried egg into plate with right arm",
+        "instruction_word_count": 8,
         "human_review": [
-          "Move the robotic arm from the bottom left towards the key switch located on the lower section of the left control panel, below the digital display.",
-          "Grasp the grey key switch lever firmly from the front.",
-          "Rotate the key switch counter clockwise by approximately 45 degrees to the 'on' position, causing the white indicator light above it to illuminate.",
-          "Release the key switch lever.",
-          "Retract the robotic arm downwards and away from the control panel."
+          "Grasp the right rim of the white plate  from above with right arm.",
+          "Pick up and hover the plate in the center of the stovetop.",
+          "Hold the plate steady with the right arm while the fried egg is poured with left arm from the frying pan on the left.",
+          "Place the frying pan on the left side of stove with left arm. Release the left arm and retract the left arm.",
+          "Pick up the plate with the fried egg from the right rim with right arm.",
+          "Place the plate back down on the stovetop surface and release the grip, retract the arm upwards."
         ],
-        "human_review_word_count": 75,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 103,
+        "word_count_ratio": 12.9
       },
       {
-        "sample_id": "droid_robointer-1334",
+        "sample_id": "droid_robointer-22",
         "dataset": "DROID",
         "robot_type": "franka_robotiq",
-        "instruction_raw": "pick up the pot on the stove",
-        "instruction_word_count": 7,
+        "instruction_raw": "pick up the soft pineapple from the table",
+        "instruction_word_count": 8,
         "human_review": [
-          "Descend to grasp the handle of the pot on the front burner from above, close the gripper, and lift the pot slightly off the stovetop.",
-          "Move the pot forward and to the left lower it onto the back left burner adjacent to the frying pan.",
-          "Descend to grasp the handle of the wooden spoon lying on the stovetop to the left of the front burner from above, close the gripper, and lift the spoon slightly off the surface.",
-          "Translate the wooden spoon counterclockwise by 90 degrees and to the left from the right side of the stovetop and place it flat on the white plate."
+          "Descends from above and front to grasp above the side of the yellow soft pineapple situated between the watermelon slice and the orange basket, then lifts it vertically off the table.",
+          "Translates the held yellow soft pineapple to the left and lowers it towards the table surface on the right of the light blue toaster.",
+          "Repeatedly places the yellow soft pineapple on the table surface immediately to the right of the light blue toaster, then releases the grip, during the process, the paw touches the orange basket, causing the orange basket to move, and retracts vertically upward."
         ],
-        "human_review_word_count": 105,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 97,
+        "word_count_ratio": 12.1
       },
       {
-        "sample_id": "rt1-RT-1-44751",
+        "sample_id": "rt1-RT-1-34586",
         "dataset": "RT-1",
         "robot_type": "google_robot",
-        "instruction_raw": "move water bottle near apple",
-        "instruction_word_count": 5,
+        "instruction_raw": "pick 7up can from top shelf of fridge",
+        "instruction_word_count": 8,
         "human_review": [
-          "Grasp the clear plastic water bottle located in the center of the table by its upper neck, approaching from the right side.",
-          "Lift the water bottle vertically upwards off the table surface.",
-          "Move the held water bottle horizontally forward and to the left towards the red apple.",
-          "Place the water bottle down upright on the table surface immediately to the right of the apple.",
-          "Release the grip on the bottle and retract the arm upwards."
+          "Move the robotic arm towards the left side of the topmost fridge shelf where the 7up cans are located.",
+          "Position the open gripper in front of the leftmost 7up can on the shelf.",
+          "Grasp the 7up can firmly by its cylindrical body from the front.",
+          "Pull the can backward and slightly upward towards the edge of the shelf to begin extraction."
         ],
-        "human_review_word_count": 75,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 61,
+        "word_count_ratio": 7.6
       },
       {
-        "sample_id": "bc_z-BC_Z-17536",
+        "sample_id": "bc_z-BC_Z-38560",
         "dataset": "BC-Z",
         "robot_type": "google_robot",
-        "instruction_raw": "place banana in paper cup",
-        "instruction_word_count": 5,
+        "instruction_raw": "move the arm in a circular motion",
+        "instruction_word_count": 7,
         "human_review": [
-          "Grab the banana repeatedly in the green tray. The first time grabbing bananas, the tray shakes, the bananas move backward in the tray and fall off.",
-          "The second time grabbing the banana, the tray moves to the right, and after grabbing the banana, the banana falls off.",
-          "Grasp and lift the yellow banana vertically to clear the edge of the green tray.",
-          "Move the yellow banana horizontally and slightly back towards the white paper cup."
+          "Move the end-effector down and to the left, approaching the plastic cup closely.",
+          "Sweep the arm up and to the right, tracing a circular arc away from the cup.",
+          "Move the arm back down and to the left to complete the circular loop.",
+          "Repeat the circular motion sequence multiple times without grasping or displacing the cup."
         ],
-        "human_review_word_count": 75,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 56,
+        "word_count_ratio": 8.0
       },
       {
-        "sample_id": "galaxea-Turn_On_And_Off_The_Air_Conditioner_20250802_012-19",
+        "sample_id": "galaxea-Take_Out_The_Laundry_From_The_Washing_Machine20250618_001-40",
         "dataset": "Galaxea",
         "robot_type": "r1lite",
-        "instruction_raw": "turn on and off the air conditioner",
-        "instruction_word_count": 7,
+        "instruction_raw": "take out the laundry from the washing machine20250618",
+        "instruction_word_count": 8,
         "human_review": [
-          "The right arm approaches the air conditioner control panel from the right side and presses the power button with its gripper, activating the display.",
-          "The right arm approaches the thermostat from the front, using its gripper to press the down arrow button below the display, reducing the temperature setting from 19.0°C to 18.5°C with a slight downward motion.",
-          "Both arms remain stationary, with no visible movement or interaction with the air conditioner control panel.",
-          "The right arm approaches the air conditioner control panel from the front and presses the power button to turn off the device.",
-          "The right arm retracts backward after turning off the device."
+          "Left arm approaches the left washing machine door from the front, contacts the handle with its open gripper, and pulls the door open outward to the left, then uses its closed gripper to push the top edge of the door to open it further.",
+          "The right arm grasps a piece of denim clothing from inside the washing machine drum and lifts it upward, moving it toward the laundry basket positioned in front of the machine, then releases it flat into the laundry basket.",
+          "Left arm closes the washing machine door by pushing it from the left side toward the right with closed gripper, rotating it counterclockwise around its hinge until fully sealed."
         ],
-        "human_review_word_count": 106,
-        "word_count_ratio": 15.1
+        "human_review_word_count": 112,
+        "word_count_ratio": 14.0
       },
       {
-        "sample_id": "rh20t_robointer-RH20T-RoboInter-81632",
+        "sample_id": "rh20t_robointer-RH20T-RoboInter-38843",
         "dataset": "RH20T",
         "robot_type": "rh20t",
-        "instruction_raw": "pick up the dropper from the beaker",
+        "instruction_raw": "pick up the plate from the green table",
+        "instruction_word_count": 8,
+        "human_review": [
+          "Descend vertically from above to align the gripper with the center of the white plate resting at the upper right of the wooden stand, making contact to initiate the pick-up.",
+          "Lift the white plate from above, then move backward towards the dish rack.",
+          "Release the white plate onto the dish rack, ensuring it rests flat, then retract the gripper vertically upwards away from the object.",
+          "Grasp the right rim of the white plate from the right side, rotate it 90 degrees counterclockwise to an upright position, then insert it vertically downward into the dish rack slot.",
+          "Release the gripper and retract the arm upward."
+        ],
+        "human_review_word_count": 104,
+        "word_count_ratio": 13.0
+      },
+      {
+        "sample_id": "rdt-open_laptop-5",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Open the lid of the black laptop.",
         "instruction_word_count": 7,
         "human_review": [
-          "Lowers the gripper from above to grasp the top of the dropper situated inside the rightmost small beaker on the wooden table.",
-          "Lifts the red dropper vertically from inside the rightmost small beaker and moves it to the left.",
-          "Lowers the tip vertically inside, and presses the bulb to extract liquid.",
-          "Moves the red dropper to the right towrds the large beaker,lowers the tip vertically and presses the bulb to release liquid.",
-          "Move the red dropper to the right towards the small beaker, releases the gripper to deposit the dropper fall into the small beaker, and retracts the arm slightly upwards and to the right."
+          "Right arm approaches from the right side and grasps the top-right corner of the black laptop lid with its gripper.",
+          "Left arm approaches from the left side and grasps the top-left corner of the black laptop lid with its gripper.",
+          "Both arms simultaneously lift and push the lid upward in a synchronized motion, rotating it around the hinge until fully open at approximately 90 degrees.",
+          "After release, the laptop screen activates automatically, displaying a sunset wallpaper with time '15:33' centered on screen."
         ],
-        "human_review_word_count": 105,
-        "word_count_ratio": 15.0
+        "human_review_word_count": 82,
+        "word_count_ratio": 11.7
+      },
+      {
+        "sample_id": "robocoin-Cobot_Magic_twist_bottle_cap-364",
+        "dataset": "RoboCoin",
+        "robot_type": "agilex_cobot_decoupled_magic",
+        "instruction_raw": "loosen the cap of the green tea bottle.",
+        "instruction_word_count": 8,
+        "human_review": [
+          "Left arm approaches the upright Peach Oolong Tea bottle from the left side and grasps its mid-section, closing the gripper fingers around the body to secure it.",
+          "Left arm lifts the Peach Oolong Tea bottle vertically off the table surface to adjust its position for cap manipulation.",
+          "Left arm stabilizes the bottle upright while the right arm positions its gripper above the white bottle cap.",
+          "Right arm places the white bottle cap on the table to the right of the bottle, while the left arm holds the bottle upright, right arm turn the bottle cap counterclockwise to open it.",
+          "Left arm places the Peach Oolong Tea bottle back onto the table surface and opens its gripper to release.",
+          "Both arms retract from the workspace, with the left arm moving leftward away from the bottle and the right arm moving rightward and upward away from the cap, leaving both objects stationary on the table."
+        ],
+        "human_review_word_count": 153,
+        "word_count_ratio": 19.1
       }
     ],
     "stats": {

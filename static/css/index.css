@@ -228,6 +228,9 @@ body {
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
+.bench-options label.radio {
+  margin-left: 0 !important;
+}
 
 /* Demo 4: VLA Placeholder */
 .vla-placeholder {

@@ -833,121 +833,6 @@ const SELECTOR_DATA = [
     ]
   },
   {
-    "name": "RDT",
-    "samples": [
-      {
-        "sample_id": "rdt-hook_keys-17",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Hang the bunch of keys on the hook.",
-        "human_review": [
-          "Right arm approaches the bunch of keys from above and grasps them by the key fob using its gripper.",
-          "Right arm lifts the keys vertically off the table surface.",
-          "Right arm moves the keys horizontally toward the right-side gray partition board.",
-          "After the key bunch drops, the right arm picks up the keys again.",
-          "Right arm rotates the keys slightly to align the key ring with the hook mounted on the partition.",
-          "Right arm lowers the keys and hangs the key ring onto the hook.",
-          "Right arm releases the keys, leaving them suspended from the hook, then retracts upward."
-        ]
-      },
-      {
-        "sample_id": "rdt-move_object_near_mirror-18",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Move the the Rubik's Cube near the mirror.",
-        "human_review": [
-          "Right arm approaches the Rubik's Cube from above and slightly to its right side.",
-          "Right gripper grasps grasps both sides of the Rubik's Cube firmly from above.",
-          "Right arm lifts the cube vertically upward approximately 3 cm off the desk surface.",
-          "Right arm moves horizontally leftward toward the center of the wooden board in front of the mirror, and rotates the cube slightly clockwise so that the orange face faces slightly to the right of the center of the wooden board.",
-          "Right arm lowers the cube gently onto the front of the wooden board, positioning it upright with orange face forward, directly centered before the mirror__ reflection.",
-          "Right gripper releases the cube and retracts upward and backward away from the scene."
-        ]
-      },
-      {
-        "sample_id": "rdt-pull_chair-4",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Pull out the black chair under the table.",
-        "human_review": [
-          "The right arm extends forward.",
-          "Right arm's gripper clamps onto the junction between the chair's headrest and the backrest, pulling the chair backward until it is fully withdrawn from under the table.",
-          "Right arm's gripper releases, and the right arm retracts to its original position."
-        ]
-      },
-      {
-        "sample_id": "rdt-take_out_pen_lid-6",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Pick up the pen and remove the cap.",
-        "human_review": [
-          "Right arm approaches the orange pen from above and grasps it near the middle.",
-          "Right arm lifts the pen vertically and moves it upward out of the camera view.",
-          "After a pause, left arm re-enters the frame holding an orange pen cap.",
-          "Both arms descend toward the table surface.",
-          "Left arm places the pen cap on the left side of the table, lying flat.",
-          "Right arm places the main body of the orange pen on the right side of the table, lying flat.",
-          "Both arms release their grip and retract upward out of the frame."
-        ]
-      },
-      {
-        "sample_id": "rdt-put_badminton_in_order-11",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Stack the badminton balls on the table vertically.",
-        "human_review": [
-          "The right arm approaches from above and grasps the cork base of the first shuttlecock, which is lying horizontally near the center-right of the table.",
-          "The right arm rotates the shuttlecock outward, releases it, grasps its cork base again, and rotates it clockwise into a vertical position to ensure the skirt faces down and the cork base up.",
-          "The right arm places the shuttlecock standing upright on the table, with the cork base up and the skirt down",
-          "The right arm retracts slightly upward, moves leftward, and approaches the second shuttlecock located to the left of the first one.",
-          "The right arm attempts three times to grasp the cork base of the second shuttlecock from above and rotate it clockwise into a vertical position, with the cork base up and the skirt down.",
-          "The right arm moves rightward to position itself directly above the first shuttlecock.",
-          "The right arm carefully places the second shuttlecock on top of the first, fitting its base into the top of the first to form a vertical stack, then releases its grip and fully retracts upward."
-        ]
-      },
-      {
-        "sample_id": "rdt-take_clothes_into_backpack-6",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Take the gray clothes out of the backpack.",
-        "human_review": [
-          "Right arm approaches the white backpack from above and grasps the top flap near the zipper.",
-          "Right arm pulls the flap upwards and rightwards to open the backpack compartment.",
-          "Left arm reaches into the opened compartment and grasps the gray cloth located inside.",
-          "Left arm lifts the gray cloth out of the backpack, pulling it leftwards.",
-          "Left arm moves the extracted gray cloth away from the backpack to the further left side of the table, then retracts."
-        ]
-      },
-      {
-        "sample_id": "rdt-plug_charger-7",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Plug the white charger into the left socket.",
-        "human_review": [
-          "Right arm approaches the white charger from above and grasps it by its body.",
-          "Right arm lifts the white charger vertically off the table surface.",
-          "Rotate it clockwise 90 degree .,The left arm grasps the white charger and rotate it counter clockwise 90 degree so that the head of the charger point to the down .The right arm takes the white charging head from the left arm.",
-          "Right arm moves the charger horizontally to the left toward the socket on the white power strip.",
-          "Right arm aligns the prongs of the charger with the leftmost socket opening .",
-          "Left arm inserts the charger into the socket with a downside press motion until fully seated.",
-          "Both arms release the charger and retract upward slightly."
-        ]
-      },
-      {
-        "sample_id": "rdt-close_laptop-15",
-        "dataset": "RDT",
-        "robot_type": "aloha",
-        "instruction_raw": "Close the lid of the black laptop.",
-        "human_review": [
-          "Both arms move into frame from above and position themselves on either side of the open laptop lid _ left arm approaches the laptop base from front, right arm approaches the laptop lid from behind.",
-          "Left arm touches the front edge of the laptop base from front; Right arm simultaneously touches the upper-right edge of the lid from behind.",
-          "Right arms apply downward pressure first, rotating the lid clockwise around its hinge axis by 45 degrees, then left arm lifts upward and place its grip behind the lid and simultaneously pushes the lid downward with right arm until it lies flat against the keyboard base.",
-          "After confirming full closure, retract upward out of frame."
-        ]
-      }
-    ]
-  },
-  {
     "name": "RoboCoin",
     "samples": [
       {
@@ -1157,6 +1042,120 @@ const SELECTOR_DATA = [
           "Move the brush horizontally to the left towards the green tray.",
           "Place the brush into the green tray and touch the back rim of the green tray. Move the blue sponge is shake .",
           "Release the grip and the brush keep upright."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "RDT (Batch 2)",
+    "samples": [
+      {
+        "sample_id": "rdt-pick_power_bank-2",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Put the power bank into the bag.",
+        "human_review": [
+          "Right arm grasps the black power bank from above around its middle section.",
+          "Right arm lifts the power bank vertically upward off the table.",
+          "Left arm approaches and grasps the white plastic bag by lightly pressing on its left side.",
+          "Both arms coordinate: the right arm moves the power bank horizontally toward the bag opening, while the left arm shifts the bag slightly rightward.",
+          "Right arm inserts the power bank clockwise and inserts it into the bag__ opening, aligning it with the interior space.",
+          "Right arm releases the power bank inside the bag and retracts upward.",
+          "Left arm withdraws from the bag after confirming successful insertion."
+        ]
+      },
+      {
+        "sample_id": "rdt-place_object_on_mirror-7",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Place the orange on the center of the mirror.",
+        "human_review": [
+          "Left arm approaches the blue ball from the left side, moving forward along the desk surface.",
+          "Left arm grasps the blue ball by its center side using the gripper.",
+          "Left arm lifts the blue ball vertically upwards about 5 centimeters.",
+          "Left arm moves the blue ball horizontally to the right while maintaining elevation, panning past the keyboard towards the tablet.",
+          "Left arm lowers the blue ball onto the center of the tablet screen acting as a mirror.",
+          "Left arm releases the grip, leaving the blue ball resting upright on the reflective surface."
+        ]
+      },
+      {
+        "sample_id": "rdt-place_phone-13",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Put the phone on top of the Rubik's Cube.",
+        "human_review": [
+          "Right arm approaches the black smartphone from above and slightly from the right.",
+          "Right gripper closes around the bottom edge of the phone__ back surface to secure a firm grasp.",
+          "Right arm lifts the phone vertically about 5 cm off the desk surface.",
+          "Right arm moves horizontally to the right by approximately 10 cm, positioning the back of phone touches the top of the Rubik__ Cube.",
+          "Right arm lowers the phone gently onto the Rubik cube surface, placing it flat and parallel to the keyboard, immediately to the surface of the Rubik__ Cube.",
+          "Right gripper opens and retracts upward, releasing the phone without disturbing its position."
+        ]
+      },
+      {
+        "sample_id": "rdt-unwind_charging_cable-16",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Unfold the white charging cable into a straight cable.",
+        "human_review": [
+          "Right arm approaches the coiled white charging cable from the top right side and grasps one end of the cable loop.",
+          "Then left arm approaches from the left side and the right arm passes the data cable to the left arm, with both arms working together.",
+          "Both arms lift the cable slightly off the table surface while maintaining grip on opposite ends.",
+          "Repeatedly both arms pull horizontally apart _ right arm moves right, left arm moves left _ to unfold and straighten the cable.",
+          "Once fully extended, both arms release the straightened cable onto the table surface, laying it flat in a horizontal orientation.",
+          "Both arms release their grip and retract upward, leaving the cable lying flat across the desk."
+        ]
+      },
+      {
+        "sample_id": "rdt-cover_laptop-18",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Close the lid of the gray laptop.",
+        "human_review": [
+          "Press the top edge of the gray laptop's lid from above using the left arm.",
+          "Close the lid by rotating it downward until it meets the base of the laptop.",
+          "Release the grip on the lid after ensuring it is fully closed and aligned with the base.Left arm retracts upwards and leftwards."
+        ]
+      },
+      {
+        "sample_id": "rdt-open_laptop-5",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Open the lid of the black laptop.",
+        "human_review": [
+          "Right arm approaches from the right side and grasps the top-right corner of the black laptop lid with its gripper.",
+          "Left arm approaches from the left side and grasps the top-left corner of the black laptop lid with its gripper.",
+          "Both arms simultaneously lift and push the lid upward in a synchronized motion, rotating it around the hinge until fully open at approximately 90 degrees.",
+          "After release, the laptop screen activates automatically, displaying a sunset wallpaper with time '15:33' centered on screen."
+        ]
+      },
+      {
+        "sample_id": "rdt-pick_mask-6",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Put the mask into the mask box.",
+        "human_review": [
+          "Right arm grasps the packaged black face mask lying flat on the table from above, using its gripper to pinch the center of the package.",
+          "Right arm lifts the mask vertically upward approximately 15 cm off the table surface.",
+          "Right arm moves horizontally leftward toward the open-top mask box positioned centrally on the desk.",
+          "Left arm grasps the top of the mask box to keep it stable.",
+          "Right arm angles the mask upright and inserts it into the opening of the mask box, aligning it with the interior cavity.",
+          "Right arm releases the mask inside the box, allowing it to settle upright against the inner wall.",
+          "Right arm retracts upward and to the right, exiting the frame."
+        ]
+      },
+      {
+        "sample_id": "rdt-put_mouse_on_pad-2",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Place the black mouse on the black mouse pad.",
+        "human_review": [
+          "Right arm approaches the black mouse from above and slightly to the right, positioning its gripper around the sides of the mouse.",
+          "Right arm grasps the black mouse firmly by its upper body, ensuring secure contact without slipping.",
+          "Right arm lifts the mouse vertically upward approximately 10 cm off the desk surface.",
+          "Right arm moves horizontally leftward across the desk, transporting the mouse toward the black mouse pad located in the front-left side of the desk (closer to the camera).",
+          "Right arm lowers the mouse gently onto the black mouse pad, close to the front-right of the mouse pad, aligning it flat and upright for optimal use.",
+          "Right arm releases the mouse completely and retracts upward and backward away from the workspace."
         ]
       }
     ]

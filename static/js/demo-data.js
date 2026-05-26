@@ -614,6 +614,108 @@ const DEMO_DATA = {
             "value": "lift"
           },
           {
+            "capability": "action_sequence",
+            "fact_text": "The left arm tilts the left pillow.",
+            "slot": "primitive_action",
+            "value": "tilt"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm approaches the left pillow from the left side.",
+            "slot": "primitive_action",
+            "value": "approach"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm repeatedly grasps the front middle edge of the left pillow.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm lifts the left pillow slightly off the sofa.",
+            "slot": "primitive_action",
+            "value": "lift"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm shakes the left pillow in mid-air.",
+            "slot": "primitive_action",
+            "value": "shake"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm places the left pillow backward onto the leftmost seat.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm grasps the upper middle edge of the left pillow.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The right arm pushes the middle of the left pillow toward the left armrest.",
+            "slot": "primitive_action",
+            "value": "push"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm releases the left pillow.",
+            "slot": "primitive_action",
+            "value": "release"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm closes its claws after releasing the pillow.",
+            "slot": "gripper_state",
+            "value": "closed"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The right arm retracts away from the pillow.",
+            "slot": "primitive_action",
+            "value": "retract"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The left arm retracts away from the pillow.",
+            "slot": "primitive_action",
+            "value": "retract"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "Both arms approach the right pillow from the sides.",
+            "slot": "primitive_action",
+            "value": "approach"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "Both arms grasp the left and right edges of the right pillow.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "Both arms lift the right pillow.",
+            "slot": "primitive_action",
+            "value": "lift"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "Both arms rotate the right pillow to a vertical orientation.",
+            "slot": "primitive_action",
+            "value": "rotate"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "Both arms place the right pillow upright against the rear backrest.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
             "capability": "active_actor",
             "fact_text": "The left arm is the acting arm while moving the left pillow.",
             "slot": "actor",
@@ -630,6 +732,18 @@ const DEMO_DATA = {
             "fact_text": "The left arm acts on the left pillow by stabilizing it with a grasp.",
             "slot": "actor",
             "value": "left arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "The right arm acts on the left pillow by pushing it.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "Both arms act together on the right pillow.",
+            "slot": "actor",
+            "value": "both arms"
           },
           {
             "capability": "target_object",
@@ -650,6 +764,18 @@ const DEMO_DATA = {
             "value": "long"
           },
           {
+            "capability": "target_object",
+            "fact_text": "The object manipulated on the right side is a pillow.",
+            "slot": "category",
+            "value": "pillow"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "The pillow manipulated on the right side is beige.",
+            "slot": "color",
+            "value": "beige"
+          },
+          {
             "capability": "initial_configuration",
             "fact_text": "The left pillow starts lying flat.",
             "slot": "initial_pose",
@@ -666,6 +792,12 @@ const DEMO_DATA = {
             "fact_text": "The right pillow starts on the right seat cushion.",
             "slot": "initial_workspace_location",
             "value": "right seat cushion"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "The right pillow starts lying flat.",
+            "slot": "initial_pose",
+            "value": "lying flat"
           },
           {
             "capability": "final_configuration",
@@ -686,6 +818,12 @@ const DEMO_DATA = {
             "value": "upright"
           },
           {
+            "capability": "final_configuration",
+            "fact_text": "The right pillow ends against the rear backrest.",
+            "slot": "final_relation",
+            "value": "against the rear backrest"
+          },
+          {
             "capability": "contact_and_approach",
             "fact_text": "The left arm approaches the left pillow from above.",
             "slot": "approach_direction",
@@ -702,6 +840,48 @@ const DEMO_DATA = {
             "fact_text": "The left arm approaches the left pillow from the left side.",
             "slot": "approach_direction",
             "value": "from the left side"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The left arm grasps the left pillow at its front middle edge.",
+            "slot": "contact_region",
+            "value": "front middle edge"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The left arm contacts the left pillow at its upper middle edge.",
+            "slot": "contact_region",
+            "value": "upper middle edge"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The right arm approaches the left pillow from the right.",
+            "slot": "approach_direction",
+            "value": "from the right"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The right arm pushes the left pillow at its middle.",
+            "slot": "contact_region",
+            "value": "middle"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "Both arms approach the right pillow from the sides.",
+            "slot": "approach_direction",
+            "value": "from the sides"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "During the two-arm grasp, the right pillow is contacted at its left edge.",
+            "slot": "contact_region",
+            "value": "left edge"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "During the two-arm grasp, the right pillow is contacted at its right edge.",
+            "slot": "contact_region",
+            "value": "right edge"
           },
           {
             "capability": "trajectory_and_orientation",
@@ -722,6 +902,30 @@ const DEMO_DATA = {
             "value": "upward"
           },
           {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The upward lift of the left pillow is slight.",
+            "slot": "translation_extent",
+            "value": "slight"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The left pillow moves backward onto the leftmost seat.",
+            "slot": "translation_direction",
+            "value": "backward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The left pillow moves toward the left armrest.",
+            "slot": "translation_direction",
+            "value": "toward the left armrest"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The right pillow moves upward during the lift.",
+            "slot": "translation_direction",
+            "value": "upward"
+          },
+          {
             "capability": "failure_and_recovery",
             "fact_text": "The left arm makes repeated grasp attempts on the left pillow while it lies on the seat.",
             "slot": "retry",
@@ -738,6 +942,12 @@ const DEMO_DATA = {
             "fact_text": "The left arm makes repeated grasp attempts on the left pillow while it leans against the armrest.",
             "slot": "retry",
             "value": "repeated grasp attempts"
+          },
+          {
+            "capability": "failure_and_recovery",
+            "fact_text": "The repeated grasp attempts on the left pillow eventually lift it slightly off the sofa.",
+            "slot": "recovery_result",
+            "value": "eventually lifted slightly off the sofa"
           },
           {
             "capability": "body_motion",
@@ -840,6 +1050,78 @@ const DEMO_DATA = {
             "value": "place"
           },
           {
+            "capability": "action_sequence",
+            "fact_text": "the right arm reaches toward the plate for the second baozi.",
+            "slot": "primitive_action",
+            "value": "reach"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm grasps the second baozi.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm moves the second baozi toward the steamer.",
+            "slot": "primitive_action",
+            "value": "move"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm places the second baozi into the steamer basket.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm returns to the plate for the third baozi.",
+            "slot": "primitive_action",
+            "value": "return"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm grasps the third baozi.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm places the third baozi into the steamer basket.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm grasps the final baozi.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm places the final baozi into the steamer.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the left arm grasps the pot lid by its handle.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the left arm lowers the pot lid onto the steamer basket.",
+            "slot": "primitive_action",
+            "value": "lower"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "both arms retract away from the steamer and plate.",
+            "slot": "primitive_action",
+            "value": "retract"
+          },
+          {
             "capability": "active_actor",
             "fact_text": "the right arm performs the first baozi grasp.",
             "slot": "actor",
@@ -856,6 +1138,54 @@ const DEMO_DATA = {
             "fact_text": "the right arm performs the second baozi reach and grasp.",
             "slot": "actor",
             "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the second baozi transfer and placement.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the third baozi return and grasp.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the third baozi placement.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the final baozi grasp.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the final baozi placement.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the left arm grasps and lifts the pot lid.",
+            "slot": "actor",
+            "value": "left arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the left arm lowers the pot lid onto the steamer basket.",
+            "slot": "actor",
+            "value": "left arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "both arms perform the final retraction away from the steamer and plate.",
+            "slot": "actor",
+            "value": "both arms"
           },
           {
             "capability": "target_object",
@@ -876,6 +1206,30 @@ const DEMO_DATA = {
             "value": "baozi"
           },
           {
+            "capability": "target_object",
+            "fact_text": "the third manipulated object is a baozi.",
+            "slot": "category",
+            "value": "baozi"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the final manipulated object is a baozi.",
+            "slot": "category",
+            "value": "baozi"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the manipulated lid is a pot lid.",
+            "slot": "category",
+            "value": "pot lid"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the pot lid is made of glass.",
+            "slot": "material",
+            "value": "glass"
+          },
+          {
             "capability": "initial_configuration",
             "fact_text": "the first baozi starts on the farthest side of the plate.",
             "slot": "initial_relation",
@@ -892,6 +1246,18 @@ const DEMO_DATA = {
             "fact_text": "the third baozi starts on the nearest side of the plate.",
             "slot": "initial_relation",
             "value": "on the nearest side of the plate"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the final baozi starts on the rightmost side of the plate.",
+            "slot": "initial_relation",
+            "value": "on the rightmost side of the plate"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the pot lid starts on the table.",
+            "slot": "initial_relation",
+            "value": "on the table"
           },
           {
             "capability": "final_configuration",
@@ -912,6 +1278,24 @@ const DEMO_DATA = {
             "value": "in the nearest position inside the steamer basket"
           },
           {
+            "capability": "final_configuration",
+            "fact_text": "the final baozi ends in the rightmost position inside the steamer.",
+            "slot": "final_relation",
+            "value": "in the rightmost position inside the steamer"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the pot lid ends on the steamer basket.",
+            "slot": "final_relation",
+            "value": "on the steamer basket"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the pot lid finishes by covering the three baozi inside.",
+            "slot": "final_state",
+            "value": "covering the three baozi inside"
+          },
+          {
             "capability": "contact_and_approach",
             "fact_text": "the grasp on the first baozi contacts its top.",
             "slot": "contact_region",
@@ -930,6 +1314,24 @@ const DEMO_DATA = {
             "value": "from above"
           },
           {
+            "capability": "contact_and_approach",
+            "fact_text": "the third baozi is approached from the top center.",
+            "slot": "approach_direction",
+            "value": "from the top center"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the pot lid is grasped by its handle.",
+            "slot": "contact_region",
+            "value": "handle"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the pot lid is lowered onto the steamer basket from the left side.",
+            "slot": "approach_direction",
+            "value": "from the left side"
+          },
+          {
             "capability": "trajectory_and_orientation",
             "fact_text": "the first baozi moves vertically downward into the steamer basket.",
             "slot": "translation_direction",
@@ -946,6 +1348,24 @@ const DEMO_DATA = {
             "fact_text": "the final baozi moves vertically upward off the surface.",
             "slot": "translation_direction",
             "value": "vertically upward off the surface"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the pot lid moves vertically upward and to the left.",
+            "slot": "translation_direction",
+            "value": "vertically upward and to the left"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the pot lid moves downward onto the steamer basket.",
+            "slot": "translation_direction",
+            "value": "downward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "both arms move downward and outward away from the steamer and plate.",
+            "slot": "translation_direction",
+            "value": "downward and outward away from the steamer and plate"
           },
           {
             "capability": "object_interaction",
@@ -1060,6 +1480,18 @@ const DEMO_DATA = {
             "value": "place"
           },
           {
+            "capability": "action_sequence",
+            "fact_text": "The robot releases the press on the towel.",
+            "slot": "primitive_action",
+            "value": "release press"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot arm retracts.",
+            "slot": "primitive_action",
+            "value": "retract"
+          },
+          {
             "capability": "target_object",
             "fact_text": "The target object is a towel.",
             "slot": "category",
@@ -1088,6 +1520,12 @@ const DEMO_DATA = {
             "fact_text": "The towel is in front of the blue scrubber at the end of the task.",
             "slot": "final_relation",
             "value": "in front of the blue scrubber"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The towel is released at the end of the task.",
+            "slot": "final_state",
+            "value": "released"
           },
           {
             "capability": "contact_and_approach",
@@ -1238,6 +1676,24 @@ const DEMO_DATA = {
             "value": "lift"
           },
           {
+            "capability": "action_sequence",
+            "fact_text": "The robot translates the metal pot toward the counter.",
+            "slot": "primitive_action",
+            "value": "translate"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot lowers the metal pot onto the counter.",
+            "slot": "primitive_action",
+            "value": "lower"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot releases the metal pot.",
+            "slot": "primitive_action",
+            "value": "release"
+          },
+          {
             "capability": "target_object",
             "fact_text": "The manipulated object is a pot.",
             "slot": "category",
@@ -1302,6 +1758,12 @@ const DEMO_DATA = {
             "fact_text": "The metal pot is translated only slightly during the move toward the counter.",
             "slot": "translation_extent",
             "value": "slightly"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The metal pot moves downward as it is lowered onto the counter.",
+            "slot": "translation_direction",
+            "value": "downward"
           },
           {
             "capability": "object_interaction",
@@ -1410,6 +1872,48 @@ const DEMO_DATA = {
             "value": "lift"
           },
           {
+            "capability": "action_sequence",
+            "fact_text": "the robot transfers the puzzle piece above the puzzle board.",
+            "slot": "primitive_action",
+            "value": "transfer"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot lowers the puzzle piece toward the matching slot.",
+            "slot": "primitive_action",
+            "value": "lower"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot releases the puzzle piece near the designated area.",
+            "slot": "primitive_action",
+            "value": "release"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot pushes the puzzle piece.",
+            "slot": "primitive_action",
+            "value": "push"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot presses the puzzle piece to seat it in the board.",
+            "slot": "primitive_action",
+            "value": "press"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the gripper retracts after pressing the puzzle piece.",
+            "slot": "primitive_action",
+            "value": "retract"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the gripper moves to the left after retracting.",
+            "slot": "primitive_action",
+            "value": "move left"
+          },
+          {
             "capability": "target_object",
             "fact_text": "the manipulated object is a puzzle piece.",
             "slot": "category",
@@ -1470,6 +1974,18 @@ const DEMO_DATA = {
             "value": "from above"
           },
           {
+            "capability": "contact_and_approach",
+            "fact_text": "the gripper fingertips contact the top surface of the left edge part of the puzzle piece.",
+            "slot": "contact_region",
+            "value": "top surface of the left edge part"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the gripper approaches the puzzle piece vertically downward for the seating press.",
+            "slot": "approach_direction",
+            "value": "vertically downward"
+          },
+          {
             "capability": "trajectory_and_orientation",
             "fact_text": "the puzzle piece moves vertically upward during lifting.",
             "slot": "translation_direction",
@@ -1486,6 +2002,18 @@ const DEMO_DATA = {
             "fact_text": "the puzzle piece moves backward and to the right during the push.",
             "slot": "translation_direction",
             "value": "backward and to the right"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the puzzle piece is pushed only a slight amount.",
+            "slot": "translation_extent",
+            "value": "slight"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the puzzle piece is pressed vertically downward to seat it in the board.",
+            "slot": "translation_direction",
+            "value": "vertically downward"
           },
           {
             "capability": "object_interaction",

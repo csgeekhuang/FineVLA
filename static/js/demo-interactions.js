@@ -174,14 +174,14 @@ $(document).ready(function () {
       var totalCount = s.capability_summary[cap];
       var factsHtml = '<ul>';
       facts.forEach(function (f) {
-        factsHtml += '<li><strong>' + f.slot + ':</strong> ' + f.fact_text + '</li>';
+        factsHtml += '<li><span class="tag is-light is-small" style="margin-right:4px;">' + f.slot + ': ' + f.value + '</span> ' + f.fact_text + '</li>';
       });
       factsHtml += '</ul>';
       $accordion.append(
         '<div class="bench-fact-group">' +
         '<button class="bench-fact-toggle button is-small is-light is-fullwidth">' +
         '<span class="icon"><i class="fas fa-chevron-right"></i></span>' +
-        '<span>' + labels[cap] + ' (' + totalCount + ' facts, showing ' + facts.length + ')</span>' +
+        '<span>' + labels[cap] + ' (' + totalCount + ' facts)</span>' +
         '</button>' +
         '<div class="bench-fact-list" style="display:none;">' + factsHtml + '</div>' +
         '</div>'

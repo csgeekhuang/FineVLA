@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FineVLA - Recap Sample Selector</title>
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./static/js/selector-data.js"></script>
+  <style>
+    body { font-family: 'Noto Sans', sans-serif; padding: 1rem; }
+    .sample-card { border: 2px solid #dbdbdb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; transition: border-color 0.2s; }
+    .sample-card:hover { border-color: #3273dc; }
+    .sample-card.selected { border-color: #48c774; background: #effaf3; }
+    .sample-card video { border-radius: 6px; }
+    .step-list { font-size: 0.85rem; line-height: 1.5; max-height: 200px; overflow-y: auto; }
+    .step-list li { margin-bottom: 0.3rem; }
+    .dataset-section { margin-bottom: 2rem; }
+    .selection-summary { position: sticky; top: 0; z-index: 100; background: white; padding: 0.75rem; border-bottom: 2px solid #3273dc; }
+    .tag-id { font-family: monospace; font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+
+<div class="selection-summary">
+  <div class="container">
+    <h3 class="title is-5" style="margin-bottom:0.5rem;">Selected Samples (<span id="sel-count">0</span>/8)</h3>
+    <div id="sel-tags"></div>
+  </div>
+</div>
+
+<div class="container" style="margin-top:1rem;">
+  <h1 class="title is-3">Recap Sample Selector</h1>
+  <p class="subtitle">Click a sample card to select it. Pick one per dataset.</p>
+  <div id="datasets-container"></div>
+</div>
+
+<script>
+$(document).ready(function() {
+  var selections = {};
+  var $container = $('#datasets-container');
+
+  SELECTOR_DATA.forEach(function(ds) {
+    var html = '<div class="dataset-section">';
+    html += '<h2 class="title is-4" style="border-bottom:2px solid #3273dc;padding-bottom:0.5rem;">' + ds.name + '</h2>';
+    html += '<div class="columns is-multiline">';
+    ds.samples.forEach(function(s, i) {
+      var steps = '<ol class="step-list">';
+      s.human_review.forEach(function(st) { steps += '<li>' + st + '</li>'; });
+      steps += '</ol>';
+      html += '<div class="column is-half">' +
+        '<div class="sample-card" data-ds="' + ds.name + '" data-sid="' + s.sample_id + '">' +
+        '<div class="columns is-mobile">' +
+        '<div class="column is-5">' +
+        '<video controls muted loop playsinline width="100%"><source src="./static/videos/selector/' + s.sample_id + '.mp4" type="video/mp4"></video>' +
+        '</div>' +
+        '<div class="column is-7">' +
+        '<p class="tag-id">' + s.sample_id + '</p>' +
+        '<p><strong>' + s.instruction_raw + '</strong></p>' +
+        '<p class="is-size-7 has-text-grey">' + s.robot_type + ' | ' + s.human_review.length + ' steps</p>' +
+        steps +
+        '</div></div></div></div>';
+    });
+    html += '</div></div>';
+    $container.append(html);
+  });
+
+  // Click to select
+  $(document).on('click', '.sample-card', function() {
+    var ds = $(this).data('ds');
+    var sid = $(this).data('sid');
+    // Deselect others in same dataset
+    $('.sample-card[data-ds="' + ds + '"]').removeClass('selected');
+    $(this).addClass('selected');
+    selections[ds] = sid;
+    updateSummary();
+  });
+
+  function updateSummary() {
+    var count = Object.keys(selections).length;
+    $('#sel-count').text(count);
+    var tags = '';
+    Object.keys(selections).forEach(function(ds) {
+      tags += '<span class="tag is-success is-medium" style="margin:2px;">' + ds + ': ' + selections[ds] + '</span> ';
+    });
+    $('#sel-tags').html(tags || '<span class="has-text-grey">Click samples to select</span>');
+  }
+  updateSummary();
+});
+</script>
+</body>
+</html>

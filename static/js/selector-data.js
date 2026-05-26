@@ -838,5 +838,219 @@ const SELECTOR_DATA = [
         ]
       }
     ]
+  },
+  {
+    "name": "RDT",
+    "samples": [
+      {
+        "sample_id": "rdt-hook_keys-17",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Hang the bunch of keys on the hook.",
+        "human_review": [
+          "Right arm approaches the bunch of keys from above and grasps them by the key fob using its gripper.",
+          "Right arm lifts the keys vertically off the table surface.",
+          "Right arm moves the keys horizontally toward the right-side gray partition board.",
+          "After the key bunch drops, the right arm picks up the keys again.",
+          "Right arm rotates the keys slightly to align the key ring with the hook mounted on the partition.",
+          "Right arm lowers the keys and hangs the key ring onto the hook.",
+          "Right arm releases the keys, leaving them suspended from the hook, then retracts upward."
+        ]
+      },
+      {
+        "sample_id": "rdt-hook_keys-18",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Hang the bunch of keys on the hook.",
+        "human_review": [
+          "Right arm approaches the bunch of keys from top-right.",
+          "Right arm repeatedly grasps the key ring of the bunch of keys.",
+          "Right arm lifts the bunch of keys vertically off the table.",
+          "Right arm moves the bunch of keys upwards and to the right towards the white circular hook on the partition board.",
+          "Right arm aligns the key ring with the hook.",
+          "Right arm hangs the bunch of keys onto the hook.",
+          "Right arm releases the grip and retracts away from the hook."
+        ]
+      },
+      {
+        "sample_id": "rdt-move_object_near_mirror-18",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Move the the Rubik's Cube near the mirror.",
+        "human_review": [
+          "Right arm approaches the Rubik's Cube from above and slightly to its right side.",
+          "Right gripper grasps grasps both sides of the Rubik's Cube firmly from above.",
+          "Right arm lifts the cube vertically upward approximately 3 cm off the desk surface.",
+          "Right arm moves horizontally leftward toward the center of the wooden board in front of the mirror, and rotates the cube slightly clockwise so that the orange face faces slightly to the right of the center of the wooden board.",
+          "Right arm lowers the cube gently onto the front of the wooden board, positioning it upright with orange face forward, directly centered before the mirror__ reflection.",
+          "Right gripper releases the cube and retracts upward and backward away from the scene."
+        ]
+      },
+      {
+        "sample_id": "rdt-hook_keys-6",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Hang the bunch of keys on the hook.",
+        "human_review": [
+          "Right arm approaches the bunch of keys from above, positioning its gripper over the key ring.",
+          "Right arm tries repeatedly to grasp the bunch of keys by closing the gripper around the key ring.",
+          "Right arm lifts the bunch of keys vertically off the table surface.",
+          "Right arm moves forward to the right, carrying the keys toward the white hexagonal hook mounted on the gray partition panel.",
+          "Right arm tries repeatedly to align the key ring with the hook and lowers it slightly to engage the hook.",
+          "Right arm releases the grip, allowing the bunch of keys to hang freely from the hook.",
+          "Right arm retracts upward and away from the hook to complete the task."
+        ]
+      },
+      {
+        "sample_id": "rdt-move_object_near_mirror-2",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Move the the Rubik's Cube near the mirror.",
+        "human_review": [
+          "Grasp the Rubik's Cube on the left side of the table using the left arm __ gripper, approaching from above and slightly from the front.",
+          "Lift the cube vertically upward approximately 15 cm while maintaining a firm grip on its center.",
+          "Move the cube horizontally to the right across the table surface toward the mirror, traveling about 30 cm until aligned with the center of the mirror__ base.",
+          "Place the cube gently onto the white rectangular platform directly in front of the mirror, ensuring it sits upright with orange faces visible toward the camera.",
+          "Left arm retracts upward and exits the frame."
+        ]
+      },
+      {
+        "sample_id": "rdt-move_object_near_mirror-1",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Move the the Rubik's Cube near the mirror.",
+        "human_review": [
+          "Left arm approaches the Rubik's Cube from the front-left side, grasping it by its both sides  using a precision grip.",
+          "Lifts the cube vertically approximately 15 cm to clear the table surface.",
+          "Moves the cube horizontally to the right along a straight path toward the mirror__ base, stopping just in front of it.",
+          "Rotates the cube slightly clockwise (approx. 30 degrees) to align one face parallel to the mirror plane.",
+          "Releases the cube gently onto the wooden platform directly in front of the mirror, ensuring it stands upright with red face forward."
+        ]
+      },
+      {
+        "sample_id": "rdt-pull_chair-4",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Pull out the black chair under the table.",
+        "human_review": [
+          "The right arm extends forward.",
+          "Right arm's gripper clamps onto the junction between the chair's headrest and the backrest, pulling the chair backward until it is fully withdrawn from under the table.",
+          "Right arm's gripper releases, and the right arm retracts to its original position."
+        ]
+      },
+      {
+        "sample_id": "rdt-take_out_pen_lid-6",
+        "dataset": "RDT",
+        "robot_type": "aloha",
+        "instruction_raw": "Pick up the pen and remove the cap.",
+        "human_review": [
+          "Right arm approaches the orange pen from above and grasps it near the middle.",
+          "Right arm lifts the pen vertically and moves it upward out of the camera view.",
+          "After a pause, left arm re-enters the frame holding an orange pen cap.",
+          "Both arms descend toward the table surface.",
+          "Left arm places the pen cap on the left side of the table, lying flat.",
+          "Right arm places the main body of the orange pen on the right side of the table, lying flat.",
+          "Both arms release their grip and retract upward out of the frame."
+        ]
+      }
+    ]
+  },
+  {
+    "name": "RoboCoin",
+    "samples": [
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-292",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm grasps and lifts the grey power supply with bundled wires from the second grid from the back in the middle of the cardboard box compartment using a top-down grip and transfers it to the right.",
+          "Right arm places the power supply on the back left of the transparent box and releases the object once positioned, during the movement causing other grey power to move.",
+          "Retract the arm."
+        ]
+      },
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-170",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm grasps the silver battery with red and black wires from the cardboard box compartment using a top-down grip and lifts it vertically.",
+          "Right arm moves the silver battery with red and black wires backward and to the right and places it upright onto the clear plastic tray to the right.",
+          "Right arm releases the gripper and retracts the arm."
+        ]
+      },
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-277",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm grasps a bundle of power supply cables from a front left compartment in the cardboard box from above, lifts the bundle vertically and translate to the right, places it in the front-right compartment",
+          "Places it repeatedly the until the bundle is settled into the front-right compartment, bumping other cables during the process.",
+          "Right arm releases the grip on the bundle and retracts upward and away from the workspace."
+        ]
+      },
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-299",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm approaches the silver power supply unit located at the top-right of the cardboard compartment and grasps it from above by the bundled wires.",
+          "Right arm lifts the power supply unit vertically out of the cardboard compartment and translates it rightward toward the clear tray.",
+          "Right arm lowers the unit into an empty slot on the left row of the gray tray, releases it so it stands upright, and retracts upward."
+        ]
+      },
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-65",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm grasps the leftmost battery in the second row in the cardboard box by its cables  and lifts it upward. The first attempt fails: the battery slips from the gripper.",
+          "Right arm re-grasp the battery, then lifts it vertically out of the cardboard box compartment.",
+          "Right arm translates the battery diagonally backward-right and lowers it into the grid of the clear plastic tray. During the motion, the battery bumps into the cables of the existing batteries.",
+          "Right arm releases the battery and retracts to the left. During the motion, the gripper touches the cables of the battery on the clear plastic tray."
+        ]
+      },
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-294",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm grasps repeatedly bundle of red and black wires closer to you from a compartment in the cardboard box from above and lifts it vertically.",
+          "Right arm moves to the right and backward , places it in the front-right compartment of the storage bin on the right.",
+          "Right arm release the gripper and retracts upward and leftward."
+        ]
+      },
+      {
+        "sample_id": "robocoin-R1_Lite_move_the_position_of_the_black_marker-16",
+        "dataset": "RoboCoin",
+        "robot_type": "galaxea_r1_lite",
+        "instruction_raw": "put the black marker in the designated position.",
+        "human_review": [
+          "The scene remains static with no robot arms visible; the white marker lies horizontally on the back side of the table, and all other objects remain undisturbed in their initial positions.",
+          "Left arm reaches from the left side towards the white marker on the back of the table, positioning the gripper from above.",
+          "Grasp the marker but failed, the marker moves forward slightly.",
+          "Try repeatedly to close around the marker's midsection to secure a grasp.",
+          "Left arm moves backward and to the left, places the marker pen on the table to the left of the banana, using the left gripper to position it horizontally.",
+          "Left arm releases the marker, the marker moves leftward slightly by touching with the banana and retracts upward and away from the table to its resting position.",
+          "The workspace remains static with no robot arms visible, confirming the marker remains undisturbed in its designated position."
+        ]
+      },
+      {
+        "sample_id": "robocoin-AgiBot-g1_picks_up_battery_b-255",
+        "dataset": "RoboCoin",
+        "robot_type": "ruantong_a2d",
+        "instruction_raw": "using a robotic arm to pick up battery.",
+        "human_review": [
+          "Right arm moves down and grasps a bundle of multicolored cables from the top-left compartment of the cardboard box from above and lifts it vertically.",
+          "Right arm places the bundle flat on the clear plastic tray to the right.",
+          "Right arm retracts to its original position."
+        ]
+      }
+    ]
   }
 ];

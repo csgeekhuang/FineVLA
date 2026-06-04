@@ -210,12 +210,11 @@
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <p>
-            <strong>FineVLA-Tool</strong> converts large-scale heterogeneous robot demonstrations
-            into fine-grained, action-aligned instruction data through four stages:
-            (1) aggregate <strong>972,247</strong> trajectories from 10 open-source datasets into a unified format;
-            (2) canonicalize action representations and remove corrupted trajectories;
-            (3) apply DTW-based clustering to select representative demonstrations; and
-            (4) annotate with a ten-dimensional fine-grained schema followed by human verification.
+            <strong>FineVLA-Tool</strong> unifies 972,247 trajectories across 85K tasks from 10 open-source
+            datasets, selects representative samples via DTW-based clustering, and annotates them with
+            process-level descriptions across ten fine-grained dimensions. This produces
+            <strong>FineVLA-Data</strong>, a human-verified corpus of 47,159 trajectories whose average
+            instruction length increases <strong>10.4&times;</strong> (from 9.3 to 96.8 words).
           </p>
         </div>
         <img src="./static/images/method.png" alt="FineVLA-Tool Pipeline" style="width: 100%;">
@@ -229,17 +228,19 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">FineVLA-Data &amp; RoboFine-Bench</h2>
+        <h2 class="title is-3">RoboFine-Bench &amp; RoboFine-VLM</h2>
         <div class="content has-text-justified">
           <p>
-            <strong>FineVLA-Data</strong> is a human-verified corpus of <strong>47,159</strong> fine-grained
-            action-aligned trajectories drawn from 10 source datasets, with a
-            <strong>10.4&times;</strong> increase in instruction information density.
+            <strong>RoboFine-Bench</strong> evaluates fine-grained robotic video understanding with
+            <strong>500</strong> videos, <strong>10,816</strong> human-reviewed atomic facts, and
+            <strong>1,030</strong> VQA questions spanning all ten fine-grained dimensions. The benchmark
+            includes complementary VQA and caption tracks, with all trajectories held out from both
+            VLM fine-tuning and policy training.
           </p>
           <p>
-            <strong>RoboFine-Bench</strong> evaluates fine-grained robotic video understanding
-            through complementary VQA and captioning tracks, containing <strong>500</strong> videos,
-            <strong>10,816</strong> atomic facts across 10 dimensions, and <strong>1,030</strong> VQA questions.
+            <strong>RoboFine-VLM</strong> is fine-tuned from Qwen3.5-397B-A17B on FineVLA-Data. It serves
+            as a scalable annotator for new trajectories, achieving <strong>71.0%</strong> VQA accuracy and
+            <strong>83.6%</strong> captioning score on the hard setting, outperforming GPT-5.4 and Gemini 3.1 Pro.
           </p>
         </div>
       </div>
@@ -255,12 +256,13 @@
         <h2 class="title is-3">Experiments &amp; Results</h2>
         <div class="content has-text-justified">
           <p>
-            On RoboFine-Bench, RoboFine-VLM achieves <strong>71.0%</strong> VQA accuracy and
-            <strong>83.6%</strong> captioning score, outperforming GPT-5.4 and Gemini 3.1 Pro.
-            In RoboTwin simulation, the optimal FG:Raw = 1:1 setting reaches
-            <strong>86.8%/82.5%</strong> on AlohaMix-OFT Easy/Hard (+15.0/+11.1 over Raw-only).
-            In real-world dual-arm manipulation, this setting achieves <strong>62.7</strong>/100
-            versus 49.9 for Raw-only and reduces instruction violations from 34% to <strong>12%</strong>.
+            Fine-grained supervision does not sacrifice goal-level task success: FG-only improves over
+            Raw-only by +1.4 to +8.1 success-rate points. The optimal FG:Raw = 1:1 setting reaches
+            <strong>86.8%/82.5%</strong> on AlohaMix-OFT Easy/Hard (+15.0/+11.1 over Raw-only) and
+            <strong>62.7</strong>/100 in real-world dual-arm manipulation (vs. 49.9 for Raw-only).
+            Fine-grained supervision directly improves steerable control: the largest gains appear on
+            pose (<strong>+23</strong>), color (<strong>+18</strong>), and approach direction
+            (<strong>+18</strong>)&mdash;factors where goal-level instructions provide no guidance.
           </p>
         </div>
         <img src="./static/images/results.png" alt="Experimental Results" style="width: 100%;">
@@ -318,7 +320,7 @@
               <p class="title is-4">220,606</p>
             </div>
             <div class="column">
-              <p class="heading">Annotation Dimensions</p>
+              <p class="heading">Dimensions</p>
               <p class="title is-4">10</p>
             </div>
           </div>

@@ -153,23 +153,31 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Vision-Language-Action (VLA) models are moving beyond task-level robot control
-            toward policies that can be <i>steered</i> by human instructions. However, existing robot
-            datasets pair trajectories with coarse goal-level language, leaving
-            execution details&mdash;active arm, target object, approach direction, contact region,
-            motion path, and final configuration&mdash;unspecified. This limits both policy learning
-            and robotic video understanding, and the field still lacks scalable infrastructure,
-            dedicated benchmarks, and training recipes for action-aligned fine-grained supervision.
+            Vision-Language-Action (VLA) models are increasingly expected to not only complete robot tasks,
+            but also follow human instructions about <i>how</i> those tasks should be executed. However, existing
+            robot datasets usually pair trajectories with coarse goal-level language, leaving execution-critical
+            details such as active arm, approach direction, and contact region unspecified. This limits steerable
+            policy learning and robotic video understanding.
           </p>
           <p>
-            We introduce <strong>FineVLA</strong>, a fully open-source framework that closes the loop between
-            fine-grained data construction, robotic video understanding, scalable annotation,
-            and steerable VLA policy learning. FineVLA includes:
-            (1) <strong>FineVLA-Tool &amp; FineVLA-Data</strong>, which unifies 972,247 trajectories from 10 datasets and constructs 47,159 human-verified fine-grained trajectories;
-            (2) <strong>RoboFine-Bench</strong>, a held-out benchmark with 500 videos, 10,816 atomic facts, and 1,030 VQA questions;
-            (3) <strong>RoboFine-VLM</strong>, a robotics-specialized VLM annotator; and
-            (4) <strong>FineVLA-Policy</strong>, a steerable policy trained with controlled mixtures
-            of fine-grained and raw goal-level instructions.
+            We introduce <strong>FineVLA</strong>, an open framework for action-aligned fine-grained VLA supervision.
+            The framework includes:
+            (1) a data construction tool that unifies 972,247 trajectories across 85K tasks from 10 open-source
+            robot datasets and builds <strong>FineVLA-Data</strong>, a human-verified dataset of 47,159 fine-grained trajectories;
+            (2) a held-out benchmark with 500 videos, 10,816 atomic facts, and 1,030 VQA questions;
+            (3) a robotics-specialized VLM annotator for scalable fine-grained annotation; and
+            (4) a steerable VLA policy trained with controlled mixtures of fine-grained and raw goal-level instructions.
+          </p>
+          <p>
+            Our policy experiments yield three findings. First, fine-grained supervision does not sacrifice
+            goal-level task success: FG-only improves over Raw-only by +1.4 to +8.1 success-rate points.
+            Second, fine-grained and raw instructions are complementary: performance follows a consistent
+            inverted-U trend, peaking around FG:Raw = 1:2 to 1:1. The strongest mixed setting reaches
+            <strong>86.8%/82.5%</strong> in RoboTwin simulation and <strong>62.7</strong>/100 in real-world
+            dual-arm manipulation, compared with 49.9 for Raw-only. Third, fine-grained supervision directly
+            improves steerable control: in real-world evaluation, the largest gains over Raw-only appear on
+            pose (+23), color (+18), and approach direction (+18)&mdash;factors where goal-level instructions
+            provide no guidance.
           </p>
         </div>
       </div>
@@ -185,9 +193,8 @@
         <h2 class="title is-3 has-text-centered">News</h2>
         <div class="content">
           <ul>
-            <li><strong>[2025.05]</strong> Paper released. Check out our <a href="https://arxiv.org/abs/2605.27284">arXiv preprint</a>.</li>
-            <li><strong>[2025.05]</strong> FineVLA-Data and RoboFine-Bench are coming soon.</li>
-            <li><strong>[2025.05]</strong> Code and models will be released soon. Stay tuned!</li>
+            <li><strong>[2026.05]</strong> Paper released on <a href="https://arxiv.org/abs/2605.27284">arXiv</a>. <a href="https://huggingface.co/datasets/xlangai/RoboFine-bench">RoboFine-Bench</a> is now available.</li>
+            <li><strong>[2026.05]</strong> Code, FineVLA-Data, and models will be released soon. Stay tuned!</li>
           </ul>
         </div>
       </div>

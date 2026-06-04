@@ -111,7 +111,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://huggingface.co/xlangai/RoboFine-VLM-387B-A17B" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://huggingface.co/xlangai/RoboFine-VLM-397B-A17B" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon"><i class="fas fa-robot"></i></span>
                   <span>Model</span>
                 </a>
@@ -218,6 +218,10 @@
           </p>
         </div>
         <img src="./static/images/method.png" alt="FineVLA-Tool Pipeline" style="width: 100%;">
+        <p class="has-text-centered" style="margin-top: 10px; color: #555;">
+          <strong>Pipeline of FineVLA-Tool.</strong> Four stages convert heterogeneous robot demonstrations
+          into action-aligned fine-grained instruction data.
+        </p>
       </div>
     </div>
   </div>
@@ -268,7 +272,7 @@
         <img src="./static/images/results.png" alt="Experimental Results" style="width: 100%;">
         <p class="has-text-centered" style="margin-top: 10px; color: #555;">
           <strong>Key experimental results.</strong> Fine-grained and raw instructions are complementary,
-          with the optimal FG:Raw ratio around 1:1 across simulation and real-world settings.
+          with the optimal FG:Raw ratio around 1:2 to 1:1 across simulation and real-world settings.
         </p>
       </div>
     </div>
@@ -522,7 +526,6 @@
                 <th>Setting</th>
                 <th>FG:Raw Ratio</th>
                 <th>Avg. Score (/100)</th>
-                <th>Instruction Violations</th>
               </tr>
             </thead>
             <tbody>
@@ -530,19 +533,16 @@
                 <td>Raw-only</td>
                 <td>0:1</td>
                 <td>49.9</td>
-                <td>34%</td>
               </tr>
               <tr>
                 <td>FG-only</td>
                 <td>1:0</td>
-                <td>55.3</td>
-                <td>18%</td>
+                <td>54.4</td>
               </tr>
               <tr class="is-selected">
                 <td><strong>Mixed (Best)</strong></td>
                 <td><strong>1:1</strong></td>
                 <td><strong>62.7</strong></td>
-                <td><strong>12%</strong></td>
               </tr>
             </tbody>
           </table>

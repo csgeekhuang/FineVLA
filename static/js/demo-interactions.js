@@ -236,10 +236,61 @@ $(document).ready(function () {
     $(this).parent().addClass('is-active');
   });
 
+  // ===== SIMULATION COMPARISON =====
+  var SIM_TASKS = [
+    {task: "blocks_ranking_size", label: "Blocks Ranking (Size)"},
+    {task: "handover_block", label: "Handover Block"},
+    {task: "put_bottles_dustbin", label: "Put Bottles in Dustbin"},
+    {task: "press_stapler", label: "Press Stapler"},
+    {task: "stack_blocks_three", label: "Stack 3 Blocks"}
+  ];
+
+  function initSimComparison() {
+    var $tabs = $('#sim-task-tabs ul');
+    SIM_TASKS.forEach(function(t, i) {
+      $tabs.append('<li class="' + (i===0?'is-active':'') + '"><a data-idx="' + i + '">' + t.label + '</a></li>');
+    });
+    renderSimTask(0);
+    $tabs.on('click', 'a', function(e) {
+      e.preventDefault();
+      var idx = parseInt($(this).data('idx'));
+      $tabs.find('li').removeClass('is-active');
+      $(this).parent().addClass('is-active');
+      renderSimTask(idx);
+    });
+  }
+
+  function renderSimTask(idx) {
+    var t = SIM_TASKS[idx];
+    var $grid = $('#sim-video-grid').empty();
+    var conditions = [
+      {key: 'fg_clean', label: 'FG:Raw=1:1 (Clean)', success: true},
+      {key: 'raw_clean', label: 'Raw-only (Clean)', success: false},
+      {key: 'fg_random', label: 'FG:Raw=1:1 (Random)', success: true},
+      {key: 'raw_random', label: 'Raw-only (Random)', success: false}
+    ];
+    var html = '<div class="columns is-multiline">';
+    conditions.forEach(function(c) {
+      var src = './static/videos/sim/' + t.task + '_' + c.key + '.mp4';
+      var badge = c.success
+        ? '<span class="tag is-success is-small">Success</span>'
+        : '<span class="tag is-danger is-small">Fail</span>';
+      html += '<div class="column is-half">' +
+        '<div class="box" style="padding:0.75rem;">' +
+        '<p class="is-size-7 has-text-weight-bold" style="margin-bottom:0.5rem;">' + c.label + ' ' + badge + '</p>' +
+        '<video controls muted loop playsinline width="100%" style="border-radius:8px;">' +
+        '<source src="' + src + '" type="video/mp4"></video>' +
+        '</div></div>';
+    });
+    html += '</div>';
+    $grid.html(html);
+  }
+
   // ===== Initialize all demos =====
   if (typeof DEMO_DATA !== 'undefined') {
     initRecap();
     initVLM();
     initBenchmark();
   }
+  initSimComparison();
 });

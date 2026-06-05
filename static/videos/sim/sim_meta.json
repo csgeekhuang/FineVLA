@@ -1,0 +1,112 @@
+[
+  {
+    "task": "blocks_ranking_size",
+    "ep": 3,
+    "videos": {
+      "fg_clean": {
+        "file": "blocks_ranking_size_fg_clean.mp4",
+        "success": true
+      },
+      "fg_random": {
+        "file": "blocks_ranking_size_fg_random.mp4",
+        "success": true
+      },
+      "raw_clean": {
+        "file": "blocks_ranking_size_raw_clean.mp4",
+        "success": false
+      },
+      "raw_random": {
+        "file": "blocks_ranking_size_raw_random.mp4",
+        "success": false
+      }
+    }
+  },
+  {
+    "task": "handover_block",
+    "ep": 3,
+    "videos": {
+      "fg_clean": {
+        "file": "handover_block_fg_clean.mp4",
+        "success": true
+      },
+      "fg_random": {
+        "file": "handover_block_fg_random.mp4",
+        "success": true
+      },
+      "raw_clean": {
+        "file": "handover_block_raw_clean.mp4",
+        "success": false
+      },
+      "raw_random": {
+        "file": "handover_block_raw_random.mp4",
+        "success": false
+      }
+    }
+  },
+  {
+    "task": "put_bottles_dustbin",
+    "ep": 6,
+    "videos": {
+      "fg_clean": {
+        "file": "put_bottles_dustbin_fg_clean.mp4",
+        "success": true
+      },
+      "fg_random": {
+        "file": "put_bottles_dustbin_fg_random.mp4",
+        "success": true
+      },
+      "raw_clean": {
+        "file": "put_bottles_dustbin_raw_clean.mp4",
+        "success": false
+      },
+      "raw_random": {
+        "file": "put_bottles_dustbin_raw_random.mp4",
+        "success": false
+      }
+    }
+  },
+  {
+    "task": "press_stapler",
+    "ep": 1,
+    "videos": {
+      "fg_clean": {
+        "file": "press_stapler_fg_clean.mp4",
+        "success": true
+      },
+      "fg_random": {
+        "file": "press_stapler_fg_random.mp4",
+        "success": true
+      },
+      "raw_clean": {
+        "file": "press_stapler_raw_clean.mp4",
+        "success": false
+      },
+      "raw_random": {
+        "file": "press_stapler_raw_random.mp4",
+        "success": false
+      }
+    }
+  },
+  {
+    "task": "stack_blocks_three",
+    "ep": 13,
+    "videos": {
+      "fg_clean": {
+        "file": "stack_blocks_three_fg_clean.mp4",
+        "success": true
+      },
+      "fg_random": {
+        "file": "stack_blocks_three_fg_random.mp4",
+        "success": true
+      },
+      "raw_clean": {
+        "file": "stack_blocks_three_raw_clean.mp4",
+        "success": false
+      },
+      "raw_random": {
+        "file": "stack_blocks_three_raw_random.mp4",
+        "success": false
+      }
+    }
+  }
+]

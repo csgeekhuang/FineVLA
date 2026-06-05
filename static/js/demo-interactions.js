@@ -242,7 +242,8 @@ $(document).ready(function () {
     {task: "handover_block", label: "Handover Block"},
     {task: "put_bottles_dustbin", label: "Put Bottles in Dustbin"},
     {task: "stamp_seal", label: "Stamp Seal"},
-    {task: "stack_blocks_three", label: "Stack 3 Blocks"}
+    {task: "stack_blocks_three", label: "Stack 3 Blocks"},
+    {task: "place_a2b_left", label: "Place A→B (Left)"}
   ];
 
   function initSimComparison() {

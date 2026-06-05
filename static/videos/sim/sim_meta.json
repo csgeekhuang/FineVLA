@@ -108,5 +108,27 @@
         "success": false
       }
     }
+  },
+  {
+    "task": "place_a2b_left",
+    "ep": 7,
+    "videos": {
+      "fg_clean": {
+        "file": "place_a2b_left_fg_clean.mp4",
+        "success": true
+      },
+      "fg_random": {
+        "file": "place_a2b_left_fg_random.mp4",
+        "success": true
+      },
+      "raw_clean": {
+        "file": "place_a2b_left_raw_clean.mp4",
+        "success": false
+      },
+      "raw_random": {
+        "file": "place_a2b_left_raw_random.mp4",
+        "success": false
+      }
+    }
   }
 ]

@@ -238,12 +238,12 @@ $(document).ready(function () {
 
   // ===== SIMULATION COMPARISON =====
   var SIM_TASKS = [
-    {task: "blocks_ranking_size", label: "Blocks Ranking (Size)"},
-    {task: "handover_block", label: "Handover Block"},
-    {task: "put_bottles_dustbin", label: "Put Bottles in Dustbin"},
-    {task: "stamp_seal", label: "Stamp Seal"},
-    {task: "stack_blocks_three", label: "Stack 3 Blocks"},
-    {task: "place_a2b_left", label: "Place A→B (Left)"}
+    {task: "blocks_ranking_size", label: "Blocks Ranking (Size)", instruction: "Place large block, medium block, and small block at the table center, largest to smallest."},
+    {task: "handover_block", label: "Handover Block", instruction: "Grab the red block with the left arm."},
+    {task: "put_bottles_dustbin", label: "Put Bottles in Dustbin", instruction: "Pick up the yellow plastic bottle, drop it into the curved rectangular trash can, then repeat for the plastic bottle and the bottle with red screw cap."},
+    {task: "blocks_ranking_rgb", label: "Blocks Ranking (RGB)", instruction: "Set red block on the left, then green block in the center, and finally blue block on the right."},
+    {task: "adjust_bottle", label: "Adjust Bottle", instruction: "Use the left arm to grab the green plastic bottle with ridged bottom."},
+    {task: "place_a2b_right", label: "Place A→B (Right)", instruction: "Put the metal and plastic stapler to the right of the irregular wooden block."}
   ];
 
   function initSimComparison() {
@@ -270,7 +270,12 @@ $(document).ready(function () {
       {key: 'fg_random', label: 'FG:Raw=1:1 (Random)', success: true},
       {key: 'raw_random', label: 'Raw-only (Random)', success: false}
     ];
-    var html = '<div class="columns is-multiline">';
+    var html = '';
+    if (t.instruction) {
+      html += '<div class="notification is-light" style="padding:0.75rem 1rem;margin-bottom:1rem;border-left:4px solid var(--accent-blue,#3b82f6);background:#f0f7ff;">' +
+        '<p class="is-size-6"><strong>Language Instruction:</strong> <em>"' + t.instruction + '"</em></p></div>';
+    }
+    html += '<div class="columns is-multiline">';
     conditions.forEach(function(c) {
       var src = './static/videos/sim/' + t.task + '_' + c.key + '.mp4';
       var badge = c.success

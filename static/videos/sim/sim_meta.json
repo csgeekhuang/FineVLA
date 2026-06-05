@@ -2,6 +2,7 @@
   {
     "task": "blocks_ranking_size",
     "ep": 3,
+    "instruction": "Place large block, medium block, and small block at the table center, largest to smallest.",
     "videos": {
       "fg_clean": {
         "file": "blocks_ranking_size_fg_clean.mp4",
@@ -24,6 +25,7 @@
   {
     "task": "handover_block",
     "ep": 3,
+    "instruction": "Grab the red block with the left arm.",
     "videos": {
       "fg_clean": {
         "file": "handover_block_fg_clean.mp4",
@@ -46,6 +48,7 @@
   {
     "task": "put_bottles_dustbin",
     "ep": 6,
+    "instruction": "Pick up the yellow plastic bottle, drop it into the curved rectangular trash can, then repeat for the plastic bottle and the bottle with red screw cap.",
     "videos": {
       "fg_clean": {
         "file": "put_bottles_dustbin_fg_clean.mp4",
@@ -66,67 +69,70 @@
     }
   },
   {
-    "task": "stamp_seal",
-    "ep": 1,
+    "task": "blocks_ranking_rgb",
+    "ep": 2,
+    "instruction": "Set red block on the left, then green block in the center, and finally blue block on the right.",
     "videos": {
       "fg_clean": {
-        "file": "stamp_seal_fg_clean.mp4",
+        "file": "blocks_ranking_rgb_fg_clean.mp4",
         "success": true
       },
       "fg_random": {
-        "file": "stamp_seal_fg_random.mp4",
+        "file": "blocks_ranking_rgb_fg_random.mp4",
         "success": true
       },
       "raw_clean": {
-        "file": "stamp_seal_raw_clean.mp4",
+        "file": "blocks_ranking_rgb_raw_clean.mp4",
         "success": false
       },
       "raw_random": {
-        "file": "stamp_seal_raw_random.mp4",
+        "file": "blocks_ranking_rgb_raw_random.mp4",
         "success": false
       }
     }
   },
   {
-    "task": "stack_blocks_three",
-    "ep": 13,
+    "task": "adjust_bottle",
+    "ep": 3,
+    "instruction": "Use the left arm to grab the bottle the green plastic bottle with ridged bottom",
     "videos": {
       "fg_clean": {
-        "file": "stack_blocks_three_fg_clean.mp4",
+        "file": "adjust_bottle_fg_clean.mp4",
         "success": true
       },
       "fg_random": {
-        "file": "stack_blocks_three_fg_random.mp4",
+        "file": "adjust_bottle_fg_random.mp4",
         "success": true
       },
       "raw_clean": {
-        "file": "stack_blocks_three_raw_clean.mp4",
+        "file": "adjust_bottle_raw_clean.mp4",
         "success": false
       },
       "raw_random": {
-        "file": "stack_blocks_three_raw_random.mp4",
+        "file": "adjust_bottle_raw_random.mp4",
         "success": false
       }
     }
   },
   {
-    "task": "place_a2b_left",
-    "ep": 7,
+    "task": "place_a2b_right",
+    "ep": 11,
+    "instruction": "Put the metal and plastic stapler to the right of the irregular woodenblock",
     "videos": {
       "fg_clean": {
-        "file": "place_a2b_left_fg_clean.mp4",
+        "file": "place_a2b_right_fg_clean.mp4",
         "success": true
       },
       "fg_random": {
-        "file": "place_a2b_left_fg_random.mp4",
+        "file": "place_a2b_right_fg_random.mp4",
         "success": true
       },
       "raw_clean": {
-        "file": "place_a2b_left_raw_clean.mp4",
+        "file": "place_a2b_right_raw_clean.mp4",
         "success": false
       },
       "raw_random": {
-        "file": "place_a2b_left_raw_random.mp4",
+        "file": "place_a2b_right_raw_random.mp4",
         "success": false
       }
     }

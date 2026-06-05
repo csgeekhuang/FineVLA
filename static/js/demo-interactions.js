@@ -241,7 +241,7 @@ $(document).ready(function () {
     {task: "blocks_ranking_size", label: "Blocks Ranking (Size)"},
     {task: "handover_block", label: "Handover Block"},
     {task: "put_bottles_dustbin", label: "Put Bottles in Dustbin"},
-    {task: "press_stapler", label: "Press Stapler"},
+    {task: "stamp_seal", label: "Stamp Seal"},
     {task: "stack_blocks_three", label: "Stack 3 Blocks"}
   ];
 

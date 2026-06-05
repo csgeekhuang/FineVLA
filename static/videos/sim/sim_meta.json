@@ -66,23 +66,23 @@
     }
   },
   {
-    "task": "press_stapler",
+    "task": "stamp_seal",
     "ep": 1,
     "videos": {
       "fg_clean": {
-        "file": "press_stapler_fg_clean.mp4",
+        "file": "stamp_seal_fg_clean.mp4",
         "success": true
       },
       "fg_random": {
-        "file": "press_stapler_fg_random.mp4",
+        "file": "stamp_seal_fg_random.mp4",
         "success": true
       },
       "raw_clean": {
-        "file": "press_stapler_raw_clean.mp4",
+        "file": "stamp_seal_raw_clean.mp4",
         "success": false
       },
       "raw_random": {
-        "file": "press_stapler_raw_random.mp4",
+        "file": "stamp_seal_raw_random.mp4",
         "success": false
       }
     }

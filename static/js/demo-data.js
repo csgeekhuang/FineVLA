@@ -578,657 +578,6 @@ var DEMO_DATA = {
   "benchmark": {
     "samples": [
       {
-        "sample_id": "bc_z-BC_Z-34392",
-        "dataset": "BC-Z",
-        "instruction_raw": "place brush in paper cup",
-        "capability_summary": {
-          "action_sequence": 5,
-          "active_actor": 0,
-          "target_object": 1,
-          "initial_configuration": 3,
-          "final_configuration": 3,
-          "contact_and_approach": 2,
-          "trajectory_and_orientation": 3,
-          "object_interaction": 2,
-          "failure_and_recovery": 1,
-          "body_motion": 0
-        },
-        "atomic_facts_sample": [
-          {
-            "capability": "action_sequence",
-            "fact_text": "grasp the brush by its black handle",
-            "slot": "primitive_action",
-            "value": "grasp"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "lift the brush off the table surface",
-            "slot": "primitive_action",
-            "value": "lift"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "move the brush over the white paper cup",
-            "slot": "primitive_action",
-            "value": "move"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "the primary manipulated object is a brush",
-            "slot": "category",
-            "value": "brush"
-          },
-          {
-            "capability": "initial_configuration",
-            "fact_text": "the brush starts in a lying position",
-            "slot": "initial_pose",
-            "value": "lying"
-          },
-          {
-            "capability": "initial_configuration",
-            "fact_text": "the brush starts on the left side of the wooden board",
-            "slot": "initial_workspace_location",
-            "value": "left side of the wooden board"
-          },
-          {
-            "capability": "initial_configuration",
-            "fact_text": "the brush starts near the green tray",
-            "slot": "initial_relation",
-            "value": "near the green tray"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the brush ends lying flat",
-            "slot": "final_pose",
-            "value": "lying flat"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the brush ends on the table",
-            "slot": "final_workspace_location",
-            "value": "on the table"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the brush is released at the end of the action",
-            "slot": "final_state",
-            "value": "released"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "the brush is contacted at its black handle",
-            "slot": "contact_region",
-            "value": "black handle"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "the brush is approached from above for the grasp",
-            "slot": "approach_direction",
-            "value": "from above"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "the brush moves vertically upward off the table surface",
-            "slot": "translation_direction",
-            "value": "vertically upward"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "the brush moves forward and slightly to the right",
-            "slot": "translation_direction",
-            "value": "forward and slightly to the right"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "the brush falls forward",
-            "slot": "translation_direction",
-            "value": "forward"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "the white paper cup topples during the brush release",
-            "slot": "interaction_type",
-            "value": "toppling"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "the white paper cup falls forward and lies flat on the table",
-            "slot": "effect",
-            "value": "falls forward and lies flat on the table"
-          },
-          {
-            "capability": "failure_and_recovery",
-            "fact_text": "the brush falls forward with the cup during the release",
-            "slot": "failure",
-            "value": "the brush falls forward with the cup during the release"
-          }
-        ],
-        "qas": [
-          {
-            "question": "After lifting the brush, how was it moved to align over the white paper cup?",
-            "options": [
-              "forward and slightly to the right",
-              "backward and slightly to the right",
-              "forward and slightly to the left",
-              "straight upward only"
-            ],
-            "answer": "forward and slightly to the right",
-            "capability": "trajectory_and_orientation",
-            "mode": "conflict"
-          },
-          {
-            "question": "Which part of the brush was inserted into the opening of the white paper cup?",
-            "options": [
-              "the handle end",
-              "the bristle end",
-              "the middle of the brush",
-              "the side of the brush head"
-            ],
-            "answer": "the handle end",
-            "capability": "contact_and_approach",
-            "mode": "conflict"
-          },
-          {
-            "question": "What was the final state of the brush and cup after the release?",
-            "options": [
-              "The brush stood upright in the cup and the cup stayed upright.",
-              "The brush lay flat on the table while the cup stayed upright.",
-              "The cup and the brush fell forward and lay flat on the table.",
-              "The brush was placed beside the cup on the table."
-            ],
-            "answer": "The cup and the brush fell forward and lay flat on the table.",
-            "capability": "final_configuration",
-            "mode": "conflict"
-          },
-          {
-            "question": "Did the manipulation cause the white paper cup to be knocked over?",
-            "options": [],
-            "answer": "yes",
-            "capability": "object_interaction",
-            "mode": "conflict"
-          }
-        ]
-      },
-      {
-        "sample_id": "rt1-59119",
-        "dataset": "RT-1",
-        "instruction_raw": "move pepsi can near paper bowl",
-        "capability_summary": {
-          "action_sequence": 6,
-          "active_actor": 0,
-          "target_object": 2,
-          "initial_configuration": 1,
-          "final_configuration": 4,
-          "contact_and_approach": 2,
-          "trajectory_and_orientation": 1,
-          "object_interaction": 3,
-          "failure_and_recovery": 0,
-          "body_motion": 0
-        },
-        "atomic_facts_sample": [
-          {
-            "capability": "action_sequence",
-            "fact_text": "the robot grasps the Pepsi can.",
-            "slot": "primitive_action",
-            "value": "grasp"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "the gripper closes around the Pepsi can.",
-            "slot": "gripper_state",
-            "value": "closed"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "the robot moves the Pepsi can toward the paper bowl.",
-            "slot": "primitive_action",
-            "value": "move"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "the manipulated object is a Pepsi can.",
-            "slot": "category",
-            "value": "can"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "the Pepsi can is blue.",
-            "slot": "color",
-            "value": "blue"
-          },
-          {
-            "capability": "initial_configuration",
-            "fact_text": "the Pepsi can starts on the right side of the table.",
-            "slot": "initial_workspace_location",
-            "value": "right side of the table"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the Pepsi can ends on the table.",
-            "slot": "final_workspace_location",
-            "value": "on the table"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the Pepsi can ends immediately adjacent to the right side of the paper bowl.",
-            "slot": "final_relation",
-            "value": "immediately adjacent to the right side of the paper bowl"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the Pepsi can ends upright.",
-            "slot": "final_pose",
-            "value": "upright"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "the gripper approaches the Pepsi can from the right.",
-            "slot": "approach_direction",
-            "value": "from the right"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "the gripper contacts the upper body of the Pepsi can.",
-            "slot": "contact_region",
-            "value": "upper body"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "the Pepsi can moves horizontally to the left with a slight upward lift toward the white paper bowl.",
-            "slot": "translation_direction",
-            "value": "horizontally to the left with a slight upward lift toward the paper bowl"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "the moving Pepsi can touches the right rim of the white paper bowl.",
-            "slot": "interaction_type",
-            "value": "touch"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "the white paper bowl is the object affected by the Pepsi can's incidental contact.",
-            "slot": "affected_object",
-            "value": "white paper bowl"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "the white paper bowl is pushed slightly to the left by the Pepsi can.",
-            "slot": "effect",
-            "value": "slightly pushed to the left"
-          }
-        ],
-        "qas": [
-          {
-            "question": "While the robot was moving the blue Pepsi can, did the can make contact with the white paper bowl?",
-            "options": [],
-            "answer": "yes",
-            "capability": "object_interaction",
-            "mode": "conflict"
-          },
-          {
-            "question": "Which part of the blue Pepsi can did the gripper close around?",
-            "options": [
-              "The upper body",
-              "The lower body",
-              "The top lid",
-              "The middle body"
-            ],
-            "answer": "The upper body",
-            "capability": "contact_and_approach",
-            "mode": "gt_only"
-          },
-          {
-            "question": "After the robot placed the can down, where was it relative to the white paper bowl?",
-            "options": [
-              "Immediately adjacent to the right side of the bowl",
-              "Immediately adjacent to the left side of the bowl",
-              "Inside the bowl",
-              "Behind the bowl"
-            ],
-            "answer": "Immediately adjacent to the right side of the bowl",
-            "capability": "final_configuration",
-            "mode": "gt_only"
-          }
-        ]
-      },
-      {
-        "sample_id": "bridge-31544",
-        "dataset": "BridgeDataV2",
-        "instruction_raw": "moved the towel to the right of the stove",
-        "capability_summary": {
-          "action_sequence": 5,
-          "active_actor": 0,
-          "target_object": 2,
-          "initial_configuration": 0,
-          "final_configuration": 4,
-          "contact_and_approach": 2,
-          "trajectory_and_orientation": 2,
-          "object_interaction": 3,
-          "failure_and_recovery": 0,
-          "body_motion": 0
-        },
-        "atomic_facts_sample": [
-          {
-            "capability": "action_sequence",
-            "fact_text": "The robot presses the towel.",
-            "slot": "primitive_action",
-            "value": "press"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "The robot moves the towel.",
-            "slot": "primitive_action",
-            "value": "move"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "The robot places the towel.",
-            "slot": "primitive_action",
-            "value": "place"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "The target object is a towel.",
-            "slot": "category",
-            "value": "towel"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "The towel is green.",
-            "slot": "color",
-            "value": "green"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "The towel is flat at the end of the task.",
-            "slot": "final_pose",
-            "value": "flat"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "The towel is on the black stovetop surface at the end of the task.",
-            "slot": "final_workspace_location",
-            "value": "on the black stovetop surface"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "The towel is in front of the blue scrubber at the end of the task.",
-            "slot": "final_relation",
-            "value": "in front of the blue scrubber"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "The robot contacts the towel at its center.",
-            "slot": "contact_region",
-            "value": "center"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "The robot approaches the towel from above.",
-            "slot": "approach_direction",
-            "value": "from above"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "The towel moves to the right and slightly backward.",
-            "slot": "translation_direction",
-            "value": "to the right and slightly backward"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "The robot arm moves upward while retracting.",
-            "slot": "translation_direction",
-            "value": "upward"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "The towel pushes a secondary object during the move.",
-            "slot": "interaction_type",
-            "value": "push"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "The secondary object affected by the towel is the black and white object.",
-            "slot": "affected_object",
-            "value": "black and white object"
-          },
-          {
-            "capability": "object_interaction",
-            "fact_text": "The black and white object is pushed to the front right edge of the black stove.",
-            "slot": "effect",
-            "value": "moved to the front right edge of the black stove"
-          }
-        ],
-        "qas": [
-          {
-            "question": "What was the robot's initial action on the green towel?",
-            "options": [
-              "Press it",
-              "Grasp it",
-              "Pull it",
-              "Rotate it"
-            ],
-            "answer": "Press it",
-            "capability": "action_sequence",
-            "mode": "conflict"
-          },
-          {
-            "question": "Which part of the green towel did the robot contact from above at the start?",
-            "options": [
-              "The center",
-              "The top edge",
-              "The bottom edge",
-              "The left corner"
-            ],
-            "answer": "The center",
-            "capability": "contact_and_approach",
-            "mode": "conflict"
-          },
-          {
-            "question": "In which direction did the robot move the towel?",
-            "options": [
-              "To the right and slightly backward",
-              "Straight to the left",
-              "Straight forward",
-              "Straight upward"
-            ],
-            "answer": "To the right and slightly backward",
-            "capability": "trajectory_and_orientation",
-            "mode": "conflict"
-          },
-          {
-            "question": "Where was the green towel finally placed relative to the blue scrubber?",
-            "options": [
-              "In front of the blue scrubber",
-              "To the left of the blue scrubber",
-              "Behind the blue scrubber",
-              "On top of the blue scrubber"
-            ],
-            "answer": "In front of the blue scrubber",
-            "capability": "final_configuration",
-            "mode": "conflict"
-          },
-          {
-            "question": "While moving the towel, did the robot steer clear of other objects on the stove?",
-            "options": [],
-            "answer": "no",
-            "capability": "object_interaction",
-            "mode": "conflict"
-          },
-          {
-            "question": "During the draging of the towel, what other object is touched?",
-            "options": [
-              "Sushi toy and the brush",
-              "Sushi toy and metal pot",
-              "Sushi toy only",
-              "Brush only"
-            ],
-            "answer": "Sushi toy and the brush",
-            "capability": "action_sequence",
-            "mode": ""
-          }
-        ]
-      },
-      {
-        "sample_id": "robomindv2-stack_green_on_blue_with_arms-215",
-        "dataset": "RoboMINDV2",
-        "instruction_raw": "stack green on blue with arms",
-        "capability_summary": {
-          "action_sequence": 10,
-          "active_actor": 6,
-          "target_object": 4,
-          "initial_configuration": 0,
-          "final_configuration": 3,
-          "contact_and_approach": 2,
-          "trajectory_and_orientation": 6,
-          "object_interaction": 0,
-          "failure_and_recovery": 0,
-          "body_motion": 0
-        },
-        "atomic_facts_sample": [
-          {
-            "capability": "action_sequence",
-            "fact_text": "both arms lower toward the blocks.",
-            "slot": "primitive_action",
-            "value": "lower"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "the robot grasps the green block.",
-            "slot": "primitive_action",
-            "value": "grasp"
-          },
-          {
-            "capability": "action_sequence",
-            "fact_text": "the robot grasps the yellow block.",
-            "slot": "primitive_action",
-            "value": "grasp"
-          },
-          {
-            "capability": "active_actor",
-            "fact_text": "both arms move down to grasp the two blocks.",
-            "slot": "actor",
-            "value": "both arms"
-          },
-          {
-            "capability": "active_actor",
-            "fact_text": "the right arm lifts the yellow block.",
-            "slot": "actor",
-            "value": "right arm"
-          },
-          {
-            "capability": "active_actor",
-            "fact_text": "the left arm lifts the green block.",
-            "slot": "actor",
-            "value": "left arm"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "the green target object is a block.",
-            "slot": "category",
-            "value": "block"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "the target block is green.",
-            "slot": "color",
-            "value": "green"
-          },
-          {
-            "capability": "target_object",
-            "fact_text": "the yellow target object is a block.",
-            "slot": "category",
-            "value": "block"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the yellow block ends at the center of the blue mat.",
-            "slot": "final_workspace_location",
-            "value": "center of the blue mat"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the yellow block ends on the blue mat.",
-            "slot": "final_relation",
-            "value": "on the blue mat"
-          },
-          {
-            "capability": "final_configuration",
-            "fact_text": "the green block ends on the left side of the yellow block.",
-            "slot": "final_relation",
-            "value": "on the left side of the yellow block"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "the robot approaches the green block from above to grasp it.",
-            "slot": "approach_direction",
-            "value": "from above"
-          },
-          {
-            "capability": "contact_and_approach",
-            "fact_text": "the robot approaches the yellow block from above to grasp it.",
-            "slot": "approach_direction",
-            "value": "from above"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "both arms move downward.",
-            "slot": "translation_direction",
-            "value": "downward"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "the yellow block moves upward during the lift.",
-            "slot": "translation_direction",
-            "value": "upward"
-          },
-          {
-            "capability": "trajectory_and_orientation",
-            "fact_text": "the green block moves upward during the lift.",
-            "slot": "translation_direction",
-            "value": "upward"
-          }
-        ],
-        "qas": [
-          {
-            "question": "Which arm lifts the yellow block after the initial grasp?",
-            "options": [
-              "Right arm",
-              "Left arm",
-              "Both arms together",
-              "Neither arm"
-            ],
-            "answer": "Right arm",
-            "capability": "active_actor",
-            "mode": "conflict"
-          },
-          {
-            "question": "After the yellow block is placed, where is the green block positioned relative to the yellow block?",
-            "options": [
-              "On the left side of the yellow block",
-              "On the right side of the yellow block",
-              "Behind the yellow block",
-              "In front of the yellow block"
-            ],
-            "answer": "On the left side of the yellow block",
-            "capability": "final_configuration",
-            "mode": "conflict"
-          },
-          {
-            "question": "What does the left arm do with the green block at the end of the manipulation?",
-            "options": [
-              "Presses it onto the left side of the yellow block",
-              "Drops it onto an empty area of the mat",
-              "Pushes it away from the yellow block",
-              "Stacks it on top of the yellow block"
-            ],
-            "answer": "Presses it onto the left side of the yellow block",
-            "capability": "action_sequence",
-            "mode": "conflict"
-          }
-        ]
-      },
-      {
         "sample_id": "galaxea-Arrange_Throw_Pillows_On_Living_Room_Sofa_20250624_002-69",
         "dataset": "Galaxea",
         "instruction_raw": "Pick up the long gray pillow on the left side of the sofa with your left hand. → Pick up the long gray pillow on the left side of the sofa with your left hand and place it vertically against the left backrest of the sofa. → Pick up the long gray pillow on the left side of the sofa with your left hand, and place it horizontally on the left armrest with your right hand. → Move body right to the front of the flat gray pillow on the right side of the sofa. → Grasp the pillow lying flat on the right side of the sofa with both hands and lean it against the right rear backrest.",
@@ -1451,6 +800,760 @@ var DEMO_DATA = {
             "answer": "no",
             "capability": "action_sequence",
             "mode": "conflict"
+          }
+        ]
+      },
+      {
+        "sample_id": "robocoin-Galbot_g1_steamer_storage_baozi_e-24",
+        "dataset": "RoboCoin",
+        "instruction_raw": "Grasp the baozi in the plate with right gripper → Place the baozi on the steamer with right gripper → Grasp the pot lid with left gripper → Place the pot lid on the steamer with left gripper → End",
+        "capability_summary": {
+          "action_sequence": 15,
+          "active_actor": 11,
+          "target_object": 7,
+          "initial_configuration": 5,
+          "final_configuration": 6,
+          "contact_and_approach": 6,
+          "trajectory_and_orientation": 6,
+          "object_interaction": 3,
+          "failure_and_recovery": 0,
+          "body_motion": 0
+        },
+        "atomic_facts_sample": [
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm grasps the first baozi.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the gripper fingers close around the top of the first baozi.",
+            "slot": "gripper_state",
+            "value": "closed"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the right arm places the first baozi into the steamer basket.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the first baozi grasp.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the first baozi placement.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "active_actor",
+            "fact_text": "the right arm performs the second baozi reach and grasp.",
+            "slot": "actor",
+            "value": "right arm"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the first manipulated object is a baozi.",
+            "slot": "category",
+            "value": "baozi"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the first baozi is white.",
+            "slot": "color",
+            "value": "white"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the second manipulated object is a baozi.",
+            "slot": "category",
+            "value": "baozi"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the first baozi starts on the farthest side of the plate.",
+            "slot": "initial_relation",
+            "value": "on the farthest side of the plate"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the second baozi starts closest to the steamer on the plate.",
+            "slot": "initial_relation",
+            "value": "closest to the steamer on the plate"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the third baozi starts on the nearest side of the plate.",
+            "slot": "initial_relation",
+            "value": "on the nearest side of the plate"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the first baozi ends in the farthest position inside the steamer basket.",
+            "slot": "final_relation",
+            "value": "in the farthest position inside the steamer basket"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the second baozi ends in the leftmost position inside the steamer basket.",
+            "slot": "final_relation",
+            "value": "in the leftmost position inside the steamer basket"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the third baozi ends in the nearest position inside the steamer basket.",
+            "slot": "final_relation",
+            "value": "in the nearest position inside the steamer basket"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the grasp on the first baozi contacts its top.",
+            "slot": "contact_region",
+            "value": "top"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the first baozi is approached from above.",
+            "slot": "approach_direction",
+            "value": "from above"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the second baozi is approached from above.",
+            "slot": "approach_direction",
+            "value": "from above"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the first baozi moves vertically downward into the steamer basket.",
+            "slot": "translation_direction",
+            "value": "vertically downward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the second baozi moves toward the steamer.",
+            "slot": "translation_direction",
+            "value": "toward the steamer"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the final baozi moves vertically upward off the surface.",
+            "slot": "translation_direction",
+            "value": "vertically upward off the surface"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "lowering the pot lid covers the baozi inside the steamer basket.",
+            "slot": "interaction_type",
+            "value": "cover"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "the pot lid's placement affects the three baozi inside the steamer basket.",
+            "slot": "affected_object",
+            "value": "three baozi inside the steamer basket"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "the three baozi inside the steamer basket become covered by the pot lid.",
+            "slot": "effect",
+            "value": "the three baozi become covered"
+          }
+        ],
+        "qas": [
+          {
+            "question": "Which baozi does the right arm pick up first from the plate?",
+            "options": [
+              "The one on the farthest side of the plate",
+              "The one on the nearest side of the plate",
+              "The one on the rightmost side of the plate",
+              "The one closest to the steamer"
+            ],
+            "answer": "The one on the farthest side of the plate",
+            "capability": "target_object",
+            "mode": "conflict"
+          },
+          {
+            "question": "Where does the right arm place the second baozi inside the steamer basket?",
+            "options": [
+              "In the leftmost position",
+              "In the nearest position",
+              "In the farthest position",
+              "In the rightmost position"
+            ],
+            "answer": "In the leftmost position",
+            "capability": "final_configuration",
+            "mode": "conflict"
+          },
+          {
+            "question": "Which part of the lid does the left arm grasp?",
+            "options": [
+              "The white handle",
+              "The beige handle",
+              "The yellow handle",
+              "The center of the lid"
+            ],
+            "answer": "The beige handle",
+            "capability": "contact_and_approach",
+            "mode": "gt_only"
+          },
+          {
+            "question": "After placing the second baozi into the steamer basket, does the right gripper release it?",
+            "options": [],
+            "answer": "yes",
+            "capability": "action_sequence",
+            "mode": "gt_only"
+          },
+          {
+            "question": "What happens immediately after the last baozi is placed into the steamer?",
+            "options": [
+              "The left arm grasps the lid handle from the table",
+              "The right arm picks a baozi back out of the steamer",
+              "The right arm grasps the lid handle from the table",
+              "The left arm picks a baozi back out of the steamer"
+            ],
+            "answer": "The right arm grasps the lid handle from the table",
+            "capability": "action_sequence",
+            "mode": "gt_only"
+          }
+        ]
+      },
+      {
+        "sample_id": "rh20t_robointer-RH20T-RoboInter-20449",
+        "dataset": "RH20T-RoboInter",
+        "instruction_raw": "pick up the puzzle piece from the top of the smooth surface → transfer the puzzle piece from the top of the smooth surface to the designated area on the puzzle board → place the puzzle piece in the designated area on the puzzle board → push the puzzle piece to the designated area on the puzzle board → press the puzzle piece",
+        "capability_summary": {
+          "action_sequence": 10,
+          "active_actor": 0,
+          "target_object": 3,
+          "initial_configuration": 2,
+          "final_configuration": 2,
+          "contact_and_approach": 5,
+          "trajectory_and_orientation": 5,
+          "object_interaction": 2,
+          "failure_and_recovery": 0,
+          "body_motion": 0
+        },
+        "atomic_facts_sample": [
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot approaches the puzzle piece from above.",
+            "slot": "primitive_action",
+            "value": "approach"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot grasps the puzzle piece with the two-fingered gripper.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "the robot lifts the puzzle piece.",
+            "slot": "primitive_action",
+            "value": "lift"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the manipulated object is a puzzle piece.",
+            "slot": "category",
+            "value": "puzzle piece"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the puzzle piece is colorful.",
+            "slot": "color",
+            "value": "colorful"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "the puzzle piece is pink.",
+            "slot": "color",
+            "value": "pink"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the puzzle piece is lying flat before manipulation begins.",
+            "slot": "initial_pose",
+            "value": "lying flat"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "the puzzle piece starts at the back-left of the puzzle board on the marble table.",
+            "slot": "initial_relation",
+            "value": "at the back-left of the puzzle board on the marble table"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the puzzle piece ends in the matching slot on the back-right of the puzzle board.",
+            "slot": "final_relation",
+            "value": "in the matching slot on the back-right of the puzzle board"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "the puzzle piece ends fully seated.",
+            "slot": "final_state",
+            "value": "fully seated"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the gripper contacts the sides of the puzzle piece.",
+            "slot": "contact_region",
+            "value": "sides"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the gripper approaches the puzzle piece from above for the grasp.",
+            "slot": "approach_direction",
+            "value": "from above"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "the puzzle piece is approached from above during placement toward the matching slot.",
+            "slot": "approach_direction",
+            "value": "from above"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the puzzle piece moves vertically upward during lifting.",
+            "slot": "translation_direction",
+            "value": "vertically upward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the puzzle piece moves vertically downward toward the matching slot.",
+            "slot": "translation_direction",
+            "value": "vertically downward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "the puzzle piece moves backward and to the right during the push.",
+            "slot": "translation_direction",
+            "value": "backward and to the right"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "the puzzle board is the secondary object affected during the push.",
+            "slot": "affected_object",
+            "value": "puzzle board"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "the puzzle board moves backward slightly when the puzzle piece is pushed.",
+            "slot": "effect",
+            "value": "moves backward slightly"
+          }
+        ],
+        "qas": [
+          {
+            "question": "Before pickup, where was the puzzle piece lying relative to the puzzle board?",
+            "options": [
+              "At the back-left of the puzzle board",
+              "At the front-left of the puzzle board",
+              "At the back-right of the puzzle board",
+              "Directly in front of the puzzle board"
+            ],
+            "answer": "At the back-left of the puzzle board",
+            "capability": "initial_configuration",
+            "mode": "conflict"
+          },
+          {
+            "question": "Which slot area was the puzzle piece lowered toward before release?",
+            "options": [
+              "The back-left slot of the puzzle board",
+              "The front-right slot of the puzzle board",
+              "The center slot of the puzzle board",
+              "The back-right slot of the puzzle board"
+            ],
+            "answer": "The back-right slot of the puzzle board",
+            "capability": "final_configuration",
+            "mode": "conflict"
+          },
+          {
+            "question": "When the robot nudged the puzzle piece after releasing it, in which direction was it pushed?",
+            "options": [
+              "Slightly backward to the right",
+              "Straight to the left",
+              "Straight forward",
+              "Slightly forward to the left"
+            ],
+            "answer": "Slightly backward to the right",
+            "capability": "trajectory_and_orientation",
+            "mode": "conflict"
+          },
+          {
+            "question": "Did the puzzle board itself move slightly during the push?",
+            "options": [],
+            "answer": "yes",
+            "capability": "object_interaction",
+            "mode": "conflict"
+          },
+          {
+            "question": "Which part of the puzzle piece did the gripper press down to seat it fully?",
+            "options": [
+              "The top surface of the left edge part",
+              "The top surface of the right edge part",
+              "The center of the top surface",
+              "The bottom edge"
+            ],
+            "answer": "The top surface of the left edge part",
+            "capability": "contact_and_approach",
+            "mode": "conflict"
+          }
+        ]
+      },
+      {
+        "sample_id": "droid_robointer-101726",
+        "dataset": "DROID-Robointer",
+        "instruction_raw": "pick up the pot from the sink → transfer the pot from the sink to the counter → place the pot on the counter",
+        "capability_summary": {
+          "action_sequence": 6,
+          "active_actor": 0,
+          "target_object": 2,
+          "initial_configuration": 1,
+          "final_configuration": 3,
+          "contact_and_approach": 2,
+          "trajectory_and_orientation": 4,
+          "object_interaction": 2,
+          "failure_and_recovery": 0,
+          "body_motion": 0
+        },
+        "atomic_facts_sample": [
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot approaches the metal pot.",
+            "slot": "primitive_action",
+            "value": "approach"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot grasps the metal pot.",
+            "slot": "primitive_action",
+            "value": "grasp"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot lifts the metal pot.",
+            "slot": "primitive_action",
+            "value": "lift"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "The manipulated object is a pot.",
+            "slot": "category",
+            "value": "pot"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "The pot is made of metal.",
+            "slot": "material",
+            "value": "metal"
+          },
+          {
+            "capability": "initial_configuration",
+            "fact_text": "The metal pot starts on the left side of the sink.",
+            "slot": "initial_workspace_location",
+            "value": "left side of the sink"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The metal pot ends on the front-right corner of the wooden counter surface.",
+            "slot": "final_workspace_location",
+            "value": "front-right corner of the wooden counter surface"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The metal pot ends upright.",
+            "slot": "final_pose",
+            "value": "upright"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The metal pot is released at the end of the manipulation.",
+            "slot": "final_state",
+            "value": "released"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The robot approaches the metal pot from above.",
+            "slot": "approach_direction",
+            "value": "from above"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The robot contacts the metal pot at its right rim.",
+            "slot": "contact_region",
+            "value": "right rim"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The metal pot moves vertically upward during lifting.",
+            "slot": "translation_direction",
+            "value": "vertically upward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The metal pot moves backward and to the left toward the counter.",
+            "slot": "translation_direction",
+            "value": "backward and to the left toward the counter"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The metal pot is translated only slightly during the move toward the counter.",
+            "slot": "translation_extent",
+            "value": "slightly"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "The black and white object on the central right side of the tabletop is the secondary object affected during the pot movement.",
+            "slot": "affected_object",
+            "value": "black and white object on the central right side of the tabletop"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "The black and white object on the central right side of the tabletop moves during the pot manipulation.",
+            "slot": "effect",
+            "value": "moved"
+          }
+        ],
+        "qas": [
+          {
+            "question": "Which part of the pot does the robot grasp to lift it?",
+            "options": [
+              "the handle",
+              "the left rim",
+              "the right rim",
+              "the bottom"
+            ],
+            "answer": "the right rim",
+            "capability": "contact_and_approach",
+            "mode": "conflict"
+          },
+          {
+            "question": "Before lifting, where is the pot located?",
+            "options": [
+              "the left side of the sink",
+              "the right side of the sink",
+              "the center of the sink",
+              "the wooden counter"
+            ],
+            "answer": "the left side of the sink",
+            "capability": "initial_configuration",
+            "mode": "conflict"
+          },
+          {
+            "question": "After lifting the pot, in which direction does the robot move it toward the counter?",
+            "options": [
+              "straight to the right",
+              "slightly backward and to the left",
+              "straight forward",
+              "slightly forward and to the right"
+            ],
+            "answer": "slightly backward and to the left",
+            "capability": "trajectory_and_orientation",
+            "mode": "conflict"
+          },
+          {
+            "question": "Where on the wooden counter is the pot finally placed?",
+            "options": [
+              "the front-right corner",
+              "the front-left corner",
+              "the center",
+              "the back edge"
+            ],
+            "answer": "the front-right corner",
+            "capability": "final_configuration",
+            "mode": "conflict"
+          },
+          {
+            "question": "Does moving the pot cause another object on the tabletop to move?",
+            "options": [],
+            "answer": "yes",
+            "capability": "object_interaction",
+            "mode": "conflict"
+          }
+        ]
+      },
+      {
+        "sample_id": "bridge-31544",
+        "dataset": "BridgeDataV2",
+        "instruction_raw": "moved the towel to the right of the stove",
+        "capability_summary": {
+          "action_sequence": 5,
+          "active_actor": 0,
+          "target_object": 2,
+          "initial_configuration": 0,
+          "final_configuration": 4,
+          "contact_and_approach": 2,
+          "trajectory_and_orientation": 2,
+          "object_interaction": 3,
+          "failure_and_recovery": 0,
+          "body_motion": 0
+        },
+        "atomic_facts_sample": [
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot presses the towel.",
+            "slot": "primitive_action",
+            "value": "press"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot moves the towel.",
+            "slot": "primitive_action",
+            "value": "move"
+          },
+          {
+            "capability": "action_sequence",
+            "fact_text": "The robot places the towel.",
+            "slot": "primitive_action",
+            "value": "place"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "The target object is a towel.",
+            "slot": "category",
+            "value": "towel"
+          },
+          {
+            "capability": "target_object",
+            "fact_text": "The towel is green.",
+            "slot": "color",
+            "value": "green"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The towel is flat at the end of the task.",
+            "slot": "final_pose",
+            "value": "flat"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The towel is on the black stovetop surface at the end of the task.",
+            "slot": "final_workspace_location",
+            "value": "on the black stovetop surface"
+          },
+          {
+            "capability": "final_configuration",
+            "fact_text": "The towel is in front of the blue scrubber at the end of the task.",
+            "slot": "final_relation",
+            "value": "in front of the blue scrubber"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The robot contacts the towel at its center.",
+            "slot": "contact_region",
+            "value": "center"
+          },
+          {
+            "capability": "contact_and_approach",
+            "fact_text": "The robot approaches the towel from above.",
+            "slot": "approach_direction",
+            "value": "from above"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The towel moves to the right and slightly backward.",
+            "slot": "translation_direction",
+            "value": "to the right and slightly backward"
+          },
+          {
+            "capability": "trajectory_and_orientation",
+            "fact_text": "The robot arm moves upward while retracting.",
+            "slot": "translation_direction",
+            "value": "upward"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "The towel pushes a secondary object during the move.",
+            "slot": "interaction_type",
+            "value": "push"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "The secondary object affected by the towel is the black and white object.",
+            "slot": "affected_object",
+            "value": "black and white object"
+          },
+          {
+            "capability": "object_interaction",
+            "fact_text": "The black and white object is pushed to the front right edge of the black stove.",
+            "slot": "effect",
+            "value": "moved to the front right edge of the black stove"
+          }
+        ],
+        "qas": [
+          {
+            "question": "What was the robot's initial action on the green towel?",
+            "options": [
+              "Press it",
+              "Grasp it",
+              "Pull it",
+              "Rotate it"
+            ],
+            "answer": "Press it",
+            "capability": "action_sequence",
+            "mode": "conflict"
+          },
+          {
+            "question": "Which part of the green towel did the robot contact from above at the start?",
+            "options": [
+              "The center",
+              "The top edge",
+              "The bottom edge",
+              "The left corner"
+            ],
+            "answer": "The center",
+            "capability": "contact_and_approach",
+            "mode": "conflict"
+          },
+          {
+            "question": "In which direction did the robot move the towel?",
+            "options": [
+              "To the right and slightly backward",
+              "Straight to the left",
+              "Straight forward",
+              "Straight upward"
+            ],
+            "answer": "To the right and slightly backward",
+            "capability": "trajectory_and_orientation",
+            "mode": "conflict"
+          },
+          {
+            "question": "Where was the green towel finally placed relative to the blue scrubber?",
+            "options": [
+              "In front of the blue scrubber",
+              "To the left of the blue scrubber",
+              "Behind the blue scrubber",
+              "On top of the blue scrubber"
+            ],
+            "answer": "In front of the blue scrubber",
+            "capability": "final_configuration",
+            "mode": "conflict"
+          },
+          {
+            "question": "While moving the towel, did the robot steer clear of other objects on the stove?",
+            "options": [],
+            "answer": "no",
+            "capability": "object_interaction",
+            "mode": "conflict"
+          },
+          {
+            "question": "During the draging of the towel, what other object is touched?",
+            "options": [
+              "Sushi toy and the brush",
+              "Sushi toy and metal pot",
+              "Sushi toy only",
+              "Brush only"
+            ],
+            "answer": "Sushi toy and the brush",
+            "capability": "action_sequence",
+            "mode": ""
           }
         ]
       }

@@ -292,6 +292,73 @@ $(document).ready(function () {
     $grid.html(html);
   }
 
+  // ===== REAL-WORLD STEERABILITY DEMO =====
+  var REAL_PAIRS = [
+    {
+      label: "Grasp Direction",
+      attribute: "Approach direction",
+      left: {file: "grasp_above", instruction: "Grasp the block from above, move it over the pink bowl, and release it."},
+      right: {file: "grasp_right", instruction: "Grasp the block from the right side, move it over the pink bowl, and release it."}
+    },
+    {
+      label: "Left / Right Hand",
+      attribute: "Hand selection",
+      left: {file: "left_pick_left_place", instruction: "Pick up the block with the left hand and place it into the left bowl."},
+      right: {file: "right_pick_right_place", instruction: "Pick up the block with the right hand and place it into the right bowl."}
+    },
+    {
+      label: "Object State",
+      attribute: "Object orientation",
+      left: {file: "pick_the_lying", instruction: "Pick up the cup lying on the table and place it into the box."},
+      right: {file: "pick_the_stand", instruction: "Pick up the standing cup on the table and place it into the box."}
+    },
+    {
+      label: "Object Color",
+      attribute: "Target color",
+      left: {file: "pick_blue_pen", instruction: "Put the blue pen into the pen cup."},
+      right: {file: "pick_red_pen", instruction: "Put the red pen into the pen cup."}
+    },
+    {
+      label: "Rotation Direction",
+      attribute: "Rotation direction",
+      left: {file: "rotate_clockwise", instruction: "Rotate the pen clockwise for 90 degrees."},
+      right: {file: "rotate_counterclockwise", instruction: "Rotate the pen counter-clockwise for 90 degrees."}
+    }
+  ];
+
+  function initRealWorld() {
+    var $tabs = $('#real-task-tabs ul');
+    REAL_PAIRS.forEach(function(p, i) {
+      $tabs.append('<li class="' + (i===0?'is-active':'') + '"><a data-idx="' + i + '">' + p.label + '</a></li>');
+    });
+    renderRealPair(0);
+    $tabs.on('click', 'a', function(e) {
+      e.preventDefault();
+      var idx = parseInt($(this).data('idx'));
+      $tabs.find('li').removeClass('is-active');
+      $(this).parent().addClass('is-active');
+      renderRealPair(idx);
+    });
+  }
+
+  function renderRealPair(idx) {
+    var p = REAL_PAIRS[idx];
+    var $grid = $('#real-video-grid').empty();
+    var html = '<div class="columns">';
+    [p.left, p.right].forEach(function(item) {
+      var src = './static/videos/real/' + item.file + '.mp4';
+      html += '<div class="column is-half">' +
+        '<div class="box" style="padding:0.75rem;">' +
+        '<div class="notification is-light" style="padding:0.5rem 0.75rem;margin-bottom:0.5rem;border-left:4px solid var(--accent-blue,#3b82f6);background:#f0f7ff;">' +
+        '<p class="is-size-7"><strong>Instruction:</strong> <em>"' + item.instruction + '"</em></p></div>' +
+        '<video controls muted loop playsinline width="100%" style="border-radius:8px;">' +
+        '<source src="' + src + '" type="video/mp4"></video>' +
+        '</div></div>';
+    });
+    html += '</div>';
+    $grid.html(html);
+  }
+
   // ===== Initialize all demos =====
   if (typeof DEMO_DATA !== 'undefined') {
     initRecap();
@@ -299,4 +366,5 @@ $(document).ready(function () {
     initBenchmark();
   }
   initSimComparison();
+  initRealWorld();
 });

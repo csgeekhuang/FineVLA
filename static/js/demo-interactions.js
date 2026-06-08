@@ -347,11 +347,11 @@ $(document).ready(function () {
     var html = '<div class="columns">';
     [p.left, p.right].forEach(function(item) {
       var src = './static/videos/real/' + item.file + '.mp4';
-      html += '<div class="column is-half">' +
-        '<div class="box" style="padding:0.75rem;">' +
-        '<div class="notification is-light" style="padding:0.5rem 0.75rem;margin-bottom:0.5rem;border-left:4px solid var(--accent-blue,#3b82f6);background:#f0f7ff;">' +
+      html += '<div class="column is-half" style="display:flex;">' +
+        '<div class="box" style="padding:0.75rem;width:100%;display:flex;flex-direction:column;">' +
+        '<div class="notification is-light" style="padding:0.5rem 0.75rem;margin-bottom:0.5rem;border-left:4px solid var(--accent-blue,#3b82f6);background:#f0f7ff;flex:0 0 auto;min-height:3.5em;display:flex;align-items:center;">' +
         '<p class="is-size-7"><strong>Instruction:</strong> <em>"' + item.instruction + '"</em></p></div>' +
-        '<video controls muted loop playsinline width="100%" style="border-radius:8px;">' +
+        '<video controls muted loop playsinline width="100%" style="border-radius:8px;flex:1 1 auto;">' +
         '<source src="' + src + '" type="video/mp4"></video>' +
         '</div></div>';
     });

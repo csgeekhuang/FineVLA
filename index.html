@@ -519,32 +519,66 @@
         <!-- Steerability Results Table -->
         <h4 class="title is-5" style="margin-top: 1rem;">Real-World Steerability Results</h4>
         <div class="table-container">
-          <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth" style="font-size:0.85rem;">
             <thead>
               <tr>
-                <th>Setting</th>
-                <th>FG:Raw Ratio</th>
-                <th>Avg. Score (/100)</th>
+                <th rowspan="2" style="vertical-align:middle;">Supervision</th>
+                <th colspan="7" class="has-text-centered">In-Distribution Tasks</th>
+                <th class="has-text-centered">OOD</th>
+                <th colspan="2" class="has-text-centered">Average</th>
+              </tr>
+              <tr>
+                <th>Clean Table</th>
+                <th>Stack Block</th>
+                <th>Color</th>
+                <th>Pose</th>
+                <th>Approach</th>
+                <th>Rotate</th>
+                <th>Arm</th>
+                <th>L→R<sup>†</sup></th>
+                <th>(ID)</th>
+                <th>(All)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Raw-only</td>
-                <td>0:1</td>
-                <td>49.9</td>
+                <td>72</td><td>35</td><td>22</td><td>24</td><td>60</td><td>76</td><td>60</td><td>0</td>
+                <td>49.9</td><td>43.6</td>
+              </tr>
+              <tr>
+                <td>FG:Raw = 1:4</td>
+                <td>76</td><td>36</td><td>28</td><td>32</td><td>65</td><td>79</td><td>61</td><td>0</td>
+                <td>53.9</td><td>47.1</td>
+              </tr>
+              <tr>
+                <td>FG:Raw = 1:2</td>
+                <td>79</td><td>39</td><td>36</td><td>48</td><td>76</td><td>87</td><td>63</td><td>5</td>
+                <td>61.1</td><td>54.1</td>
+              </tr>
+              <tr class="is-selected">
+                <td><strong>FG:Raw = 1:1</strong></td>
+                <td><strong>84</strong></td><td><strong>40</strong></td><td><strong>40</strong></td><td><strong>47</strong></td><td><strong>78</strong></td><td><strong>86</strong></td><td><strong>64</strong></td><td><strong>10</strong></td>
+                <td><strong>62.7</strong></td><td><strong>56.1</strong></td>
+              </tr>
+              <tr>
+                <td>FG:Raw = 2:1</td>
+                <td>80</td><td>38</td><td>34</td><td>42</td><td>72</td><td>83</td><td>62</td><td>5</td>
+                <td>58.7</td><td>52.0</td>
+              </tr>
+              <tr>
+                <td>FG:Raw = 4:1</td>
+                <td>74</td><td>37</td><td>31</td><td>43</td><td>72</td><td>83</td><td>62</td><td>5</td>
+                <td>57.4</td><td>50.9</td>
               </tr>
               <tr>
                 <td>FG-only</td>
-                <td>1:0</td>
-                <td>54.4</td>
-              </tr>
-              <tr class="is-selected">
-                <td><strong>Mixed (Best)</strong></td>
-                <td><strong>1:1</strong></td>
-                <td><strong>62.7</strong></td>
+                <td>70</td><td>35</td><td>25</td><td>41</td><td>70</td><td>80</td><td>60</td><td>0</td>
+                <td>54.4</td><td>47.6</td>
               </tr>
             </tbody>
           </table>
+          <p class="is-size-7 has-text-grey"><sup>†</sup> L→R: use left hand to place into right bowl — unseen actor-target combination (OOD compositional probe).</p>
         </div>
       </div>
     </div>

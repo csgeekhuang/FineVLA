@@ -10,7 +10,7 @@ To deploy on GitHub Pages, enable Pages in your repository settings and set the 
 
 ## Adding Assets
 
-Place your assets in the following paths:
+Place your assets in the following paths: 
 
 - `static/images/teaser.png` — Overview / teaser figure
 - `static/images/method.png` — Method pipeline figure

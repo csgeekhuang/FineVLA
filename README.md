@@ -21,11 +21,11 @@ Place your assets in the following paths:
 ## Citation
 
 ```bibtex
-@article{hu2025finevla,
+@article{hu2026finevla,
   title={FineVLA: Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies},
-  author={Hu, Xintong and Huang, Xuhong and Zhang, Jinyu and Yao, Yutong and Sun, Yuchong and Wang, Qiuyue and Li, Mingsheng and Xie, Sicheng and Liu, Yitao and Chen, Junhao and Chen, Yixuan and Zheng, Yingming and Bai, Shuai and Yu, Tao},
-  journal={arXiv preprint},
-  year={2025}
+  author={Hu, Xintong and Huang, Xuhong and Zhang, Jinyu and Yao, Yutong and Sun, Yuchong and Wang, Qiuyue and Li, Mingsheng and Xie, Sicheng and Liu, Yitao and Chen, Junhao and others},
+  journal={arXiv preprint arXiv:2605.27284},
+  year={2026}
 }
 ```
 

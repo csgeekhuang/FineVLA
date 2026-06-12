@@ -10,10 +10,15 @@ import json
 import csv
 import os
 import sys
+from urllib.parse import urlparse
 
 BASE_HR = "/mnt/cpfs_m6_29eu38p1/data/shared/Group-m6/tongzai.hxt/ItagDataAfterHumanReveiw/"
 BASE_CAPTION = "/mnt/cpfs_m6_29eu38p1/data/shared/Group-m6/tongzai.hxt/VLM4Robotics_Benchmark/CaptionEval/"
 BASE_EVAL = "/mnt/cpfs_m6_29eu38p1/data/shared/Group-m6/tongzai.hxt/VLM4Robotics_Benchmark/Eval_Set/"
+RB_BASE = "/mnt/cpfs_m6_29eu38p1/data/shared/Group-m6/tongzai.hxt/FineVLA/RoboFine-Bench/"
+RB_CAPTION_RESULT = os.path.join(RB_BASE, "caption_eval", "result", "caption")
+RB_DIRECT_ALIGN = os.path.join(RB_BASE, "caption_eval", "result", "DirectAlign")
+RB_EVAL = os.path.join(RB_BASE, "EvalData")
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 OUTPUT = os.path.join(PROJECT_DIR, "static", "js", "demo-data.js")
@@ -38,25 +43,48 @@ CAPABILITY_LABELS = {
     "failure_and_recovery": "Failure & Recovery",
 }
 
-# Model display names mapping
-MODEL_DISPLAY = {
-    "Qwen36-SFT": "RoboFine-VLM (Ours)",
-    "Qwen36-SFT_T0.7": "RoboFine-VLM T0.7",
-    "openai_gpt-5_4-2026-03-05": "GPT-5.4",
-    "vertex_ai_gemini-3_1-pro-preview": "Gemini 3.1 Pro",
-    "doubao_doubao-seed-2-0-pro-260215": "Doubao Seed 2.0 Pro",
-    "qwen3-vl-plus": "Qwen3-VL-Plus",
-    "qwen3_5-plus": "Qwen3.5-Plus",
-}
-
-# Models to show in VLM comparison (skip T0.7 duplicate)
+# Models to show in VLM comparison.
+# Per user request: RoboFine-VLM and Gemini use easy-mode captions/scores,
+# while the remaining models use hard-mode captions/scores.
 VLM_MODELS = [
-    ("Qwen36-SFT", "Qwen36-SFT_CaptionResult.jsonl", "RoboFine-VLM (Ours)"),
-    ("openai_gpt-5_4-2026-03-05", "openai_gpt-5_4-2026-03-05_CaptionResult.jsonl", "GPT-5.4"),
-    ("vertex_ai_gemini-3_1-pro-preview", "vertex_ai_gemini-3_1-pro-preview_CaptionResult.jsonl", "Gemini 3.1 Pro"),
-    ("doubao_doubao-seed-2-0-pro-260215", "doubao_doubao-seed-2-0-pro-260215_CaptionResult.jsonl", "Doubao Seed 2.0 Pro"),
-    ("qwen3_5-plus", "qwen3_5-plus_CaptionResult.jsonl", "Qwen3.5-Plus"),
-    ("qwen3-vl-plus", "qwen3-vl-plus_CaptionResult.jsonl", "Qwen3-VL-Plus"),
+    {
+        "display": "RoboFine-VLM (Ours)",
+        "caption_file": os.path.join(RB_CAPTION_RESULT, "easy", "RoboFine-VLM_CaptionResult.jsonl"),
+        "score_file": os.path.join(RB_DIRECT_ALIGN, "easy", "RoboFine-VLM", "scored_results.jsonl"),
+    },
+    {
+        "display": "GPT-5.4",
+        "caption_file": os.path.join(RB_CAPTION_RESULT, "hard", "openai_gpt-5_4-2026-03-05_CaptionResult.jsonl"),
+        "score_file": os.path.join(RB_DIRECT_ALIGN, "hard", "openai_gpt-5_4-2026-03-05", "scored_results.jsonl"),
+    },
+    {
+        "display": "Gemini 3.1 Pro",
+        "caption_file": os.path.join(RB_CAPTION_RESULT, "easy", "vertex_ai_gemini-3_1-pro-preview_CaptionResult.jsonl"),
+        "score_file": os.path.join(RB_DIRECT_ALIGN, "easy", "vertex_ai_gemini-3_1-pro-preview", "scored_results.jsonl"),
+    },
+    {
+        "display": "Doubao Seed 2.0 Pro",
+        "caption_file": os.path.join(RB_CAPTION_RESULT, "hard", "doubao_doubao-seed-2-0-pro-260215_CaptionResult.jsonl"),
+        "score_file": os.path.join(RB_DIRECT_ALIGN, "hard", "doubao_doubao-seed-2-0-pro-260215", "scored_results.jsonl"),
+    },
+    {
+        "display": "Qwen3.5-Plus",
+        "caption_file": os.path.join(RB_CAPTION_RESULT, "hard", "qwen3_5-plus_CaptionResult.jsonl"),
+        "score_file": os.path.join(RB_DIRECT_ALIGN, "hard", "qwen3_5-plus", "scored_results.jsonl"),
+    },
+    {
+        "display": "Qwen3-VL-Plus",
+        "caption_file": os.path.join(RB_CAPTION_RESULT, "hard", "qwen3-vl-plus_CaptionResult.jsonl"),
+        "score_file": os.path.join(RB_DIRECT_ALIGN, "hard", "qwen3-vl-plus", "scored_results.jsonl"),
+    },
+]
+
+# Curated high-scoring multi-view samples for the project page.
+VLM_FEATURED_SAMPLES = [
+    "rh20t_robointer-RH20T-RoboInter-45096",
+    "robomindv2-105-pack_egg_into_box_and_close_box_lid-106",
+    "robomindv2-place_blue_block_between_orange_and_purple_blocks-259",
+    "robocoin-Cobot_Magic_pull_zipper-615",
 ]
 
 
@@ -138,108 +166,162 @@ def load_instruction_map():
     return {entry["sample_id"]: normalize_instruction(entry.get("instruction_raw", "")) for entry in data}
 
 
+def load_eval_map():
+    """Load full benchmark metadata keyed by sample_id."""
+    filepath = os.path.join(BASE_EVAL, "EvalSets.json")
+    with open(filepath) as f:
+        data = json.load(f)
+    return {entry["sample_id"]: entry for entry in data}
+
+
 def sample_vlm_comparison():
     """Demo 2: Sample 4 VLM comparison examples + score table."""
     print("\n[Demo 2] VLM Caption Comparison")
-    instr_map = load_instruction_map()
+    eval_path = os.path.join(RB_EVAL, "EvalSets.json")
+    with open(eval_path) as f:
+        eval_map = {entry["sample_id"]: entry for entry in json.load(f)}
+    instr_map = {
+        sample_id: normalize_instruction(entry.get("instruction_raw", ""))
+        for sample_id, entry in eval_map.items()
+    }
 
     # Step 1: Load per-sample scores for each model
-    model_scores = {}  # model_key -> {sample_id -> caption_score}
-    for model_key, _, display_name in VLM_MODELS:
-        score_dir = os.path.join(
-            BASE_CAPTION, "AtomicResult", "DirectAlign", f"{model_key}_hard"
-        )
-        score_file = os.path.join(score_dir, "scored_results.jsonl")
-        if not os.path.exists(score_file):
-            print(f"  WARNING: {score_file} not found")
-            continue
+    model_scores = {}  # display -> {sample_id -> caption_score}
+    for model in VLM_MODELS:
+        score_file = model["score_file"]
+        display_name = model["display"]
         scores = {}
         with open(score_file) as f:
             for line in f:
                 entry = json.loads(line)
                 if entry.get("status") == "ok":
                     scores[entry["sample_id"]] = entry.get("caption_score", 0)
-        model_scores[model_key] = scores
+        model_scores[display_name] = scores
         print(f"  Loaded {len(scores)} scores for {display_name}")
 
-    # Step 2: Find samples with max divergence (Ours highest, others lowest)
-    our_key = "Qwen36-SFT"
-    other_keys = [k for k, _, _ in VLM_MODELS if k != our_key]
+    # Step 2: Use curated multi-view samples under the mixed easy/hard setting.
+    our_key = "RoboFine-VLM (Ours)"
+    other_keys = [m["display"] for m in VLM_MODELS if m["display"] != our_key]
     our_scores = model_scores.get(our_key, {})
-
-    divergence = []
-    for sid, our_score in our_scores.items():
-        other_scores_list = [
-            model_scores.get(k, {}).get(sid) for k in other_keys
-        ]
-        other_scores_list = [s for s in other_scores_list if s is not None]
-        if len(other_scores_list) < 4:
+    selected_sids = []
+    for sid in VLM_FEATURED_SAMPLES:
+        item = eval_map.get(sid)
+        if not item:
             continue
-        min_other = min(other_scores_list)
-        avg_other = sum(other_scores_list) / len(other_scores_list)
-        div = our_score - avg_other
-        # Require instruction_raw to be available
-        if not instr_map.get(sid):
+        if sid not in our_scores:
             continue
-        divergence.append((sid, div, our_score, avg_other))
+        if len(item.get("views", {})) < 2:
+            continue
+        selected_sids.append(sid)
 
-    divergence.sort(key=lambda x: -x[1])
-    selected_sids = [d[0] for d in divergence[:4]]
-    print(f"  Selected {len(selected_sids)} divergent samples")
-    for sid, div, ours, avg_other in divergence[:4]:
-        print(f"    {sid}: ours={ours:.3f}, avg_other={avg_other:.3f}, div={div:.3f}")
+    if selected_sids:
+        print(f"  Selected {len(selected_sids)} curated mixed-source multi-view samples")
+        for sid in selected_sids:
+            other_scores = [
+                model_scores.get(k, {}).get(sid)
+                for k in other_keys
+                if model_scores.get(k, {}).get(sid) is not None
+            ]
+            avg_other = (
+                sum(other_scores) / len(other_scores) if other_scores else 0.0
+            )
+            print(
+                f"    {sid}: ours={our_scores[sid]:.3f}, "
+                f"avg_other={avg_other:.3f}, views={len(eval_map[sid].get('views', {}))}"
+            )
+    else:
+        # Fallback: absolute high-score, multi-view samples, then tie-break by average
+        # competitor score so that showcased examples remain discriminative.
+        candidates = []
+        for sid, our_score in our_scores.items():
+            item = eval_map.get(sid)
+            if not item or len(item.get("views", {})) < 2:
+                continue
+            other_scores = [
+                model_scores.get(k, {}).get(sid) for k in other_keys
+            ]
+            other_scores = [s for s in other_scores if s is not None]
+            if len(other_scores) < 4:
+                continue
+            if not instr_map.get(sid):
+                continue
+            avg_other = sum(other_scores) / len(other_scores)
+            candidates.append((our_score, avg_other, sid))
+
+        candidates.sort(key=lambda x: (-x[0], x[1], x[2]))
+        selected_sids = [sid for _, _, sid in candidates[:4]]
+        print(f"  Selected {len(selected_sids)} fallback mixed-source multi-view samples")
+        for our_score, avg_other, sid in candidates[:4]:
+            print(f"    {sid}: ours={our_score:.3f}, avg_other={avg_other:.3f}")
 
     # Step 3: Load captions for selected samples
-    model_captions = {}  # model_key -> {sample_id -> caption_result}
-    for model_key, filename, display_name in VLM_MODELS:
-        caption_file = os.path.join(
-            BASE_CAPTION, "CaptionResult", "hard", filename
-        )
+    model_captions = {}  # display -> {sample_id -> caption_result}
+    for model in VLM_MODELS:
+        caption_file = model["caption_file"]
+        display_name = model["display"]
         captions = {}
         with open(caption_file) as f:
             for line in f:
                 entry = json.loads(line)
                 if entry["sample_id"] in selected_sids:
                     captions[entry["sample_id"]] = entry.get("caption_result", [])
-        model_captions[model_key] = captions
+        model_captions[display_name] = captions
 
     # Build samples
     samples = []
     for sid in selected_sids:
+        item = eval_map.get(sid, {})
+        view_names = item.get("meta", {}).get("view_names", [])
         sample = {
             "sample_id": sid,
-            "dataset": sid.split("-")[0].replace("_", " ").upper()
-            if "-" in sid
-            else sid,
+            "dataset": item.get(
+                "dataset",
+                sid.split("-")[0].replace("_", " ").upper() if "-" in sid else sid,
+            ),
             "instruction_raw": instr_map.get(sid, ""),
+            "views": [
+                {
+                    "label": view_name,
+                    "src": f"./static/videos/demos/{sid}/{view_name}.mp4",
+                }
+                for view_name in view_names
+            ],
             "captions": {},
         }
-        for model_key, _, display_name in VLM_MODELS:
+        for model in VLM_MODELS:
+            display_name = model["display"]
             sample["captions"][display_name] = model_captions.get(
-                model_key, {}
+                display_name, {}
             ).get(sid, [])
         samples.append(sample)
 
-    # Step 4: Load aggregate score table from CSV
-    csv_path = os.path.join(
-        BASE_CAPTION,
-        "AtomicResult",
-        "DirectAlign",
-        "cross_model_summary_hard.csv",
-    )
+    # Step 4: Keep the aggregate table on the official hard benchmark.
+    csv_path = os.path.join(RB_DIRECT_ALIGN, "cross_model_summary_hard-final.csv")
+    score_name_map = {
+        "RoboFine-VLM": "RoboFine-VLM (Ours)",
+        "openai_gpt-5_4-2026-03-05": "GPT-5.4",
+        "vertex_ai_gemini-3_1-pro-preview": "Gemini 3.1 Pro",
+        "vertex_ai_gemini-3_1-pro-preview_image_newGT": "Gemini 3.1 Pro",
+        "doubao_doubao-seed-2-0-pro-260215": "Doubao Seed 2.0 Pro",
+        "qwen3_5-plus": "Qwen3.5-Plus",
+        "qwen3-vl-plus": "Qwen3-VL-Plus",
+    }
     score_table = []
     with open(csv_path) as f:
         reader = csv.DictReader(f)
         for row in reader:
+            row = {k.strip(): (v.strip() if isinstance(v, str) else v) for k, v in row.items()}
             model_name = row["model_name"]
-            display = MODEL_DISPLAY.get(model_name, model_name)
+            if model_name not in score_name_map:
+                continue
+            display = score_name_map[model_name]
             score_table.append(
                 {
                     "model": display,
-                    "caption_score": float(row["caption_score"]),
-                    "consistency": float(row["consistency"]),
-                    "coverage": float(row["coverage"]),
-                    "anti_hallucination": float(row["anti_hallucination"]),
+                    "caption_score": float(row["mean_caption_score"]),
+                    "consistency": float(row["mean_consistency_score"]),
+                    "coverage": float(row["mean_weighted_coverage"]),
+                    "anti_hallucination": float(row["mean_weighted_anti_hallucination"]),
                     "is_ours": "Ours" in display,
                 }
             )
@@ -275,8 +357,12 @@ def sample_benchmark():
                 af_map[entry["sample_id"]] = entry["capability_results"]
     print(f"  Loaded {len(af_map)} atomic fact samples")
 
-    # Load instruction_raw from EvalSets.json
-    instr_map = load_instruction_map()
+    # Load benchmark metadata from EvalSets.json
+    eval_map = load_eval_map()
+    instr_map = {
+        sample_id: normalize_instruction(entry.get("instruction_raw", ""))
+        for sample_id, entry in eval_map.items()
+    }
 
     # Find samples present in both QA and AF, score by diversity
     candidates = []
@@ -296,8 +382,7 @@ def sample_benchmark():
             cap_summary[cap] = len(facts)
             if facts:
                 populated_caps += 1
-                # Take up to 3 representative facts per capability
-                for fact in facts[:3]:
+                for fact in facts:
                     all_facts.append(
                         {
                             "capability": cap,
@@ -314,6 +399,20 @@ def sample_benchmark():
                 "sample_id": sid,
                 "dataset": sid.split("-")[0].replace("_", " "),
                 "instruction_raw": instr_map.get(sid, ""),
+                "gt_instruction": " ".join(eval_map.get(sid, {}).get("GT", [])),
+                "views": [
+                    {
+                        "label": view_name,
+                        "src": f"./static/videos/benchmark/{sid}/{view_name}.mp4?v=20260612-1",
+                    }
+                    for view_name in (eval_map.get(sid, {}).get("meta", {}) or {}).get("view_names", [])
+                ] or [
+                    {
+                        "label": os.path.splitext(os.path.basename(urlparse(url).path))[0],
+                        "src": f"./static/videos/benchmark/{sid}/{os.path.basename(urlparse(url).path)}?v=20260612-1",
+                    }
+                    for _, url in sorted((eval_map.get(sid, {}).get("views", {}) or {}).items())
+                ],
                 "capability_summary": cap_summary,
                 "atomic_facts_sample": all_facts,
                 "qas": [
@@ -393,13 +492,13 @@ def main():
         "vlm_comparison": {
             "samples": vlm["samples"],
             "score_table": vlm["scores"],
-            "setting": "hard",
+            "setting": "mixed_easy_hard",
         },
         "benchmark": {
             "samples": benchmark,
             "stats": {
                 "total_videos": 500,
-                "total_atomic_facts": 10816,
+                "total_atomic_facts": 11631,
                 "total_qa_pairs": 1030,
                 "capability_dimensions": 10,
             },

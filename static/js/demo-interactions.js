@@ -1,50 +1,220 @@
 // Interactive demo logic for FineVLA project page
 $(document).ready(function () {
+  var isVlmCaptionsExpanded = false;
+
+  function escapeHtml(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
   // Helper: render a video player for a sample
-  function renderVideo(containerId, sampleId) {
+  function renderVideo(containerId, sampleId, options) {
+    var opts = options || {};
     var $c = $(containerId).empty();
     var src = './static/videos/demos/' + sampleId + '.mp4';
+    var videoClass = opts.videoClass || 'demo-video-player';
     $c.append(
-      '<video controls muted loop playsinline style="max-width:480px;width:100%;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.15);">' +
+      '<video controls muted loop playsinline preload="metadata" class="' + videoClass + '">' +
       '<source src="' + src + '" type="video/mp4">' +
       '</video>'
     );
   }
 
+  function formatViewLabel(label) {
+    return String(label || '')
+      .replace(/_/g, ' ')
+      .replace(/\brgb\b/gi, 'RGB')
+      .replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
+  }
+
+  function renderVideoGallery(containerId, views, fallbackSampleId, options) {
+    var opts = options || {};
+    var $c = $(containerId).empty();
+    if (!views || views.length === 0) {
+      renderVideo(containerId, fallbackSampleId);
+      return;
+    }
+    var compact = !!opts.compact;
+    var groupId = 'vlm-group-' + Math.random().toString(36).slice(2, 9);
+    var galleryClass = compact ? 'video-gallery video-gallery-compact' : 'video-gallery';
+    if (compact && views.length === 1) {
+      galleryClass += ' video-gallery-single-compact';
+    }
+    var columnClass = views.length === 1
+      ? (compact ? 'is-half-desktop is-half-tablet is-full-mobile' : 'is-two-thirds-desktop is-full-mobile')
+      : (views.length === 2 ? 'is-half-desktop is-full-mobile' : 'is-one-third-desktop is-full-mobile');
+    var boxClass = compact ? 'box video-gallery-box video-gallery-box-compact' : 'box video-gallery-box';
+    var labelClass = compact ? 'video-gallery-label video-gallery-label-compact' : 'video-gallery-label';
+    var controlsClass = compact ? 'box video-gallery-controls video-gallery-controls-compact' : 'box video-gallery-controls';
+    var html = '<div class="columns is-multiline is-centered ' + galleryClass + '">';
+    views.forEach(function (view) {
+      html +=
+        '<div class="column ' + columnClass + '">' +
+        '<div class="' + boxClass + '">' +
+        '<p class="' + labelClass + '">' + formatViewLabel(view.label) + '</p>' +
+        '<video class="vlm-sync-video" data-sync-group="' + groupId + '" muted loop playsinline preload="metadata" width="100%" style="border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);background:#000;">' +
+        '<source src="' + view.src + '" type="video/mp4">' +
+        '</video>' +
+        '</div></div>';
+    });
+    html += '</div>';
+    html +=
+      '<div class="' + controlsClass + '">' +
+      '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">' +
+      '<button type="button" class="button is-small is-link is-light vlm-sync-toggle" data-sync-group="' + groupId + '">Play</button>' +
+      '<input type="range" min="0" max="1000" value="0" class="vlm-sync-range" data-sync-group="' + groupId + '" style="flex:1;min-width:220px;">' +
+      '<span class="is-size-7 has-text-grey vlm-sync-time" data-sync-group="' + groupId + '">0:00 / 0:00</span>' +
+      '</div>' +
+      '</div>';
+    $c.append(html);
+    initSyncedVideos($c, groupId);
+  }
+
+  function formatTime(seconds) {
+    if (!isFinite(seconds) || seconds < 0) return '0:00';
+    var mins = Math.floor(seconds / 60);
+    var secs = Math.floor(seconds % 60);
+    return mins + ':' + String(secs).padStart(2, '0');
+  }
+
+  function initSyncedVideos($container, groupId) {
+    var videos = $container.find('video[data-sync-group="' + groupId + '"]');
+    var $toggle = $container.find('.vlm-sync-toggle[data-sync-group="' + groupId + '"]');
+    var $range = $container.find('.vlm-sync-range[data-sync-group="' + groupId + '"]');
+    var $time = $container.find('.vlm-sync-time[data-sync-group="' + groupId + '"]');
+    var isSeeking = false;
+    var isSyncing = false;
+
+    function getMaster() {
+      return videos.get(0);
+    }
+
+    function syncTimes(source) {
+      if (isSyncing) return;
+      isSyncing = true;
+      var currentTime = source.currentTime;
+      videos.each(function () {
+        if (this === source) return;
+        if (Math.abs(this.currentTime - currentTime) > 0.08) {
+          this.currentTime = currentTime;
+        }
+      });
+      isSyncing = false;
+    }
+
+    function updateControls() {
+      var master = getMaster();
+      if (!master) return;
+      var duration = master.duration || 0;
+      var currentTime = master.currentTime || 0;
+      if (!isSeeking && duration > 0) {
+        $range.val(Math.round((currentTime / duration) * 1000));
+      }
+      $time.text(formatTime(currentTime) + ' / ' + formatTime(duration));
+      var isPlaying = videos.toArray().some(function (video) { return !video.paused && !video.ended; });
+      $toggle.text(isPlaying ? 'Pause' : 'Play');
+    }
+
+    function playAll() {
+      var master = getMaster();
+      if (!master) return;
+      var currentTime = master.currentTime || 0;
+      videos.each(function () {
+        this.currentTime = currentTime;
+        var playPromise = this.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function () {});
+        }
+      });
+      updateControls();
+    }
+
+    function pauseAll() {
+      videos.each(function () {
+        this.pause();
+      });
+      updateControls();
+    }
+
+    $toggle.on('click', function () {
+      var isPlaying = videos.toArray().some(function (video) { return !video.paused && !video.ended; });
+      if (isPlaying) {
+        pauseAll();
+      } else {
+        playAll();
+      }
+    });
+
+    $range.on('input', function () {
+      var master = getMaster();
+      if (!master || !master.duration) return;
+      isSeeking = true;
+      var currentTime = (parseFloat(this.value) / 1000) * master.duration;
+      videos.each(function () {
+        this.currentTime = currentTime;
+      });
+      updateControls();
+    });
+
+    $range.on('change', function () {
+      isSeeking = false;
+      updateControls();
+    });
+
+    videos.on('timeupdate', function () {
+      syncTimes(this);
+      updateControls();
+    });
+
+    videos.on('play pause ended loadedmetadata seeking seeked', function () {
+      if (this.readyState >= 1) {
+        syncTimes(this);
+      }
+      updateControls();
+    });
+
+    updateControls();
+  }
+
   // ===== DEMO 1: Fine-Grained Annotation Showcase =====
   function initRecap() {
     var samples = DEMO_DATA.recap.samples;
-    var $select = $('#recap-sample-select');
+    var $rail = $('#recap-sample-rail').empty();
     samples.forEach(function (s, i) {
-      $select.append('<option value="' + i + '">' + s.dataset + ' \u2014 "' + s.instruction_raw + '"</option>');
+      var title = escapeHtml(s.instruction_raw);
+      var dataset = escapeHtml(s.dataset);
+      $rail.append(
+        '<button type="button" class="recap-sample-chip' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '">' +
+        '<span class="recap-sample-chip-kicker">Sample ' + (i + 1) + ' · ' + dataset + '</span>' +
+        '<span class="recap-sample-chip-title">' + title + '</span>' +
+        '</button>'
+      );
     });
     renderRecap(0);
-    $select.on('change', function () {
-      renderRecap(parseInt(this.value));
+    $rail.on('click', '.recap-sample-chip', function () {
+      renderRecap(parseInt($(this).data('idx'), 10));
     });
   }
 
   function renderRecap(idx) {
     var s = DEMO_DATA.recap.samples[idx];
-    renderVideo('#recap-video-container', s.sample_id);
+    renderVideo('#recap-video-container', s.sample_id, {
+      videoClass: 'demo-video-player recap-video-player'
+    });
+    $('#recap-sample-rail .recap-sample-chip').removeClass('is-active');
+    var $activeChip = $('#recap-sample-rail .recap-sample-chip[data-idx="' + idx + '"]');
+    $activeChip.addClass('is-active');
+    if ($activeChip.length && $activeChip[0].scrollIntoView) {
+      $activeChip[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
     $('#recap-dataset-tag').text(s.dataset);
     $('#recap-robot-tag').text(s.robot_type);
     $('#recap-instruction-text').text('"' + s.instruction_raw + '"');
-    // Show steps_raw if available
-    var $rawSteps = $('#recap-raw-steps').empty();
-    if (s.steps_raw && s.steps_raw.length > 0) {
-      $('#recap-raw-label').text('Original Step Annotation');
-      s.steps_raw.forEach(function (step) {
-        $rawSteps.append('<li>' + step + '</li>');
-      });
-      $rawSteps.show();
-      $('#recap-raw-wc').text(s.steps_raw.length + ' steps');
-    } else {
-      $('#recap-raw-label').text('Goal-Level Instruction');
-      $rawSteps.hide();
-      $('#recap-raw-wc').text(s.instruction_word_count + ' words');
-    }
+    $('#recap-raw-wc').text(s.instruction_word_count + ' words');
     var $list = $('#recap-steps-list').empty();
     s.human_review.forEach(function (step) {
       $list.append('<li>' + step + '</li>');
@@ -56,9 +226,14 @@ $(document).ready(function () {
   function initVLM() {
     var samples = DEMO_DATA.vlm_comparison.samples;
     var $tabs = $('#vlm-sample-tabs ul');
+    var $toggle = $('#vlm-caption-toggle');
     samples.forEach(function (s, i) {
       var ds = s.dataset.split('-')[0];
       $tabs.append('<li class="' + (i === 0 ? 'is-active' : '') + '"><a data-idx="' + i + '">Sample ' + (i + 1) + '</a></li>');
+    });
+    $toggle.on('click', function () {
+      isVlmCaptionsExpanded = !isVlmCaptionsExpanded;
+      syncVlmCaptionToggle();
     });
     renderVLM(0);
     $tabs.on('click', 'a', function (e) {
@@ -71,16 +246,31 @@ $(document).ready(function () {
     renderVLMScoreTable();
   }
 
+  function syncVlmCaptionToggle() {
+    var $toggle = $('#vlm-caption-toggle');
+    var $cards = $('#vlm-caption-cards-extra');
+    var hasExtraCards = $cards.children().length > 0;
+    $('.vlm-caption-toggle-wrap').toggle(hasExtraCards);
+    if (!hasExtraCards) {
+      isVlmCaptionsExpanded = false;
+    }
+    $cards.toggle(hasExtraCards && isVlmCaptionsExpanded);
+    $toggle.toggleClass('is-expanded', isVlmCaptionsExpanded);
+    $toggle.attr('aria-expanded', isVlmCaptionsExpanded ? 'true' : 'false');
+    $toggle.find('span').first().text(isVlmCaptionsExpanded ? 'Hide Additional Model Captions' : 'Show All Model Captions');
+  }
+
   function renderVLM(idx) {
     var s = DEMO_DATA.vlm_comparison.samples[idx];
     $('#vlm-instruction').text(s.instruction_raw || '(vision-only, no instruction provided)');
-    renderVideo('#vlm-video-container', s.sample_id);
-    var $cards = $('#vlm-caption-cards').empty();
+    renderVideoGallery('#vlm-video-container', s.views, s.sample_id);
+    var $primaryCards = $('#vlm-caption-cards-primary').empty();
+    var $extraCards = $('#vlm-caption-cards-extra').empty();
     var modelOrder = [
       "RoboFine-VLM (Ours)", "GPT-5.4", "Gemini 3.1 Pro",
       "Doubao Seed 2.0 Pro", "Qwen3.5-Plus", "Qwen3-VL-Plus"
     ];
-    modelOrder.forEach(function (model) {
+    function buildCaptionCard(model) {
       var steps = s.captions[model] || [];
       var isOurs = model.indexOf('Ours') >= 0;
       var cardClass = isOurs ? 'vlm-card vlm-card-ours' : 'vlm-card';
@@ -100,14 +290,22 @@ $(document).ready(function () {
         var tokens = ts.total_tokens > 1000 ? (ts.total_tokens / 1000).toFixed(1) + 'K' : ts.total_tokens;
         statsHtml = '<div class="vlm-stats"><span class="icon is-small"><i class="fas fa-coins"></i></span> ' + tokens + ' tokens &nbsp; <span class="icon is-small"><i class="fas fa-clock"></i></span> ' + ts.elapsed_sec + 's</div>';
       }
-      $cards.append(
+      return (
         '<div class="column is-one-third-desktop is-half-tablet">' +
         '<div class="card ' + cardClass + '">' +
         '<div class="card-header"><p class="card-header-title">' + model + crown + '</p></div>' +
         '<div class="card-content">' + stepsHtml + statsHtml + '</div>' +
         '</div></div>'
       );
+    }
+
+    modelOrder.slice(0, 3).forEach(function (model) {
+      $primaryCards.append(buildCaptionCard(model));
     });
+    modelOrder.slice(3).forEach(function (model) {
+      $extraCards.append(buildCaptionCard(model));
+    });
+    syncVlmCaptionToggle();
   }
 
   function renderVLMScoreTable() {
@@ -117,11 +315,11 @@ $(document).ready(function () {
       var trClass = isOurs ? 'model-ours' : '';
       $tbody.append(
         '<tr class="' + trClass + '">' +
-        '<td>' + row.model + (isOurs ? ' <i class="fas fa-crown" style="color:#48c774;"></i>' : '') + '</td>' +
-        '<td>' + (row.caption_score * 100).toFixed(1) + '</td>' +
-        '<td>' + (row.consistency * 100).toFixed(1) + '</td>' +
-        '<td>' + (row.coverage * 100).toFixed(1) + '</td>' +
-        '<td>' + (row.anti_hallucination * 100).toFixed(1) + '</td>' +
+        '<td class="has-text-centered">' + row.model + (isOurs ? ' <i class="fas fa-crown" style="color:#48c774;"></i>' : '') + '</td>' +
+        '<td class="has-text-centered">' + (row.caption_score * 100).toFixed(1) + '</td>' +
+        '<td class="has-text-centered">' + (row.consistency * 100).toFixed(1) + '</td>' +
+        '<td class="has-text-centered">' + (row.coverage * 100).toFixed(1) + '</td>' +
+        '<td class="has-text-centered">' + (row.anti_hallucination * 100).toFixed(1) + '</td>' +
         '</tr>'
       );
     });
@@ -149,9 +347,9 @@ $(document).ready(function () {
     var s = DEMO_DATA.benchmark.samples[idx];
     var labels = DEMO_DATA.benchmark.capability_labels;
 
-    // Show instruction
-    $('#bench-instruction').text(s.instruction_raw || '(not available)');
-    renderVideo('#bench-video-container', s.sample_id);
+    // Show GT fine-grained instruction
+    $('#bench-instruction').text(s.gt_instruction || '(not available)');
+    renderVideoGallery('#bench-video-container', s.views, s.sample_id, { compact: true });
 
     // Capability badges
     var $tags = $('#bench-cap-tags').empty();
@@ -197,7 +395,7 @@ $(document).ready(function () {
 
     // VQA questions
     var $vqa = $('#bench-vqa-cards').empty();
-    s.qas.forEach(function (qa, qi) {
+    function buildQaCard(qa, qi) {
       var optionsHtml = '';
       if (qa.options && qa.options.length > 0) {
         qa.options.forEach(function (opt) {
@@ -207,7 +405,7 @@ $(document).ready(function () {
         optionsHtml = '<p class="has-text-grey">Yes / No</p>';
       }
       var capLabel = labels[qa.capability] || qa.capability;
-      $vqa.append(
+      return (
         '<div class="card bench-qa-card" style="margin-bottom:1rem;">' +
         '<div class="card-content">' +
         '<div class="tags" style="margin-bottom:0.5rem;"><span class="tag is-info is-light">' + capLabel + '</span></div>' +
@@ -219,7 +417,24 @@ $(document).ready(function () {
         '</p>' +
         '</div></div>'
       );
-    });
+    }
+
+    if (s.qas.length > 0) {
+      $vqa.append(buildQaCard(s.qas[0], 0));
+    }
+
+    if (s.qas.length > 1) {
+      var extraHtml = '';
+      s.qas.slice(1).forEach(function (qa, offset) {
+        extraHtml += buildQaCard(qa, offset + 1);
+      });
+      $vqa.append(
+        '<details class="bench-vqa-more">' +
+        '<summary><span>Show All VQA Questions (' + (s.qas.length - 1) + ' more)</span><span class="bench-vqa-summary-arrow" aria-hidden="true"><i class="fas fa-chevron-down"></i></span></summary>' +
+        '<div class="bench-vqa-more-body">' + extraHtml + '</div>' +
+        '</details>'
+      );
+    }
 
     $('.bench-reveal-btn').off('click').on('click', function () {
       $(this).hide();
@@ -227,23 +442,14 @@ $(document).ready(function () {
     });
   }
 
-  // ===== Smooth scroll for demo nav =====
-  $('#demo-nav-tabs a').on('click', function (e) {
-    e.preventDefault();
-    var target = $(this).attr('href');
-    $('html, body').animate({ scrollTop: $(target).offset().top - 60 }, 400);
-    $('#demo-nav-tabs li').removeClass('is-active');
-    $(this).parent().addClass('is-active');
-  });
-
   // ===== SIMULATION COMPARISON =====
   var SIM_TASKS = [
+    {task: "hanging_mug", label: "Hanging Mug", instruction: "Hang the mug on the rack."},
     {task: "blocks_ranking_size", label: "Blocks Ranking (Size)", instruction: "Place large block, medium block, and small block at the table center, largest to smallest."},
     {task: "handover_block", label: "Handover Block", instruction: "Grab the red block with the left arm."},
     {task: "put_bottles_dustbin", label: "Put Bottles in Dustbin", instruction: "Pick up the yellow plastic bottle, drop it into the curved rectangular trash can, then repeat for the plastic bottle and the bottle with red screw cap."},
     {task: "blocks_ranking_rgb", label: "Blocks Ranking (RGB)", instruction: "Set red block on the left, then green block in the center, and finally blue block on the right."},
-    {task: "adjust_bottle", label: "Adjust Bottle", instruction: "Use the left arm to grab the green plastic bottle with ridged bottom."},
-    {task: "place_a2b_right", label: "Place A→B (Right)", instruction: "Put the metal and plastic stapler to the right of the irregular wooden block."}
+    {task: "adjust_bottle", label: "Adjust Bottle", instruction: "Use the left arm to grab the green plastic bottle with ridged bottom."}
   ];
 
   function initSimComparison() {

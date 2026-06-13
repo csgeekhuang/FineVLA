@@ -32,46 +32,75 @@ $(document).ready(function () {
   }
 
   function renderVideoGallery(containerId, views, fallbackSampleId, options) {
-    var opts = options || {};
     var $c = $(containerId).empty();
     if (!views || views.length === 0) {
       renderVideo(containerId, fallbackSampleId);
       return;
     }
-    var compact = !!opts.compact;
-    var groupId = 'vlm-group-' + Math.random().toString(36).slice(2, 9);
-    var galleryClass = compact ? 'video-gallery video-gallery-compact' : 'video-gallery';
-    if (compact && views.length === 1) {
-      galleryClass += ' video-gallery-single-compact';
-    }
-    var columnClass = views.length === 1
-      ? (compact ? 'is-half-desktop is-half-tablet is-full-mobile' : 'is-two-thirds-desktop is-full-mobile')
-      : (views.length === 2 ? 'is-half-desktop is-full-mobile' : 'is-one-third-desktop is-full-mobile');
-    var boxClass = compact ? 'box video-gallery-box video-gallery-box-compact' : 'box video-gallery-box';
-    var labelClass = compact ? 'video-gallery-label video-gallery-label-compact' : 'video-gallery-label';
-    var controlsClass = compact ? 'box video-gallery-controls video-gallery-controls-compact' : 'box video-gallery-controls';
-    var html = '<div class="columns is-multiline is-centered ' + galleryClass + '">';
+    var singleView = views.length === 1;
+    var html = '<div class="video-gallery-inline"' + (singleView ? ' style="max-width:50%;margin:0 auto;"' : '') + '>';
     views.forEach(function (view) {
       html +=
-        '<div class="column ' + columnClass + '">' +
-        '<div class="' + boxClass + '">' +
-        '<p class="' + labelClass + '">' + formatViewLabel(view.label) + '</p>' +
-        '<video class="vlm-sync-video" data-sync-group="' + groupId + '" muted loop playsinline preload="metadata" width="100%" style="border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.15);background:#000;">' +
-        '<source src="' + view.src + '" type="video/mp4">' +
-        '</video>' +
-        '</div></div>';
+        '<div class="video-gallery-cell">' +
+          '<video autoplay loop muted playsinline preload="metadata">' +
+            '<source src="' + view.src + '?v=20260613' + '" type="video/mp4">' +
+          '</video>' +
+          '<span class="video-gallery-overlay-label">' + formatViewLabel(view.label) + '</span>' +
+        '</div>';
     });
+    html += '<div class="video-gallery-progress"><div class="video-gallery-progress-fill"></div></div>';
     html += '</div>';
-    html +=
-      '<div class="' + controlsClass + '">' +
-      '<div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">' +
-      '<button type="button" class="button is-small is-link is-light vlm-sync-toggle" data-sync-group="' + groupId + '">Play</button>' +
-      '<input type="range" min="0" max="1000" value="0" class="vlm-sync-range" data-sync-group="' + groupId + '" style="flex:1;min-width:220px;">' +
-      '<span class="is-size-7 has-text-grey vlm-sync-time" data-sync-group="' + groupId + '">0:00 / 0:00</span>' +
-      '</div>' +
-      '</div>';
     $c.append(html);
-    initSyncedVideos($c, groupId);
+
+    var $wrap = $c.find('.video-gallery-inline');
+    var videos = $wrap.find('video').get();
+    var $bar = $wrap.find('.video-gallery-progress');
+    var $fill = $wrap.find('.video-gallery-progress-fill');
+    var master = videos[0];
+    if (!master) return;
+
+    // Sync all videos to master's time
+    function syncAll() {
+      var t = master.currentTime;
+      for (var i = 1; i < videos.length; i++) {
+        if (Math.abs(videos[i].currentTime - t) > 0.15) {
+          videos[i].currentTime = t;
+        }
+      }
+    }
+
+    // Update progress fill
+    var raf;
+    function tick() {
+      if (master.duration) {
+        var pct = (master.currentTime / master.duration) * 100;
+        $fill.css('width', pct + '%');
+      }
+      syncAll();
+      raf = requestAnimationFrame(tick);
+    }
+    raf = requestAnimationFrame(tick);
+
+    // Seek on click / drag
+    var dragging = false;
+    function seekTo(e) {
+      var rect = $bar[0].getBoundingClientRect();
+      var ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      var t = ratio * (master.duration || 0);
+      videos.forEach(function (v) { v.currentTime = t; });
+    }
+
+    $bar.on('mousedown', function (e) {
+      dragging = true;
+      seekTo(e);
+      e.preventDefault();
+    });
+    $(document).on('mousemove.vgallery', function (e) {
+      if (dragging) seekTo(e);
+    });
+    $(document).on('mouseup.vgallery', function () {
+      dragging = false;
+    });
   }
 
   function formatTime(seconds) {
@@ -180,46 +209,51 @@ $(document).ready(function () {
     updateControls();
   }
 
-  // ===== DEMO 1: Fine-Grained Annotation Showcase =====
+  // ===== DEMO 1: Fine-Grained Annotation Carousel =====
   function initRecap() {
     var samples = DEMO_DATA.recap.samples;
-    var $rail = $('#recap-sample-rail').empty();
-    samples.forEach(function (s, i) {
-      var title = escapeHtml(s.instruction_raw);
-      var dataset = escapeHtml(s.dataset);
-      $rail.append(
-        '<button type="button" class="recap-sample-chip' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '">' +
-        '<span class="recap-sample-chip-kicker">Sample ' + (i + 1) + ' · ' + dataset + '</span>' +
-        '<span class="recap-sample-chip-title">' + title + '</span>' +
-        '</button>'
-      );
-    });
-    renderRecap(0);
-    $rail.on('click', '.recap-sample-chip', function () {
-      renderRecap(parseInt($(this).data('idx'), 10));
-    });
-  }
+    var $carousel = $('#recap-carousel').empty();
 
-  function renderRecap(idx) {
-    var s = DEMO_DATA.recap.samples[idx];
-    renderVideo('#recap-video-container', s.sample_id, {
-      videoClass: 'demo-video-player recap-video-player'
-    });
-    $('#recap-sample-rail .recap-sample-chip').removeClass('is-active');
-    var $activeChip = $('#recap-sample-rail .recap-sample-chip[data-idx="' + idx + '"]');
-    $activeChip.addClass('is-active');
-    if ($activeChip.length && $activeChip[0].scrollIntoView) {
-      $activeChip[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    function buildCard(s) {
+      var src = './static/videos/demos/' + s.sample_id + '.mp4';
+      var stepsHtml = '';
+      s.human_review.forEach(function (step) {
+        stepsHtml += '<li>' + escapeHtml(step) + '</li>';
+      });
+      return (
+        '<div class="recap-card">' +
+          '<div class="recap-card-video">' +
+            '<video autoplay loop muted playsinline preload="metadata">' +
+              '<source src="' + src + '" type="video/mp4">' +
+            '</video>' +
+            '<div class="recap-card-badge">' +
+              '<span class="tag is-link is-light">' + escapeHtml(s.dataset) + '</span>' +
+              '<span class="tag is-info is-light">' + escapeHtml(s.robot_type) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="recap-card-body">' +
+            '<div class="recap-card-instruction">' + escapeHtml(s.instruction_raw) + '</div>' +
+            '<p class="recap-card-steps-label">Fine-Grained Steps</p>' +
+            '<ol class="recap-card-steps">' + stepsHtml + '</ol>' +
+          '</div>' +
+        '</div>'
+      );
     }
-    $('#recap-dataset-tag').text(s.dataset);
-    $('#recap-robot-tag').text(s.robot_type);
-    $('#recap-instruction-text').text('"' + s.instruction_raw + '"');
-    $('#recap-raw-wc').text(s.instruction_word_count + ' words');
-    var $list = $('#recap-steps-list').empty();
-    s.human_review.forEach(function (step) {
-      $list.append('<li>' + step + '</li>');
+
+    // Render original cards + duplicate set for seamless infinite loop
+    var html = '';
+    samples.forEach(function (s) { html += buildCard(s); });
+    samples.forEach(function (s) { html += buildCard(s); });
+    $carousel.html(html);
+
+    // Pause animation on hover over the carousel area
+    var $wrap = $carousel.closest('.recap-carousel-wrap');
+    $wrap.on('mouseenter', function () {
+      $carousel.addClass('is-paused');
     });
-    $('#recap-fg-wc').text(s.human_review_word_count + ' words');
+    $wrap.on('mouseleave', function () {
+      $carousel.removeClass('is-paused');
+    });
   }
 
   // ===== DEMO 2: VLM Caption Comparison =====
@@ -309,7 +343,9 @@ $(document).ready(function () {
   }
 
   function renderVLMScoreTable() {
-    var $tbody = $('#vlm-score-tbody').empty();
+    var $tbody = $('#vlm-score-tbody');
+    if (!$tbody.length) return;
+    $tbody.empty();
     DEMO_DATA.vlm_comparison.score_table.forEach(function (row) {
       var isOurs = row.is_ours;
       var trClass = isOurs ? 'model-ours' : '';
@@ -393,7 +429,24 @@ $(document).ready(function () {
       $(this).next('.bench-fact-list').slideToggle(200);
     });
 
-    // VQA questions
+    // VQA questions — sort harder dimensions first
+    var capPriority = {
+      "trajectory_and_orientation": 0,
+      "contact_and_approach": 1,
+      "final_configuration": 2,
+      "body_motion": 3,
+      "object_interaction": 4,
+      "failure_and_recovery": 5,
+      "action_sequence": 6,
+      "active_actor": 7,
+      "target_object": 8,
+      "initial_configuration": 9
+    };
+    var sortedQas = s.qas.slice().sort(function (a, b) {
+      var pa = capPriority[a.capability] !== undefined ? capPriority[a.capability] : 99;
+      var pb = capPriority[b.capability] !== undefined ? capPriority[b.capability] : 99;
+      return pa - pb;
+    });
     var $vqa = $('#bench-vqa-cards').empty();
     function buildQaCard(qa, qi) {
       var optionsHtml = '';
@@ -419,13 +472,13 @@ $(document).ready(function () {
       );
     }
 
-    if (s.qas.length > 0) {
-      $vqa.append(buildQaCard(s.qas[0], 0));
+    if (sortedQas.length > 0) {
+      $vqa.append(buildQaCard(sortedQas[0], 0));
     }
 
-    if (s.qas.length > 1) {
+    if (sortedQas.length > 1) {
       var extraHtml = '';
-      s.qas.slice(1).forEach(function (qa, offset) {
+      sortedQas.slice(1).forEach(function (qa, offset) {
         extraHtml += buildQaCard(qa, offset + 1);
       });
       $vqa.append(

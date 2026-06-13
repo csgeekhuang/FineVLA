@@ -139,6 +139,164 @@ const DEMO_DATA = {
   "vlm_comparison": {
     "samples": [
       {
+        "sample_id": "robocoin-Cobot_Magic_pull_zipper-615",
+        "dataset": "RoboCoin",
+        "instruction_raw": "Zip up the bag with your right hand. Grab the zipper with your left hand. end",
+        "views": [
+          {
+            "label": "cam_high_rgb",
+            "src": "./static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_high_rgb.mp4"
+          },
+          {
+            "label": "cam_left_wrist_rgb",
+            "src": "./static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_left_wrist_rgb.mp4"
+          },
+          {
+            "label": "cam_right_wrist_rgb",
+            "src": "./static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_right_wrist_rgb.mp4"
+          }
+        ],
+        "captions": {
+          "RoboFine-VLM (Ours)": [
+            "Left arm grasps the zipper pull tab on the black bag from the left side and lifts it upward, while the right arm approaches from the right to grasp the pull tab.",
+            "Right arm pulls the zipper pull tab horizontally to the right to close the bag, while the left arm stabilizes the bag by holding the left side of the zipper tape.",
+            "Both arms release the black bag and retract outward to the left and right sides, leaving the bag stationary on the white table."
+          ],
+          "GPT-5.4": [
+            "move the left gripper in from the left and grasp the metal zipper pull ring on the black bag's top zipper near the left top corner",
+            "lift the zipper pull upward and slightly left/back to bring the slider onto the top edge and tension the zipper area while the bag remains upright on the table",
+            "move the right gripper in from above-right to the top opening, take hold of the zipper pull/slider, and have the left gripper hold the opposite top edge to stabilize the bag",
+            "with both hands engaged, keep the left gripper bracing the bag while the right gripper pulls the zipper slider across the top opening from left to right, causing a slight turn of the bag on the tabletop",
+            "release the zipper pull near the right top corner, release the bag edge, and withdraw both grippers away from the bag"
+          ],
+          "Gemini 3.1 Pro": [
+            "move the left hand towards the left end of the bag's zipper",
+            "grasp the left end of the zipper with the left gripper",
+            "move the right hand towards the zipper pull on the bag",
+            "grasp the zipper pull with the right gripper",
+            "pull the zipper to the right with the right hand to close the bag, while stabilizing the left end of the zipper with the left hand",
+            "release the bag with both grippers and move the hands away"
+          ],
+          "Doubao Seed 2.0 Pro": [
+            "Left gripper moves forward from the left off-screen area, grasps the left metal ring of the detachable strap on the black canvas bag, gripper transitions from open to closed",
+            "Right gripper moves forward from the right off-screen area, grasps the right metal ring of the detachable strap on the black canvas bag, gripper transitions from open to closed",
+            "Both grippers pull the strap ends horizontally to the right, rotating the black canvas bag counter-clockwise slightly while it remains in contact with the table surface",
+            "Both grippers release the strap metal rings, grippers transition from closed to open",
+            "Left gripper moves backward to the left off-screen area, right gripper moves backward to the right off-screen area"
+          ],
+          "Qwen3.5-Plus": [
+            "The left robot arm approaches the black bag and grasps the metal zipper pull on the left side.",
+            "The right robot arm approaches and grasps the metal zipper pull.",
+            "The left arm shifts its grasp to the bag fabric near the handle to stabilize the bag.",
+            "The right arm pulls the zipper pull to the right along the track, opening the bag.",
+            "Both arms release the bag and retreat."
+          ],
+          "Qwen3-VL-Plus": [
+            "left gripper approaches the left handle of the black tote bag from the left side and grasps the metal ring attached to the handle",
+            "right gripper approaches the right handle of the black tote bag from the right side and grasps the metal ring attached to the handle",
+            "both grippers lift the bag slightly by pulling upward on the handles, causing the bag to tilt forward and hang suspended between them",
+            "both grippers release the metal rings, letting the bag settle back onto the white surface in its original upright position",
+            "left wrist view shows gripper tips approaching the bag’s left zipper pull from below, then gripping and pulling the zipper open slightly",
+            "left gripper releases the zipper pull and retracts",
+            "right wrist view shows gripper tips approaching the bag’s right zipper pull from below, then gripping and pulling the zipper open further",
+            "right gripper releases the zipper pull and retracts"
+          ]
+        }
+      },
+      {
+        "sample_id": "robomindv2-place_blue_block_between_orange_and_purple_blocks-259",
+        "dataset": "RoboMINDV2",
+        "instruction_raw": "place blue block between orange and purple blocks",
+        "views": [
+          {
+            "label": "camera_top",
+            "src": "./static/videos/demos/robomindv2-place_blue_block_between_orange_and_purple_blocks-259/camera_top.mp4"
+          },
+          {
+            "label": "camera_wrist_left",
+            "src": "./static/videos/demos/robomindv2-place_blue_block_between_orange_and_purple_blocks-259/camera_wrist_left.mp4"
+          },
+          {
+            "label": "camera_wrist_right",
+            "src": "./static/videos/demos/robomindv2-place_blue_block_between_orange_and_purple_blocks-259/camera_wrist_right.mp4"
+          }
+        ],
+        "captions": {
+          "RoboFine-VLM (Ours)": [
+            "Left arm grasps the yellow block on the left side from above.",
+            "Left arm lifts the yellow block and moves it horizontally to the right towards the center.",
+            "Left arm places the yellow block on the table surface in the center area and releases it.",
+            "Right arm grasps the yellow block from above.",
+            "Right arm lifts the yellow block and moves it slightly forward and to the right to align between the pink and blue blocks.",
+            "Right arm places the yellow block precisely between the pink block (back) and blue block (front) to form a vertical line.",
+            "Right arm releases the yellow block and retracts upwards."
+          ],
+          "GPT-5.4": [
+            "left hand moves its open gripper from the left side toward the yellow block in the upper-left area, approaching from above-left",
+            "left gripper closes on the yellow block's side faces and grasps it",
+            "left hand lifts the yellow block up off the table",
+            "left hand carries the grasped yellow block across the table to a temporary spot near the center-right area, left of the blue block and below-left of the red block",
+            "left hand lowers the yellow block to the tabletop at that temporary location",
+            "left gripper opens to release the yellow block and retracts away",
+            "right hand moves its open gripper toward the temporarily placed yellow block, approaching from the right/front",
+            "right gripper closes on the yellow block's side faces and grasps it",
+            "right hand lifts the yellow block up off the table",
+            "right hand carries the yellow block to the gap between the red block above and the blue block below",
+            "right hand lowers and places the yellow block on the table between the red and blue blocks, forming a vertical row of red-yellow-blue",
+            "right gripper opens to release the yellow block and withdraws to the right"
+          ],
+          "Gemini 3.1 Pro": [
+            "move the left gripper to the orange block",
+            "grasp the orange block from above",
+            "lift and move the orange block behind the blue block",
+            "place the orange block on the table",
+            "move the right gripper to the purple block",
+            "grasp the purple block from above",
+            "lift and move the purple block behind the orange block",
+            "place the purple block on the table"
+          ],
+          "Doubao Seed 2.0 Pro": [
+            "move the left gripper forward and upward from its base position to above the yellow cube on the upper left of the table, with the gripper open",
+            "close the left gripper to grasp the yellow cube by its top surface",
+            "lift the left gripper upward, raising the yellow cube off the table surface",
+            "move the left gripper rightward, transporting the yellow cube to above the central area of the table",
+            "lower the left gripper downward, placing the yellow cube onto the central table surface",
+            "open the left gripper to release the yellow cube",
+            "move the left gripper backward to its initial base position",
+            "move the right gripper forward and upward from its base position to above the yellow cube in the central table area, with the gripper open",
+            "close the right gripper to grasp the yellow cube by its top surface",
+            "lift the right gripper upward, raising the yellow cube off the table surface",
+            "move the right gripper rightward and upward, transporting the yellow cube to above the area directly below the red cube on the right side of the table",
+            "lower the right gripper downward, placing the yellow cube onto the table surface below the red cube, aligned vertically with the red cube (above) and blue cube (below)",
+            "open the right gripper to release the yellow cube",
+            "move the right gripper backward to its initial base position"
+          ],
+          "Qwen3.5-Plus": [
+            "move the left arm to the yellow block",
+            "grasp the yellow block with the left gripper",
+            "lift and move the yellow block towards the right with the left arm",
+            "move the right arm to the yellow block",
+            "grasp the yellow block from the left arm with the right gripper",
+            "place the yellow block between the red and blue blocks with the right arm"
+          ],
+          "Qwen3-VL-Plus": [
+            "left arm moves toward the yellow block, gripper open",
+            "left gripper closes on the yellow block from above",
+            "left arm lifts the yellow block vertically",
+            "right arm moves toward the red block, gripper open",
+            "right gripper closes on the red block from above",
+            "right arm lifts the red block vertically",
+            "left arm moves the yellow block downward and places it directly below the red block",
+            "right arm lowers the red block onto the yellow block, forming a two-block stack",
+            "right arm retracts slightly while maintaining grasp on the red block",
+            "left arm releases the yellow block and retracts",
+            "right arm lifts the red block (now atop yellow) upward slightly, then lowers it back onto the yellow block to stabilize the stack",
+            "right arm releases the red block, completing a vertical stack of red over yellow",
+            "both arms remain stationary with grippers open, observing the final stack and the blue block remaining on the table"
+          ]
+        }
+      },
+      {
         "sample_id": "rh20t_robointer-RH20T-RoboInter-45096",
         "dataset": "RH20T-RoboInter",
         "instruction_raw": "press the button on the desk lamp to turn off the light",
@@ -268,164 +426,6 @@ const DEMO_DATA = {
             "right hand lowers the white container with the blue egg into it, placing the egg into one compartment",
             "right hand closes the white container lid (implied by final state in main view: container closed on table)",
             "both hands return to neutral resting positions on either side of the table"
-          ]
-        }
-      },
-      {
-        "sample_id": "robomindv2-place_blue_block_between_orange_and_purple_blocks-259",
-        "dataset": "RoboMINDV2",
-        "instruction_raw": "place blue block between orange and purple blocks",
-        "views": [
-          {
-            "label": "camera_top",
-            "src": "./static/videos/demos/robomindv2-place_blue_block_between_orange_and_purple_blocks-259/camera_top.mp4"
-          },
-          {
-            "label": "camera_wrist_left",
-            "src": "./static/videos/demos/robomindv2-place_blue_block_between_orange_and_purple_blocks-259/camera_wrist_left.mp4"
-          },
-          {
-            "label": "camera_wrist_right",
-            "src": "./static/videos/demos/robomindv2-place_blue_block_between_orange_and_purple_blocks-259/camera_wrist_right.mp4"
-          }
-        ],
-        "captions": {
-          "RoboFine-VLM (Ours)": [
-            "Left arm grasps the yellow block on the left side from above.",
-            "Left arm lifts the yellow block and moves it horizontally to the right towards the center.",
-            "Left arm places the yellow block on the table surface in the center area and releases it.",
-            "Right arm grasps the yellow block from above.",
-            "Right arm lifts the yellow block and moves it slightly forward and to the right to align between the pink and blue blocks.",
-            "Right arm places the yellow block precisely between the pink block (back) and blue block (front) to form a vertical line.",
-            "Right arm releases the yellow block and retracts upwards."
-          ],
-          "GPT-5.4": [
-            "left hand moves its open gripper from the left side toward the yellow block in the upper-left area, approaching from above-left",
-            "left gripper closes on the yellow block's side faces and grasps it",
-            "left hand lifts the yellow block up off the table",
-            "left hand carries the grasped yellow block across the table to a temporary spot near the center-right area, left of the blue block and below-left of the red block",
-            "left hand lowers the yellow block to the tabletop at that temporary location",
-            "left gripper opens to release the yellow block and retracts away",
-            "right hand moves its open gripper toward the temporarily placed yellow block, approaching from the right/front",
-            "right gripper closes on the yellow block's side faces and grasps it",
-            "right hand lifts the yellow block up off the table",
-            "right hand carries the yellow block to the gap between the red block above and the blue block below",
-            "right hand lowers and places the yellow block on the table between the red and blue blocks, forming a vertical row of red-yellow-blue",
-            "right gripper opens to release the yellow block and withdraws to the right"
-          ],
-          "Gemini 3.1 Pro": [
-            "move the left gripper to the orange block",
-            "grasp the orange block from above",
-            "lift and move the orange block behind the blue block",
-            "place the orange block on the table",
-            "move the right gripper to the purple block",
-            "grasp the purple block from above",
-            "lift and move the purple block behind the orange block",
-            "place the purple block on the table"
-          ],
-          "Doubao Seed 2.0 Pro": [
-            "move the left gripper forward and upward from its base position to above the yellow cube on the upper left of the table, with the gripper open",
-            "close the left gripper to grasp the yellow cube by its top surface",
-            "lift the left gripper upward, raising the yellow cube off the table surface",
-            "move the left gripper rightward, transporting the yellow cube to above the central area of the table",
-            "lower the left gripper downward, placing the yellow cube onto the central table surface",
-            "open the left gripper to release the yellow cube",
-            "move the left gripper backward to its initial base position",
-            "move the right gripper forward and upward from its base position to above the yellow cube in the central table area, with the gripper open",
-            "close the right gripper to grasp the yellow cube by its top surface",
-            "lift the right gripper upward, raising the yellow cube off the table surface",
-            "move the right gripper rightward and upward, transporting the yellow cube to above the area directly below the red cube on the right side of the table",
-            "lower the right gripper downward, placing the yellow cube onto the table surface below the red cube, aligned vertically with the red cube (above) and blue cube (below)",
-            "open the right gripper to release the yellow cube",
-            "move the right gripper backward to its initial base position"
-          ],
-          "Qwen3.5-Plus": [
-            "move the left arm to the yellow block",
-            "grasp the yellow block with the left gripper",
-            "lift and move the yellow block towards the right with the left arm",
-            "move the right arm to the yellow block",
-            "grasp the yellow block from the left arm with the right gripper",
-            "place the yellow block between the red and blue blocks with the right arm"
-          ],
-          "Qwen3-VL-Plus": [
-            "left arm moves toward the yellow block, gripper open",
-            "left gripper closes on the yellow block from above",
-            "left arm lifts the yellow block vertically",
-            "right arm moves toward the red block, gripper open",
-            "right gripper closes on the red block from above",
-            "right arm lifts the red block vertically",
-            "left arm moves the yellow block downward and places it directly below the red block",
-            "right arm lowers the red block onto the yellow block, forming a two-block stack",
-            "right arm retracts slightly while maintaining grasp on the red block",
-            "left arm releases the yellow block and retracts",
-            "right arm lifts the red block (now atop yellow) upward slightly, then lowers it back onto the yellow block to stabilize the stack",
-            "right arm releases the red block, completing a vertical stack of red over yellow",
-            "both arms remain stationary with grippers open, observing the final stack and the blue block remaining on the table"
-          ]
-        }
-      },
-      {
-        "sample_id": "robocoin-Cobot_Magic_pull_zipper-615",
-        "dataset": "RoboCoin",
-        "instruction_raw": "Zip up the bag with your right hand. Grab the zipper with your left hand. end",
-        "views": [
-          {
-            "label": "cam_high_rgb",
-            "src": "./static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_high_rgb.mp4"
-          },
-          {
-            "label": "cam_left_wrist_rgb",
-            "src": "./static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_left_wrist_rgb.mp4"
-          },
-          {
-            "label": "cam_right_wrist_rgb",
-            "src": "./static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_right_wrist_rgb.mp4"
-          }
-        ],
-        "captions": {
-          "RoboFine-VLM (Ours)": [
-            "Left arm grasps the zipper pull tab on the black bag from the left side and lifts it upward, while the right arm approaches from the right to grasp the pull tab.",
-            "Right arm pulls the zipper pull tab horizontally to the right to close the bag, while the left arm stabilizes the bag by holding the left side of the zipper tape.",
-            "Both arms release the black bag and retract outward to the left and right sides, leaving the bag stationary on the white table."
-          ],
-          "GPT-5.4": [
-            "move the left gripper in from the left and grasp the metal zipper pull ring on the black bag's top zipper near the left top corner",
-            "lift the zipper pull upward and slightly left/back to bring the slider onto the top edge and tension the zipper area while the bag remains upright on the table",
-            "move the right gripper in from above-right to the top opening, take hold of the zipper pull/slider, and have the left gripper hold the opposite top edge to stabilize the bag",
-            "with both hands engaged, keep the left gripper bracing the bag while the right gripper pulls the zipper slider across the top opening from left to right, causing a slight turn of the bag on the tabletop",
-            "release the zipper pull near the right top corner, release the bag edge, and withdraw both grippers away from the bag"
-          ],
-          "Gemini 3.1 Pro": [
-            "move the left hand towards the left end of the bag's zipper",
-            "grasp the left end of the zipper with the left gripper",
-            "move the right hand towards the zipper pull on the bag",
-            "grasp the zipper pull with the right gripper",
-            "pull the zipper to the right with the right hand to close the bag, while stabilizing the left end of the zipper with the left hand",
-            "release the bag with both grippers and move the hands away"
-          ],
-          "Doubao Seed 2.0 Pro": [
-            "Left gripper moves forward from the left off-screen area, grasps the left metal ring of the detachable strap on the black canvas bag, gripper transitions from open to closed",
-            "Right gripper moves forward from the right off-screen area, grasps the right metal ring of the detachable strap on the black canvas bag, gripper transitions from open to closed",
-            "Both grippers pull the strap ends horizontally to the right, rotating the black canvas bag counter-clockwise slightly while it remains in contact with the table surface",
-            "Both grippers release the strap metal rings, grippers transition from closed to open",
-            "Left gripper moves backward to the left off-screen area, right gripper moves backward to the right off-screen area"
-          ],
-          "Qwen3.5-Plus": [
-            "The left robot arm approaches the black bag and grasps the metal zipper pull on the left side.",
-            "The right robot arm approaches and grasps the metal zipper pull.",
-            "The left arm shifts its grasp to the bag fabric near the handle to stabilize the bag.",
-            "The right arm pulls the zipper pull to the right along the track, opening the bag.",
-            "Both arms release the bag and retreat."
-          ],
-          "Qwen3-VL-Plus": [
-            "left gripper approaches the left handle of the black tote bag from the left side and grasps the metal ring attached to the handle",
-            "right gripper approaches the right handle of the black tote bag from the right side and grasps the metal ring attached to the handle",
-            "both grippers lift the bag slightly by pulling upward on the handles, causing the bag to tilt forward and hang suspended between them",
-            "both grippers release the metal rings, letting the bag settle back onto the white surface in its original upright position",
-            "left wrist view shows gripper tips approaching the bag’s left zipper pull from below, then gripping and pulling the zipper open slightly",
-            "left gripper releases the zipper pull and retracts",
-            "right wrist view shows gripper tips approaching the bag’s right zipper pull from below, then gripping and pulling the zipper open further",
-            "right gripper releases the zipper pull and retracts"
           ]
         }
       }

@@ -568,8 +568,8 @@ $(document).ready(function () {
     {
       label: "Object State",
       attribute: "Object orientation",
-      left: {file: "pick_the_lying", instruction: "Pick up the cup lying on the table and place it into the box."},
-      right: {file: "pick_the_stand", instruction: "Pick up the standing cup on the table and place it into the box."}
+      left: {file: "pick_the_lying", instruction: "Pick up the pen lying on the table and place it into the box."},
+      right: {file: "pick_the_stand", instruction: "Pick up the standing pen on the table and place it into the box."}
     },
     {
       label: "Object Color",

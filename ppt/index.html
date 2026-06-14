@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FineVLA: Fine-Grained Instruction Alignment for Steerable VLA Policies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ============ 主题色: 🍂 牛皮纸 (Kraft Paper) ============ */
+    --ink:#2a1e13;
+    --ink-rgb:42,30,19;
+    --paper:#eedfc7;
+    --paper-rgb:238,223,199;
+    --paper-tint:#e0d0b6;
+    --ink-tint:#3a2a1d;
+
+    /* ============ 字体(跨主题固定) ============ */
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
+    --serif-body-en:"Source Serif 4",Georgia,serif;
+    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
+  canvas#bg-light{opacity:0}
+  canvas#bg-dark{opacity:1}
+  body.light-bg canvas#bg-light{opacity:1}
+  body.light-bg canvas#bg-dark{opacity:0}
+  body.low-power canvas.bg{display:none!important}
+
+  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform 0s;z-index:10;will-change:transform}
+  .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
+  .slide.light{color:var(--ink);background:var(--paper)}
+  .slide.dark{color:var(--paper);background:var(--ink)}
+
+  .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
+  .slide.light::before{background:rgba(var(--paper-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.dark::before{background:rgba(var(--ink-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.hero.light::before{background:rgba(var(--paper-rgb),.16);backdrop-filter:none}
+  .slide.hero.dark::before{background:rgba(var(--ink-rgb),.12);backdrop-filter:none}
+  .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 14%,rgba(var(--paper-rgb),0) 86%,rgba(var(--paper-rgb),.28) 100%)}
+  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 14%,rgba(var(--ink-rgb),0) 86%,rgba(var(--ink-rgb),.32) 100%)}
+
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
+  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.75vw;line-height:1.5;opacity:.86}
+  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  em{font-style:italic;font-family:var(--serif-en)}
+  .en{font-family:var(--serif-en);font-style:italic;font-weight:500}
+
+  .col{display:flex;flex-direction:column;gap:2.4vh}
+  .row{display:flex;align-items:center;gap:3vw}
+  .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4vw 6vw;flex:1;align-content:center;padding:2vh 0}
+  .grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:4vh 6vw;flex:1;align-content:center}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;flex:1;align-content:center}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:4vw;flex:1;align-items:center}
+  .center{align-items:center;justify-content:center;text-align:center}
+  .fill{flex:1}
+
+  .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
+  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .stat .l{font-family:var(--sans-zh);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
+  .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
+  .callout-src{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+
+  .pillar{display:flex;flex-direction:column;gap:1.8vh}
+  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
+  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:2.4vw;line-height:1.1}
+  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
+
+  .hi{position:relative;display:inline}
+  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
+  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
+
+  .frame{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+  .frame.grid-2-7-5,.frame.grid-2-6-6,.frame.grid-2-8-4,.frame.grid-3-3,.frame.grid-6{display:grid}
+
+  .h-hero{font-family:var(--serif-zh);font-weight:900;font-size:10vw;line-height:.96;letter-spacing:-.02em}
+  .h-xl{font-family:var(--serif-zh);font-weight:700;font-size:6.2vw;line-height:1.08;letter-spacing:-.01em}
+  .h-sub{font-family:var(--serif-zh);font-weight:500;font-size:3.1vw;line-height:1.25;letter-spacing:0;opacity:.7}
+  .h-md{font-family:var(--serif-zh);font-weight:600;font-size:2.3vw;line-height:1.3}
+  .h-hero-en,.h-xl-en{font-family:var(--serif-en);letter-spacing:-.025em}
+
+  .meta-row{display:flex;gap:1.2em;align-items:baseline;flex-wrap:wrap;font-family:var(--mono);font-size:max(12px,.92vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+
+  .stat-card{display:flex;flex-direction:column;gap:.8vh;align-items:flex-start;padding-top:1.6vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.3)}
+  .stat-card .stat-label{font-family:var(--mono);font-size:max(10px,.78vw);letter-spacing:.24em;text-transform:uppercase;opacity:.55}
+  .stat-card .stat-nb{font-family:var(--serif-en);font-weight:800;font-size:5.8vw;line-height:.9;letter-spacing:-.03em;font-feature-settings:"tnum";margin-top:.4vh}
+  .stat-card .stat-nb .stat-unit{font-family:var(--serif-zh);font-weight:500;font-size:.38em;letter-spacing:0;opacity:.72;margin-left:.14em}
+  .stat-card .stat-note{font-family:var(--sans-zh);font-weight:400;font-size:max(13px,1.05vw);line-height:1.5;opacity:.72;margin-top:.6vh}
+  .grid-4 .stat-card .stat-nb{font-size:5vw}
+  .grid-3 .stat-card .stat-nb{font-size:6.8vw}
+
+  .pipeline-section{margin-top:4.4vh;padding-top:2.8vh;border-top:1px dashed rgba(127,127,127,.32)}
+  .pipeline-section:first-of-type{border-top:0;padding-top:0;margin-top:3vh}
+  .pipeline-label{font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.24em;text-transform:uppercase;opacity:.62;margin-bottom:2.2vh}
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw}
+  .pipeline[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+  .pipeline[data-cols="4"]{grid-template-columns:repeat(4,1fr)}
+  .step{display:flex;flex-direction:column;gap:.8vh;padding-top:1.4vh;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
+  .step-nb{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:1.15vw;opacity:.45}
+  .step-title{font-family:var(--sans-zh);font-weight:700;font-size:1.55vw;letter-spacing:.01em;line-height:1.2}
+  .step-desc{font-family:var(--sans-zh);font-weight:400;font-size:max(12px,.95vw);line-height:1.45;opacity:.72}
+
+  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:3vw 4vh;align-items:start}
+  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:3vw 4vh;align-items:start}
+  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:3vw 4vh;align-items:start}
+  .grid-3-3{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(0,1fr);gap:2.4vh 2vw}
+
+  [data-anim]{opacity:1}
+  body.motion-ready [data-anim]{opacity:0}
+  body.motion-ready [data-anim="left"]{transform:translateX(-24px)}
+  body.motion-ready [data-anim="right"]{transform:translateX(24px)}
+  body.motion-ready [data-anim="line"]{opacity:0;transform:translateY(10px)}
+  body.motion-ready [data-animate="pipeline"] [data-anim]{opacity:.15}
+  body.low-power #deck{transition:none!important}
+  body.low-power *,body.low-power *::before,body.low-power *::after{animation:none!important;transition:none!important}
+  body.low-power.motion-ready [data-anim],body.low-power [data-anim]{opacity:1!important;transform:none!important}
+
+  #nav{position:fixed;left:50%;bottom:2.6vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  #nav .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s ease;border:0;padding:0}
+  #nav .dot:hover{background:rgba(255,255,255,.5);transform:scale(1.15)}
+  #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:999px}
+  body.light-bg #nav{background:rgba(255,255,255,.25)}
+  body.light-bg #nav .dot{background:rgba(var(--ink-rgb),.25)}
+  body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
+  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
+  body.low-power #hint{opacity:.72;color:var(--paper);mix-blend-mode:normal}
+  body.light-bg.low-power #hint{color:var(--ink)}
+
+  @media (max-width:900px){
+    .display-zh{font-size:12vw}
+    .h-hero{font-size:14vw}
+    .h-xl{font-size:9vw}
+    .pipeline{grid-template-columns:repeat(2,1fr)}
+    .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<script>
+  (function(){
+    const KEY = 'guizang-ppt-low-power';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stored = localStorage.getItem(KEY);
+    window.__lowPowerMode = stored === '1' || (stored === null && reduced);
+    function updateHint(){
+      const hint = document.getElementById('hint');
+      if(hint) hint.textContent = `← → 翻页 · B ${window.__lowPowerMode ? '动态' : '静态'} · ESC 索引`;
+    }
+    window.__setLowPowerMode = function(on, opts={}){
+      window.__lowPowerMode = !!on;
+      document.body.classList.toggle('low-power', window.__lowPowerMode);
+      if(opts.persist !== false) localStorage.setItem(KEY, window.__lowPowerMode ? '1' : '0');
+      if(window.__lowPowerMode && document.getAnimations){
+        document.getAnimations().forEach(a=>a.cancel());
+      }
+      updateHint();
+      dispatchEvent(new CustomEvent('ppt-low-power-change', {detail:{on:window.__lowPowerMode}}));
+      if(window.__playSlide) window.__playSlide(window.__currentSlideIndex || 0);
+    };
+    document.body.classList.toggle('low-power', window.__lowPowerMode);
+    addEventListener('DOMContentLoaded', updateHint, {once:true});
+  })();
+</script>
+
+<canvas id="bg-dark" class="bg"></canvas>
+<canvas id="bg-light" class="bg"></canvas>
+<div id="hint"></div>
+
+<div id="deck">
+
+<!-- ====== PAGE 1: Cover (hero dark) ====== -->
+<section class="slide hero dark">
+  <div class="chrome">
+    <div>FineVLA · 2026</div>
+    <div>Vol.01</div>
+  </div>
+  <div class="frame" style="display:grid; gap:4vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Fine-Grained VLA Framework</div>
+    <h1 class="h-hero" style="font-size:8.5vw" data-anim>FineVLA</h1>
+    <h2 class="h-sub" data-anim>Fine-Grained Instruction Alignment<br>for Steerable Vision-Language-Action Policies</h2>
+    <p class="lead" style="max-width:62vw" data-anim>
+      Not just <em>what</em> to do, but <em>how</em> to do it.
+    </p>
+    <div class="meta-row" data-anim>
+      <span style="font-size:.85em">Xintong Hu*, Xuhong Huang*, Jinyu Zhang, Yutong Yao, Yuchong Sun, Qiuyue Wang, Mingsheng Li, Sicheng Xie, Yitao Liu, Junhao Chen, Yixuan Chen, Yingming Zheng, Shuai Bai, Tao Yu</span><span>&middot;</span><span>2026</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Steerable Robot Control via Fine-Grained Language</div>
+    <div>&mdash; 2026 &mdash;</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 2: Motivation (light) ====== -->
+<section class="slide light" data-animate="directional">
+  <div class="chrome">
+    <div>Motivation &middot; The Gap</div>
+    <div>02 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <div class="kicker" data-anim>Why Fine-Grained?</div>
+    <h2 class="h-xl" style="margin-bottom:4vh" data-anim>What vs. How</h2>
+
+    <div class="grid-2-6-6" style="gap:5vw 4vh">
+      <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
+        <div class="kicker" style="opacity:.9">Before &middot; Goal-Level Only</div>
+        <h3 class="h-md" style="margin-top:2vh">"Pick up the cup"</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>Single coarse instruction per trajectory</li>
+          <li>No approach direction specified</li>
+          <li>No contact region guidance</li>
+          <li>No motion path or arm choice</li>
+          <li>Cannot steer execution style</li>
+        </ul>
+      </div>
+      <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
+        <div class="kicker" style="opacity:.9">After &middot; Fine-Grained</div>
+        <h3 class="h-md" style="margin-top:2vh">"Use right hand, approach from left, grasp rim..."</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>10 fine-grained dimensions annotated</li>
+          <li>Active arm, approach direction specified</li>
+          <li>Contact region, motion path described</li>
+          <li>State transitions documented</li>
+          <li>Steerable execution control enabled</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 02 &middot; The Steerability Gap</div>
+    <div>Motivation</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 3: Framework Overview (hero light) ====== -->
+<section class="slide hero light">
+  <div class="chrome">
+    <div>Framework &middot; Overview</div>
+    <div>Act II &middot; 03 / 11</div>
+  </div>
+  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Open Framework</div>
+    <h1 class="h-hero" style="font-size:8vw" data-anim>Four Pillars</h1>
+    <p class="lead" style="max-width:60vw" data-anim>
+      A closed loop for action-instruction alignment: data construction, benchmark, VLM annotator, and steerable policy.
+    </p>
+    <div class="meta-row" data-anim>
+      <span>FineVLA-Tool + Data</span><span>&middot;</span><span>RoboFine-Bench</span><span>&middot;</span><span>RoboFine-VLM</span><span>&middot;</span><span>FineVLA-Policy</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>The FineVLA Framework</div>
+    <div>&mdash; &middot; &mdash;</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 4: FineVLA-Data (dark) ====== -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>Data &middot; Scale</div>
+    <div>Act II &middot; 04 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:2vh">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start">
+      <div>
+        <div class="kicker" data-anim>FineVLA-Tool + FineVLA-Data</div>
+        <h2 class="h-xl" style="font-size:5vw" data-anim>FineVLA-Data</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1.6vw; max-width:58vw" data-anim>
+        <div class="stat-card">
+          <div class="stat-label">Trajectories</div>
+          <div class="stat-nb" style="font-size:3.2vw">972K</div>
+          <div class="stat-note">10 datasets unified</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Fine-Grained</div>
+          <div class="stat-nb" style="font-size:3.2vw">47K</div>
+          <div class="stat-note">Human-verified</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Length</div>
+          <div class="stat-nb" style="font-size:3.2vw">10.4<span class="stat-unit">&times;</span></div>
+          <div class="stat-note">9.3 &rarr; 96.8 words</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Dimensions</div>
+          <div class="stat-nb" style="font-size:3.2vw">10</div>
+          <div class="stat-note">Annotation axes</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2vh; flex:1; display:flex; flex-direction:column; justify-content:center" data-anim>
+      <video autoplay loop muted playsinline style="width:100%; max-height:56vh; object-fit:contain; border-radius:4px; opacity:.92">
+        <source src="../static/videos/browse_examples_kraft.mp4" type="video/mp4">
+      </video>
+      <div style="margin-top:1vh; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.22em; text-transform:uppercase; opacity:.5; text-align:center">Browse Examples &middot; Fine-Grained Annotations with Video Demonstrations</div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>FineVLA-Data &middot; 47,159 trajectories</div>
+    <div>Act II &middot; Data</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 5: RoboFine-Bench / VQA Track (light) ====== -->
+<section class="slide light">
+  <div class="chrome">
+    <div>Evaluation &middot; VQA Track</div>
+    <div>05 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:4vh">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div>
+        <div class="kicker" data-anim data-persist="bench-kicker">RoboFine-Bench</div>
+        <h2 class="h-xl" data-anim data-persist="bench-title">Benchmark</h2>
+      </div>
+      <div style="font-family:var(--mono);font-size:1.2vw;letter-spacing:.1em;opacity:.5" data-anim>VQA Track</div>
+    </div>
+    <p class="lead" style="margin-bottom:3vh" data-anim>1,030 questions across 10 dimensions — Grounding &amp; Reasoning evaluation over 500 held-out videos.</p>
+
+    <div style="margin-top:2vh;display:flex;justify-content:center" data-anim>
+      <img src="assets/VQATrack.png" alt="VQA Track: Statistics, Grounding VQA, and Reasoning VQA" style="width:88%;max-height:54vh;object-fit:contain;display:block">
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 05 &middot; RoboFine-Bench</div>
+    <div>VQA Track</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 6: RoboFine-Bench / Caption Track (light) ====== -->
+<section class="slide light">
+  <div class="chrome">
+    <div>Evaluation &middot; Caption Track</div>
+    <div>06 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:4vh">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div>
+        <div class="kicker" data-anim data-persist="bench-kicker">RoboFine-Bench</div>
+        <h2 class="h-xl" data-anim data-persist="bench-title">Benchmark</h2>
+      </div>
+      <div style="font-family:var(--mono);font-size:1.2vw;letter-spacing:.1em;opacity:.5" data-anim>Caption Track</div>
+    </div>
+    <p class="lead" style="margin-bottom:3vh" data-anim>11.6K atomic facts decomposed from ground truth — Easy &amp; Hard modes measuring consistency and coverage.</p>
+
+    <div style="margin-top:0;display:flex;align-items:center;gap:2vw;margin-left:-1vw" data-anim>
+      <img src="assets/CaptionTrack_left.png" alt="Caption GT Statistics" style="width:30%;object-fit:contain;display:block">
+      <img src="assets/CaptionTrack_right.png" alt="Decompose GT Facts & Scoring" style="width:65%;object-fit:contain;display:block">
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 06 &middot; RoboFine-Bench</div>
+    <div>Caption Track</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 7: RoboFine-VLM (dark) ====== -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>Annotator &middot; VLM</div>
+    <div>07 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:3vh">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start">
+      <div>
+        <div class="kicker" data-anim data-persist="vlm-kicker">RoboFine-VLM</div>
+        <h2 class="h-xl" style="font-size:5vw" data-anim data-persist="vlm-title">Scalable Annotator</h2>
+      </div>
+      <p class="lead" style="max-width:38vw; font-size:1.4vw; text-align:right" data-anim>Fine-tuned Qwen3.5-397B-A17B on FineVLA-Data for robotic action understanding.</p>
+    </div>
+
+    <div class="grid-2-6-6" style="margin-top:3vh; gap:3vw; flex:1">
+      <!-- VQA Results -->
+      <div data-anim>
+        <div style="font-family:var(--mono); font-size:max(11px,.85vw); letter-spacing:.24em; text-transform:uppercase; opacity:.6; margin-bottom:1.5vh">VQA Results</div>
+        <table style="width:100%; border-collapse:collapse; font-family:var(--sans-zh); font-size:max(13px,1vw)">
+          <thead>
+            <tr style="border-bottom:2px solid rgba(var(--paper-rgb),.3)">
+              <th style="text-align:left; padding:1vh .6vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.2em; text-transform:uppercase; opacity:.5; font-weight:400">Model</th>
+              <th style="text-align:right; padding:1vh .6vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.2em; text-transform:uppercase; opacity:.5; font-weight:400">Overall</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12); background:rgba(var(--paper-rgb),.08)">
+              <td style="padding:1.1vh .6vw; font-weight:700"><img src="../static/images/logos/RoboFine-logo.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">RoboFine-VLM (Ours)</td>
+              <td style="padding:1.1vh .6vw; text-align:right; font-family:var(--serif-en); font-weight:800; font-size:max(15px,1.2vw)">68.2</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/GPT-log.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">GPT-5.4</td>
+              <td style="padding:1.1vh .6vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">60.2</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/gemini-logo.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Gemini-3.1-Pro</td>
+              <td style="padding:1.1vh .6vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">59.6</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/doubao-logo.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Doubao-Seed-2.0-Pro</td>
+              <td style="padding:1.1vh .6vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">58.5</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/qwen.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Qwen3.5-Plus</td>
+              <td style="padding:1.1vh .6vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">55.9</td>
+            </tr>
+            <tr>
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/qwen.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Qwen3-VL-Plus</td>
+              <td style="padding:1.1vh .6vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">47.7</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Caption-Hard Results -->
+      <div data-anim>
+        <div style="font-family:var(--mono); font-size:max(11px,.85vw); letter-spacing:.24em; text-transform:uppercase; opacity:.6; margin-bottom:1.5vh">Caption-Hard Results</div>
+        <table style="width:100%; border-collapse:collapse; font-family:var(--sans-zh); font-size:max(13px,1vw)">
+          <thead>
+            <tr style="border-bottom:2px solid rgba(var(--paper-rgb),.3)">
+              <th style="text-align:left; padding:1vh .6vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.2em; text-transform:uppercase; opacity:.5; font-weight:400">Model</th>
+              <th style="text-align:right; padding:1vh .4vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.12em; text-transform:uppercase; opacity:.5; font-weight:400">Overall</th>
+              <th style="text-align:right; padding:1vh .4vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.12em; text-transform:uppercase; opacity:.5; font-weight:400">Cons</th>
+              <th style="text-align:right; padding:1vh .4vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.12em; text-transform:uppercase; opacity:.5; font-weight:400">Cov</th>
+              <th style="text-align:right; padding:1vh .4vw; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.12em; text-transform:uppercase; opacity:.5; font-weight:400">AHal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12); background:rgba(var(--paper-rgb),.08)">
+              <td style="padding:1.1vh .6vw; font-weight:700"><img src="../static/images/logos/RoboFine-logo.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">RoboFine-VLM (Ours)</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:800; font-size:max(15px,1.2vw)">82.2</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600">80.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600">71.5</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600">94.8</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/GPT-log.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">GPT-5.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">78.0</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">73.8</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">66.8</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">93.4</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/gemini-logo.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Gemini-3.1-Pro</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">75.9</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">75.7</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">58.5</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">93.4</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/doubao-logo.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Doubao-Seed-2.0-Pro</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">73.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">72.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">63.7</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">84.0</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(var(--paper-rgb),.12)">
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/qwen.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Qwen3.5-Plus</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">72.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">71.0</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">55.1</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">91.2</td>
+            </tr>
+            <tr>
+              <td style="padding:1.1vh .6vw; opacity:.8"><img src="../static/images/logos/qwen.png" style="height:max(16px,1.4vw);width:max(16px,1.4vw);object-fit:contain;vertical-align:middle;margin-right:.3vw;border-radius:2px">Qwen3-VL-Plus</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); font-weight:600; opacity:.8">64.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">67.4</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">54.3</td>
+              <td style="padding:1.1vh .4vw; text-align:right; font-family:var(--serif-en); opacity:.8">71.6</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 07 &middot; RoboFine-VLM</div>
+    <div>Annotator</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 8: Caption Quality Comparison (dark) ====== -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>Annotator &middot; VLM</div>
+    <div>08 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:3vh">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start">
+      <div>
+        <div class="kicker" data-anim data-persist="vlm-kicker">RoboFine-VLM</div>
+        <h2 class="h-xl" style="font-size:5vw" data-anim data-persist="vlm-title">Scalable Annotator</h2>
+      </div>
+      <p class="lead" style="max-width:38vw; font-size:1.4vw; text-align:right" data-anim>Caption Quality Comparison — fine-grained action descriptions across leading VLMs.</p>
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:1vw; margin:2vh 0 2vh" data-anim>
+      <div style="text-align:center">
+        <video src="../static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_high_rgb.mp4" autoplay loop muted playsinline style="height:20vh; border:1px solid rgba(var(--paper-rgb),.15)"></video>
+        <div style="font-family:var(--mono);font-size:max(9px,.65vw);opacity:.4;margin-top:.4vh">cam_high</div>
+      </div>
+      <div style="text-align:center">
+        <video src="../static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_left_wrist_rgb.mp4" autoplay loop muted playsinline style="height:20vh; border:1px solid rgba(var(--paper-rgb),.15)"></video>
+        <div style="font-family:var(--mono);font-size:max(9px,.65vw);opacity:.4;margin-top:.4vh">cam_left_wrist</div>
+      </div>
+      <div style="text-align:center">
+        <video src="../static/videos/demos/robocoin-Cobot_Magic_pull_zipper-615/cam_right_wrist_rgb.mp4" autoplay loop muted playsinline style="height:20vh; border:1px solid rgba(var(--paper-rgb),.15)"></video>
+        <div style="font-family:var(--mono);font-size:max(9px,.65vw);opacity:.4;margin-top:.4vh">cam_right_wrist</div>
+      </div>
+    </div>
+
+    <div class="grid-2-6-6" style="gap:2vw; align-items:start" data-anim>
+      <!-- RoboFine-VLM -->
+      <div style="border:2px solid rgba(var(--paper-rgb),.25); padding:1.5vh 1vw">
+        <div style="display:flex;align-items:center;gap:.4vw;margin-bottom:1.2vh">
+          <img src="../static/images/logos/RoboFine-logo.png" style="height:max(14px,1.2vw);width:max(14px,1.2vw);object-fit:contain;border-radius:2px">
+          <span style="font-family:var(--mono);font-size:max(11px,.9vw);font-weight:700;letter-spacing:.05em">RoboFine-VLM (Ours)</span>
+        </div>
+        <ol style="font-size:max(12px,.88vw);line-height:1.6;padding-left:1.4vw;margin:0">
+          <li style="margin-bottom:.6vh">Left arm grasps the zipper pull tab on the black bag from the left side and lifts it upward, while the right arm approaches from the right to grasp the pull tab.</li>
+          <li style="margin-bottom:.6vh">Right arm pulls the zipper pull tab horizontally to the right to close the bag, while the left arm stabilizes the bag by holding the left side of the zipper tape.</li>
+          <li>Both arms release the black bag and retract outward to the left and right sides, leaving the bag stationary on the white table.</li>
+        </ol>
+        <div style="margin-top:1vh;font-family:var(--mono);font-size:max(10px,.78vw);opacity:.5;text-align:right">3 steps &middot; precise &amp; concise</div>
+      </div>
+
+      <!-- GPT-5.4 -->
+      <div style="border:1px solid rgba(var(--paper-rgb),.15); padding:1.5vh 1vw">
+        <div style="display:flex;align-items:center;gap:.4vw;margin-bottom:1.2vh">
+          <img src="../static/images/logos/GPT-log.png" style="height:max(14px,1.2vw);width:max(14px,1.2vw);object-fit:contain;border-radius:2px">
+          <span style="font-family:var(--mono);font-size:max(11px,.9vw);font-weight:600;letter-spacing:.05em;opacity:.7">GPT-5.4</span>
+        </div>
+        <ol style="font-size:max(12px,.88vw);line-height:1.6;padding-left:1.4vw;margin:0;opacity:.8">
+          <li style="margin-bottom:.6vh">Move the left gripper in from the left and grasp the metal zipper pull ring near the left top corner.</li>
+          <li style="margin-bottom:.6vh">Lift the zipper pull upward and slightly left/back to bring the slider onto the top edge.</li>
+          <li style="margin-bottom:.6vh">Move the right gripper in from above-right, take hold of the zipper pull/slider.</li>
+          <li style="margin-bottom:.6vh">Left gripper braces the bag while right gripper pulls the zipper slider across the top opening.</li>
+          <li>Release the zipper pull near the right top corner and withdraw both grippers.</li>
+        </ol>
+        <div style="margin-top:1vh;font-family:var(--mono);font-size:max(10px,.78vw);opacity:.4;text-align:right">5 steps &middot; verbose</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 08 &middot; Caption Comparison</div>
+    <div>Annotator</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 9: Key Findings 1 & 2 (dark) ====== -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>Findings &middot; Insights</div>
+    <div>09 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:4vh">
+    <div class="kicker" data-anim>Finding i &amp; ii</div>
+    <h2 class="h-xl" style="margin-bottom:3vh" data-anim data-persist="insights-title">Insights</h2>
+
+    <div class="grid-2-6-6" style="margin-top:1vh;gap:3vw;align-items:start">
+      <div>
+        <div style="display:flex;flex-direction:column;gap:2.5vh">
+          <div class="pillar" data-anim>
+            <div class="ic"><em>i</em></div>
+            <div class="t">No Sacrifice</div>
+            <div class="d" style="font-size:max(12px,.9vw)">FG-only outperforms Raw-only by <strong>+1.4 to +8.1</strong> pts across all settings. OFT-vs-GR00T gap shrinks from 6.4 to just <strong>0.8</strong> under FG-only.</div>
+            <div style="margin-top:1vh;padding-top:1vh;border-top:1px solid rgba(var(--paper-rgb),.12);font-family:var(--mono);font-size:max(10px,.7vw);opacity:.5;line-height:1.6">
+              RDT-OFT: +1.4 / +2.0<br>AlohaMix: +6.5 / +4.7
+            </div>
+          </div>
+          <div class="pillar" data-anim>
+            <div class="ic"><em>ii</em></div>
+            <div class="t">Complementary</div>
+            <div class="d" style="font-size:max(12px,.9vw)">Inverted-U trend — performance peaks at <strong>FG:Raw = 1:1</strong>. Best mixed setting reaches <strong>86.8% / 82.5%</strong> sim, <strong>62.7</strong> real vs 49.9 Raw-only.</div>
+            <div style="margin-top:1vh;padding-top:1vh;border-top:1px solid rgba(var(--paper-rgb),.12);font-family:var(--mono);font-size:max(10px,.7vw);opacity:.5;line-height:1.6">
+              Sim Easy 86.8% &middot; Hard 82.5%<br>Real +12.8 over Raw-only
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center" data-anim>
+        <img src="assets/results_kraft.png" alt="FG proportion vs success rate — inverted-U trend peaking at 1:1" style="width:100%;max-height:52vh;object-fit:contain;display:block">
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 09 &middot; Two Key Findings</div>
+    <div>Insights</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 9: Finding iii — Steerable + Real-World Demos (dark) ====== -->
+<section class="slide dark">
+  <div class="chrome">
+    <div>Insights &middot; Finding iii</div>
+    <div>10 / 11</div>
+  </div>
+  <div class="frame" style="padding-top:3vh">
+    <div class="kicker" data-anim>Finding iii</div>
+    <h2 class="h-xl" style="margin-bottom:1.5vh" data-anim data-persist="insights-title">Insights</h2>
+
+    <div class="pillar" style="margin-bottom:2vh" data-anim>
+      <div class="ic"><em>iii</em></div>
+      <div class="t">Steerable</div>
+      <div class="d" style="font-size:max(12px,.9vw)">Fine-grained supervision enables steerable control on underspecified attributes. Varying only the instruction produces distinctly different execution behaviors.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw;margin-top:1vh">
+      <!-- 1: Approach Direction -->
+      <div data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw);text-align:center;margin-bottom:.8vh">Approach Direction</div>
+        <img src="assets/real_gifs/grasp_above.gif" alt="Grasp from above" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin:.4vh 0">grasp from above</div>
+        <img src="assets/real_gifs/grasp_right.gif" alt="Grasp from right" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin-top:.4vh">grasp from right</div>
+        <div style="margin-top:.8vh;text-align:center;font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw)">
+          <span style="opacity:.4;font-weight:400">60&rarr;</span>78 <span style="font-family:var(--mono);font-size:.8em;opacity:.5">(+18)</span>
+        </div>
+      </div>
+      <!-- 2: Arm Selection -->
+      <div data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw);text-align:center;margin-bottom:.8vh">Arm Selection</div>
+        <img src="assets/real_gifs/left_pick_left_place.gif" alt="Left hand pick and place" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin:.4vh 0">left hand</div>
+        <img src="assets/real_gifs/right_pick_right_place.gif" alt="Right hand pick and place" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin-top:.4vh">right hand</div>
+        <div style="margin-top:.8vh;text-align:center;font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw)">
+          <span style="opacity:.4;font-weight:400">60&rarr;</span>64 <span style="font-family:var(--mono);font-size:.8em;opacity:.5">(+4)</span>
+        </div>
+      </div>
+      <!-- 3: Object Pose -->
+      <div data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw);text-align:center;margin-bottom:.8vh">Object Pose</div>
+        <img src="assets/real_gifs/pick_the_lying.gif" alt="Pick lying cup" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin:.4vh 0">lying cup</div>
+        <img src="assets/real_gifs/pick_the_stand.gif" alt="Pick standing cup" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin-top:.4vh">standing cup</div>
+        <div style="margin-top:.8vh;text-align:center;font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw)">
+          <span style="opacity:.4;font-weight:400">24&rarr;</span>47 <span style="font-family:var(--mono);font-size:.8em;opacity:.5">(+23)</span>
+        </div>
+      </div>
+      <!-- 4: Target Color -->
+      <div data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw);text-align:center;margin-bottom:.8vh">Target Color</div>
+        <img src="assets/real_gifs/pick_blue_pen.gif" alt="Pick blue pen" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin:.4vh 0">blue pen</div>
+        <img src="assets/real_gifs/pick_red_pen.gif" alt="Pick red pen" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin-top:.4vh">red pen</div>
+        <div style="margin-top:.8vh;text-align:center;font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw)">
+          <span style="opacity:.4;font-weight:400">22&rarr;</span>40 <span style="font-family:var(--mono);font-size:.8em;opacity:.5">(+18)</span>
+        </div>
+      </div>
+      <!-- 5: Rotation Direction -->
+      <div data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw);text-align:center;margin-bottom:.8vh">Rotation</div>
+        <img src="assets/real_gifs/rotate_clockwise.gif" alt="Rotate clockwise" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin:.4vh 0">clockwise</div>
+        <img src="assets/real_gifs/rotate_counterclockwise.gif" alt="Rotate counter-clockwise" style="width:100%;border-radius:3px;display:block;border:1px solid rgba(var(--paper-rgb),.12)">
+        <div style="font-family:var(--mono);font-size:max(9px,.6vw);text-align:center;opacity:.55;margin-top:.4vh">counter-clockwise</div>
+        <div style="margin-top:.8vh;text-align:center;font-family:var(--serif-en);font-weight:700;font-size:max(12px,.9vw)">
+          <span style="opacity:.4;font-weight:400">76&rarr;</span>86 <span style="font-family:var(--mono);font-size:.8em;opacity:.5">(+10)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 10 &middot; Real-World Demonstrations</div>
+    <div>Insights &middot; Finding iii</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 11: Closing (hero dark) ====== -->
+<section class="slide hero dark">
+  <div class="chrome">
+    <div>Takeaway</div>
+    <div>11 / 11</div>
+  </div>
+  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>The Takeaway</div>
+    <h1 class="h-hero" style="font-size:7vw; line-height:1.15">
+      <span data-anim style="display:block">Specify <em>how</em>,</span>
+      <span data-anim style="display:block">not just <em>what</em>.</span>
+    </h1>
+    <p class="lead" style="max-width:55vw" data-anim>
+      FineVLA provides a fully open-source framework for scaling fine-grained VLA data, robotic video understanding, and steerable policies.
+    </p>
+    <div class="meta-row" data-anim>
+      <span>Code + Benchmark + Models</span><span>&middot;</span><span>Open Source</span><span>&middot;</span><span>2026</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>FineVLA &middot; Fine-Grained Instruction Alignment</div>
+    <div>&mdash; Thank You &mdash;</div>
+  </div>
+</section>
+
+</div>
+
+<div id="nav"></div>
+
+<script>
+const VS = `attribute vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}`;
+
+const FS_DARK = `precision highp float;
+uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
+vec3 palette(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+  vec2 p=uv*2.0-1.0;p.x*=u_resolution.x/u_resolution.y;
+  vec2 m=u_mouse*2.0-1.0;m.x*=u_resolution.x/u_resolution.y;
+  float md=length(p-m);
+  float mr=sin(md*15.0-u_time*4.0)*exp(-md*3.0);p+=mr*0.08;
+  vec2 p0=p;
+  for(float i=1.0;i<4.0;i++){
+    p.x+=0.1/i*sin(i*3.0*p.y+u_time*0.4)+0.05;
+    p.y+=0.1/i*cos(i*2.0*p.x+u_time*0.3)-0.05;
+  }
+  float r=length(p);float ang=atan(p.y,p.x);
+  vec3 a=vec3(0.12,0.12,0.13);
+  vec3 b=vec3(0.03,0.04,0.05);
+  vec3 c=vec3(1.0,1.0,1.0);
+  vec3 d=vec3(0.1,0.2,0.4);
+  vec3 col=palette(r*1.5+p0.x*0.5+u_time*0.1,a,b,c,d);
+  float disp=sin(r*25.0-u_time*1.5+ang*2.0)*0.5+0.5;
+  col+=vec3(disp*0.015,disp*0.01,disp*0.02);
+  float hi=pow(sin(p.x*4.0+p.y*3.0+u_time)*0.5+0.5,8.0);
+  col+=hi*0.08;
+  vec3 base=vec3(0.05,0.05,0.06);
+  col=mix(base,col,0.85);
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const FS_LIGHT = `precision highp float;
+uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){
+  vec2 i=floor(p),f=fract(p);
+  float a=hash(i),b=hash(i+vec2(1,0));
+  float c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
+}
+float fbm(vec2 p){
+  float v=0.0,a=0.5;
+  mat2 m=mat2(0.80,0.60,-0.60,0.80);
+  for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=0.5;}
+  return v;
+}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+  vec2 p=uv;p.x*=u_resolution.x/u_resolution.y;
+  vec2 m=u_mouse;m.x*=u_resolution.x/u_resolution.y;
+  vec2 md=p-m;float dl=length(md);
+  p+=normalize(md+vec2(0.0001))*exp(-dl*5.0)*0.03;
+  vec2 q=vec2(fbm(p*1.8+u_time*0.07),fbm(p*1.8+vec2(5.2,1.3)+u_time*0.06));
+  vec2 r=vec2(fbm(p*2.0+q*1.3+vec2(1.7,9.2)+u_time*0.05),
+              fbm(p*2.0+q*1.3+vec2(8.3,2.8)+u_time*0.04));
+  float f=fbm(p*2.2+r*1.5);
+  vec3 silverDark=vec3(0.86,0.85,0.84);
+  vec3 paper=vec3(0.955,0.945,0.925);
+  vec3 col=mix(silverDark,paper,f);
+  float ph=r.x*2.2+u_time*0.35;
+  col+=vec3(0.78,0.62,0.92)*sin(ph)*0.055;
+  col+=vec3(0.55,0.72,0.95)*sin(ph*0.8+2.0)*0.05;
+  float hl=smoothstep(0.48,0.92,f);
+  col+=hl*0.06;
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const mouse={x:0.5,y:0.5};
+addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
+
+function bootGL(canvasId, fsSrc){
+  const canvas=document.getElementById(canvasId);
+  const gl=canvas.getContext('webgl',{alpha:false,antialias:true});
+  if(!gl) return ()=>false;
+  const mk=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh};
+  const prog=gl.createProgram();
+  gl.attachShader(prog,mk(gl.VERTEX_SHADER,VS));
+  gl.attachShader(prog,mk(gl.FRAGMENT_SHADER,fsSrc));
+  gl.linkProgram(prog);gl.useProgram(prog);
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  const pos=gl.getAttribLocation(prog,'position');
+  gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+  const lRes=gl.getUniformLocation(prog,'u_resolution');
+  const lT=gl.getUniformLocation(prog,'u_time');
+  const lM=gl.getUniformLocation(prog,'u_mouse');
+  const resize=()=>{
+    const d=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=innerWidth*d;canvas.height=innerHeight*d;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  };
+  addEventListener('resize',resize);resize();
+  return (tSec)=>{
+    gl.uniform2f(lRes,canvas.width,canvas.height);
+    gl.uniform1f(lT,tSec);
+    gl.uniform2f(lM,mouse.x,1-mouse.y);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+    return true;
+  };
+}
+let drawDark=null, drawLight=null, glRAF=0, glT0=Date.now();
+function startGL(){
+  if(window.__lowPowerMode || glRAF) return;
+  if(!drawDark) drawDark=bootGL('bg-dark',FS_DARK);
+  if(!drawLight) drawLight=bootGL('bg-light',FS_LIGHT);
+  glT0=Date.now();
+  function loop(){
+    if(window.__lowPowerMode){glRAF=0;return;}
+    const t=(Date.now()-glT0)/1000;
+    drawDark(t);drawLight(t);
+    glRAF=requestAnimationFrame(loop);
+  }
+  glRAF=requestAnimationFrame(loop);
+}
+function stopGL(){
+  if(glRAF) cancelAnimationFrame(glRAF);
+  glRAF=0;
+}
+startGL();
+addEventListener('ppt-low-power-change', e=>{e.detail.on ? stopGL() : startGL();});
+
+const deck=document.getElementById('deck');
+const slides=deck.querySelectorAll('.slide');
+const nav=document.getElementById('nav');
+let idx=0,total=slides.length,lock=false;
+deck.style.width=(total*100)+'vw';
+
+slides.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='dot';b.dataset.i=i;b.setAttribute('aria-label','Page '+(i+1));
+  b.onclick=()=>go(i);
+  nav.appendChild(b);
+});
+
+function go(n){
+  if(lock)return;
+  idx=Math.max(0,Math.min(total-1,n));
+  window.__currentSlideIndex = idx;
+  deck.style.transform=`translateX(${-idx*100}vw)`;
+  nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  const el=slides[idx];
+  const th=el.dataset.theme || (el.classList.contains('light')?'light':(el.classList.contains('dark')?'dark':'dark'));
+  document.body.classList.toggle('light-bg',th==='light');
+  if(window.__playSlide) window.__playSlide(idx);
+  slides.forEach((s,i)=>{
+    s.querySelectorAll('video').forEach(v=>{
+      if(i===idx){v.play().catch(()=>{});}else{v.pause();}
+    });
+  });
+  lock=true;setTimeout(()=>lock=false,700);
+}
+
+let overviewOn=false;
+const ov=document.createElement('div');
+ov.id='overview';
+ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--ink-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
+document.body.appendChild(ov);
+
+function buildOverview(){
+  ov.innerHTML='';
+  const grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
+  slides.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)')+';transition:border-color .2s';
+    card.onmouseenter=()=>card.style.borderColor='rgba(var(--paper-rgb),.6)';
+    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--paper)':'var(--ink)');
+    const clone=s.cloneNode(true);
+    clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
+    clone.querySelectorAll('[data-anim]').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+    wrap.appendChild(clone);
+    const label=document.createElement('div');
+    label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);opacity:.7';
+    label.textContent=(i+1)+' / '+total;
+    card.appendChild(wrap);
+    card.appendChild(label);
+    card.onclick=()=>{toggleOverview();go(i)};
+    grid.appendChild(card);
+  });
+  ov.appendChild(grid);
+}
+
+function toggleOverview(){
+  overviewOn=!overviewOn;
+  if(overviewOn){buildOverview();ov.style.display='block';}
+  else{ov.style.display='none';}
+}
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();toggleOverview();return;}
+  if(e.key && e.key.toLowerCase()==='b' && !e.metaKey && !e.ctrlKey && !e.altKey){
+    e.preventDefault();
+    window.__setLowPowerMode(!window.__lowPowerMode);
+    return;
+  }
+  if(overviewOn)return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown'){
+    if(window.__pipeAdvance && window.__pipeAdvance()) return;
+    go(idx+1);return;
+  }
+  if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp')go(idx-1);
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(total-1);
+});
+
+let wheelTO=null,wheelAcc=0;
+addEventListener('wheel',e=>{
+  wheelAcc+=e.deltaY+e.deltaX;
+  if(Math.abs(wheelAcc)>50){
+    if(wheelAcc>0 && window.__pipeAdvance && window.__pipeAdvance()){wheelAcc=0;}
+    else{go(idx+(wheelAcc>0?1:-1));wheelAcc=0;}
+  }
+  clearTimeout(wheelTO);wheelTO=setTimeout(()=>wheelAcc=0,150);
+},{passive:true});
+
+let tx=0,ty=0;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',e=>{
+  const dx=(e.changedTouches[0].clientX-tx);
+  const dy=(e.changedTouches[0].clientY-ty);
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
+    if(dx<0 && window.__pipeAdvance && window.__pipeAdvance()) return;
+    go(idx+(dx<0?1:-1));
+  }
+},{passive:true});
+
+go(0);
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+<script type="module">
+let motion;
+try {
+  motion = await import('./assets/motion.min.js');
+} catch(e1) {
+  try {
+    motion = await import('https://cdn.jsdelivr.net/npm/motion@11.11.17/+esm');
+  } catch(e2) {
+    console.warn('[motion] local + CDN both failed, disabling animations', e1, e2);
+    document.querySelectorAll('[data-anim]').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+    document.querySelectorAll('[data-animate="pipeline"] [data-anim]').forEach(el=>el.style.opacity='1');
+  }
+}
+
+if(motion){
+  const { animate, stagger } = motion;
+  document.body.classList.add('motion-ready');
+  const EASE = [.22, 1, .36, 1];
+  const slides = [...document.querySelectorAll('.slide')];
+  let pipeStep = -1;
+  let lastIdx = -1;
+
+  function resetAnims(slide){
+    slide.querySelectorAll('[data-anim]').forEach(el=>{
+      el.style.opacity='';el.style.transform='';
+    });
+  }
+
+  function revealStatic(slide){
+    resetAnims(slide);
+    document.getAnimations?.().forEach(a=>a.cancel());
+    slide.querySelectorAll('[data-anim]').forEach(el=>{
+      el.style.opacity='1';el.style.transform='none';
+    });
+  }
+
+  function playSlide(i){
+    const slide = slides[i];
+    if(!slide) return;
+
+    const prevSlide = lastIdx >= 0 ? slides[lastIdx] : null;
+    const persistKeys = new Set();
+    if(prevSlide){
+      prevSlide.querySelectorAll('[data-persist]').forEach(el=>persistKeys.add(el.dataset.persist));
+    }
+    const isPersist = el => el.dataset.persist && persistKeys.has(el.dataset.persist);
+
+    lastIdx = i;
+    const recipe = slide.dataset.animate || (slide.classList.contains('hero') ? 'hero' : 'cascade');
+
+    if(window.__lowPowerMode){revealStatic(slide);return;}
+
+    if(recipe === 'pipeline'){
+      pipeStep = -1;
+      slide.querySelectorAll('[data-anim]').forEach(el=>{
+        if(isPersist(el)){el.style.opacity='1';el.style.transform='none';}
+        else{el.style.opacity='0.15';el.style.transform='none';}
+      });
+      return;
+    }
+
+    resetAnims(slide);
+    slide.querySelectorAll('[data-persist]').forEach(el=>{
+      if(persistKeys.has(el.dataset.persist)){el.style.opacity='1';el.style.transform='none';}
+    });
+    const all = [...slide.querySelectorAll('[data-anim]')].filter(el=>!isPersist(el));
+    if(!all.length) return;
+
+    if(recipe === 'directional'){
+      const lefts  = all.filter(el=>el.dataset.anim==='left');
+      const divs   = all.filter(el=>el.dataset.anim==='divider');
+      const rights = all.filter(el=>el.dataset.anim==='right');
+      const others = all.filter(el=>!['left','right','divider'].includes(el.dataset.anim));
+      if(others.length) animate(others, {opacity:[0,1], y:[12,0]}, {duration:.6, delay:stagger(.1, {start:.15}), easing:EASE});
+      if(lefts.length)  animate(lefts,  {opacity:[0,1], x:[-24,0]}, {duration:.8, delay:.35, easing:EASE});
+      if(divs.length)   animate(divs,   {opacity:[0,.25]},          {duration:.5, delay:.9});
+      if(rights.length) animate(rights, {opacity:[0,1], x:[24,0]},  {duration:.8, delay:1.0, easing:EASE});
+      return;
+    }
+
+    if(recipe === 'quote'){
+      const lines = all.filter(el=>el.dataset.anim==='line');
+      const others = all.filter(el=>el.dataset.anim!=='line');
+      if(others.length) animate(others, {opacity:[0,1], y:[8,0]},    {duration:.6, delay:stagger(.12, {start:.2}), easing:EASE});
+      if(lines.length)  animate(lines,  {opacity:[.35,1], y:[10,0]}, {duration:.8, delay:stagger(.55, {start:.5}), easing:EASE});
+      return;
+    }
+
+    if(recipe === 'hero'){
+      animate(all, {opacity:[0,1], y:[14,0]}, {duration:.9, delay:stagger(.16, {start:.2}), easing:EASE});
+      return;
+    }
+
+    animate(all, {opacity:[0,1], y:[16,0]}, {duration:.75, delay:stagger(.1, {start:.15}), easing:EASE});
+  }
+
+  function pipeAdvance(){
+    if(window.__lowPowerMode) return false;
+    const slide = slides[lastIdx];
+    if(!slide || slide.dataset.animate !== 'pipeline') return false;
+    const steps  = [...slide.querySelectorAll('[data-anim="step"]')];
+    const arrows = [...slide.querySelectorAll('[data-anim="arrow"]')];
+    if(pipeStep >= steps.length - 1) return false;
+    pipeStep++;
+    animate(steps[pipeStep], {opacity:[0.15,1], y:[8,0]}, {duration:.5, easing:EASE});
+    if(pipeStep > 0 && arrows[pipeStep-1]){
+      animate(arrows[pipeStep-1], {opacity:[0.15,.7]}, {duration:.3, delay:.15});
+    }
+    return true;
+  }
+
+  window.__playSlide = playSlide;
+  window.__pipeAdvance = pipeAdvance;
+  playSlide(0);
+}
+</script>
+</body>
+</html>

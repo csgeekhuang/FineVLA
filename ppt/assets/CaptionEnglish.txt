@@ -1,0 +1,141 @@
+Hello everyone, today I'll be introducing our team's latest work—FineVLA, short for Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies.
+
+Simply put, the core idea of ​​this work is: we not only tell the robot "what to do," but also "how to do it." Not just what, but how.
+
+So why do we need fine-grained instructions? Let's look at this comparison.
+
+On the left are typical instructions from existing methods, such as "Pick up the cup."
+
+These goal-level instructions are only one sentence, without specifying the direction of approach, which hand to use, which part of the object to contact, or the path the arm should follow.
+
+The robot lacks execution-level guidance and cannot precisely control the execution method.
+
+On the right are our proposed fine-grained instructions, such as "Use your right hand, approach from the left, and grasp the rim of the cup."
+
+We annotate in 10 dimensions, including arm use, approach direction, contact area, movement path, and changes in object state.
+
+This gives the robot controllable, fine-grained execution capabilities.
+
+To achieve this goal, we built a complete open framework consisting of four pillars:
+
+First, FineVLA-Tool and FineVLA-Data—a data construction toolchain and high-quality, fine-grained datasets.
+
+Second, RoboFine-Bench—a benchmark specifically designed to evaluate fine-grained understanding capabilities.
+
+Third, RoboFine-VLM—a scalable, deployable fine-grained video annotation model.
+
+Fourth, FineVLA-Policy—a controllable execution policy trained using fine-grained data.
+
+These four modules form a closed loop: first, build the data; then, evaluate the model's capabilities using the benchmark; use the evaluation results to optimize the annotation model; and finally, train the policy using high-quality labeled data.
+
+Let's look at the data.
+
+As you can see, four key figures are displayed in the upper right corner.
+
+We integrated 10 publicly available robot datasets, covering a total of 972K operation trajectories.
+
+Building upon this foundation, we used our self-developed FineVLA-Tool to perform manually verified fine-grained annotations on 47K trajectories, covering 10 annotation dimensions.
+
+The average length of the annotated instructions increased from 9.3 words to 96.8 words, a 10.4-fold improvement.
+
+The video below showcases our data browsing interface, allowing you to intuitively appreciate the richness of the fine-grained annotations.
+
+Each trajectory is accompanied by a detailed multi-step action description.
+
+Next, we introduce the evaluation system, RoboFine-Bench.
+
+It comprises two tracks; let's look at the VQA track first.
+
+We designed 1030 visual question-and-answer questions, covering 10 fine-grained dimensions, and evaluated them on 500 retained videos.
+
+The evaluation is divided into two main categories: Grounding VQA examines whether the model can correctly identify specific details in the video; Reasoning VQA examines the model's reasoning ability regarding action execution logic.
+
+The figure illustrates the question distribution across various dimensions and the specific design of the two evaluation types.
+
+The second track is the Caption Track.
+
+Unlike VQA, the Caption Track evaluates the model's ability to generate complete action descriptions.
+
+We decomposed the Ground Truth annotations into 11,600 atomic facts and designed two scoring modes: Easy and Hard.
+
+As shown in the statistical chart on the left, the Caption GT covers multiple dimensions, including action sequences, target objects, and initial configurations.
+
+The flowchart on the right illustrates the complete evaluation process: first, the GT is decomposed into atomic facts; then, consistency is measured in Easy mode; and finally, coverage and illusion rate are further evaluated in Hard mode.
+
+With this benchmark, we can objectively compare the performance of various models in fine-grained understanding.
+
+Based on Qwen3.5-397B-A17B, we fine-tuned it on FineVLA-Data to train RoboFine-VLM.
+
+The VQA results table on the left shows RoboFine-VLM leading significantly with a total score of 68.2, surpassing GPT-5.4's 60.2, Gemini 3.1 Pro's 59.6, and Seed 2.0 Pro's 58.5.
+
+The Caption-Hard results on the right also demonstrate outstanding performance.
+
+RoboFine-VLM ranks first with a total score of 82.2, achieving a consistency score of 80.4, coverage of 71.5%, and a hallucination rate of only 5.2%.
+
+To more intuitively illustrate the differences in annotation quality, let's look at a specific case comparison.
+
+The video above shows three perspectives of the same task—a zipper task: the robot needs to use both hands to zip up a backpack.
+
+On the left is the output of RoboFine-VLM: accurately and concisely describing the entire process in just 3 steps.
+
+Step 1: Grasp the zipper pull from the left with your left hand and lift it up, while your right hand approaches from the right.
+
+Step 2: Pull the zipper horizontally to the right with your right hand to close the bag, while your left hand stabilizes the zipper strap.
+
+Step 3: Release both arms and retract them to the sides.
+
+Each step clearly defines the division of labor, direction of movement, and contact points between the arms.
+
+Comparing this to the output of GPT-5.4 on the right, the same task is described in 5 steps, making the description significantly more verbose, and some steps lack crucial details about the coordination of both arms.
+
+This example clearly illustrates the advantages of RoboFine-VLM in terms of accuracy and simplicity in fine-grained annotation.
+
+Based on extensive simulations and real-world experiments, we have summarized three key findings.
+
+This page introduces the first two.
+
+First Finding: No Sacrifice—Fine-grained data does not sacrifice performance.
+
+In all experimental settings, models trained using only fine-grained data outperformed models trained using only raw data, with improvements ranging from 1.4 to 8.1 percentage points.
+
+A fascinating phenomenon is that the performance gap between OFT and GR00T, originally 6.4, narrowed to only 0.8 after using fine-grained data.
+
+This indicates that fine-grained data possesses stronger cross-architecture generalization capabilities.
+
+The second finding: Complementary – Fine-grained data and raw data are complementary.
+
+As shown in the chart on the right, we observed a clear inverted U-shaped trend.
+
+Performance peaks when the mixing ratio of fine-grained data and raw data is 1:1.
+
+The optimal mixing setting achieves 86.8% in Easy mode, 82.5% in Hard mode, and 62.7% in the real environment, an improvement of nearly 13 points compared to 49.9% with pure raw data.
+
+The third and most important finding: Steerable – Fine-grained supervision endows the policy with true manipulability.
+
+A policy trained with fine-grained methods can produce drastically different execution behaviors based on changes in a single attribute of the instruction.
+
+We validated our findings on five real-world robotic tasks, as shown in the GIF demonstration on the screen.
+
+The first task, approach direction: specifying grasping from above and from the right, the robot indeed demonstrated different approach paths, improving the success rate from 60% to 78%, an improvement of 18 points.
+
+The second task, arm selection: specifying left or right hand, the success rate improved from 60% to 64%.
+
+The third task, object posture: recognizing upside-down and upright cups, the success rate significantly improved from 24% to 47%, an improvement of 23 points.
+
+The fourth task, target color: distinguishing between blue and red pens, the success rate improved from 22% to 40%.
+
+The fifth task, rotation direction: clockwise and counterclockwise rotation, the success rate improved from 76% to 86%.
+
+These comparisons clearly demonstrate that fine-grained instructions give the robot true controllability.
+
+The same task, described differently, can produce different execution behaviors.
+
+Finally, to summarize our core message: Specify how, not just what.
+
+It's not just about telling the robot what to do, but also about precisely describing how to do it.
+
+FineVLA provides a completely open-source framework covering fine-grained data construction, benchmarking, and manipulable strategies.
+
+The code, benchmarks, and models are all open-source; we welcome your use and feedback.
+
+Thank you!

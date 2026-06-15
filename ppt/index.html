@@ -271,7 +271,7 @@
     <div class="meta-row" data-anim>
       <span>FineVLA-Tool + Data</span><span>&middot;</span><span>RoboFine-Bench</span><span>&middot;</span><span>RoboFine-VLM</span><span>&middot;</span><span>FineVLA-Policy</span>
     </div>
-    <div style="margin-top:1vh; display:flex; justify-content:center" data-anim>
+    <div style="margin-top:-2vh; display:flex; justify-content:center" data-anim>
       <img src="assets/teaser_kraft.png" alt="FineVLA Framework Overview — Four Pillars" style="width:88%; max-height:46vh; object-fit:contain">
     </div>
   </div>
@@ -346,7 +346,7 @@
     </div>
     <p class="lead" style="margin-bottom:3vh" data-anim>1,030 questions across 10 dimensions — Grounding &amp; Reasoning evaluation over 500 held-out videos.</p>
 
-    <div style="margin-top:2vh;display:flex;justify-content:center" data-anim>
+    <div style="margin-top:-1vh;display:flex;justify-content:center" data-anim>
       <img src="assets/VQATrack.png" alt="VQA Track: Statistics, Grounding VQA, and Reasoning VQA" style="width:88%;max-height:54vh;object-fit:contain;display:block">
     </div>
   </div>
@@ -372,7 +372,7 @@
     </div>
     <p class="lead" style="margin-bottom:3vh" data-anim>11.6K atomic facts decomposed from ground truth — Easy &amp; Hard modes measuring consistency and coverage.</p>
 
-    <div style="margin-top:0;display:flex;align-items:center;gap:2vw;margin-left:-1vw" data-anim>
+    <div style="margin-top:-10vh;display:flex;align-items:center;gap:2vw;margin-left:-1vw" data-anim>
       <img src="assets/CaptionTrack_left.png" alt="Caption GT Statistics" style="width:30%;object-fit:contain;display:block">
       <img src="assets/CaptionTrack_right.png" alt="Decompose GT Facts & Scoring" style="width:65%;object-fit:contain;display:block">
     </div>
@@ -589,18 +589,12 @@
           <div class="pillar" data-anim>
             <div class="ic"><em>i</em></div>
             <div class="t">No Sacrifice</div>
-            <div class="d" style="font-size:max(12px,.9vw)">FG-only outperforms Raw-only by <strong>+1.4 to +8.1</strong> pts across all settings. OFT-vs-GR00T gap shrinks from 6.4 to just <strong>0.8</strong> under FG-only.</div>
-            <div style="margin-top:1vh;padding-top:1vh;border-top:1px solid rgba(var(--paper-rgb),.12);font-family:var(--mono);font-size:max(10px,.7vw);opacity:.5;line-height:1.6">
-              RDT-OFT: +1.4 / +2.0<br>AlohaMix: +6.5 / +4.7
-            </div>
+            <div class="d" style="font-size:max(12px,.9vw)">FG-only outperforms Raw-only by <strong>+1.4 to +8.1</strong> pts across all settings. OFT-vs-GR00T gap shrinks from 6.4 to just <strong>0.8</strong> under FG-only. RDT-OFT: +1.4 / +2.0, AlohaMix: +6.5 / +4.7.</div>
           </div>
           <div class="pillar" data-anim>
             <div class="ic"><em>ii</em></div>
             <div class="t">Complementary</div>
-            <div class="d" style="font-size:max(12px,.9vw)">Inverted-U trend — performance peaks at <strong>FG:Raw = 1:1</strong>. Best mixed setting reaches <strong>86.8% / 82.5%</strong> sim, <strong>62.7</strong> real vs 49.9 Raw-only.</div>
-            <div style="margin-top:1vh;padding-top:1vh;border-top:1px solid rgba(var(--paper-rgb),.12);font-family:var(--mono);font-size:max(10px,.7vw);opacity:.5;line-height:1.6">
-              Sim Easy 86.8% &middot; Hard 82.5%<br>Real +12.8 over Raw-only
-            </div>
+            <div class="d" style="font-size:max(12px,.9vw)">Inverted-U trend — performance peaks at <strong>FG:Raw = 1:1</strong>. Best mixed setting reaches <strong>86.8% / 82.5%</strong> sim, <strong>62.7</strong> real vs 49.9 Raw-only. Real +12.8 over Raw-only.</div>
           </div>
         </div>
       </div>
@@ -626,8 +620,10 @@
     <h2 class="h-xl" style="margin-bottom:1.5vh" data-anim data-persist="insights-title">Insights</h2>
 
     <div class="pillar" style="margin-bottom:2vh" data-anim>
-      <div class="ic"><em>iii</em></div>
-      <div class="t">Steerable</div>
+      <div style="display:flex;align-items:center;gap:.8vw">
+        <div class="ic"><em>iii</em></div>
+        <div class="t" style="margin:0">Steerable</div>
+      </div>
       <div class="d" style="font-size:max(12px,.9vw)">Fine-grained supervision enables steerable control on underspecified attributes. Varying only the instruction produces distinctly different execution behaviors.</div>
     </div>
 

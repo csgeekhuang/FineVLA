@@ -13,3 +13,7 @@ Qwen_logo.svg.png
 worldolympiad/
 guizang-ppt-skill/
 Fine-Grained-VLA
+ppt/**/*.mp4
+ppt/**/*.mov
+ppt/**/*.mp3
+ppt/**/*.MP3

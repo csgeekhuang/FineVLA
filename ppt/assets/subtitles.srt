@@ -1,0 +1,269 @@
+1
+00:00:00,000 --> 00:00:10,950
+Hello everyone, today I'll be introducing our team's latest work—FineVLA, short for Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies.
+
+2
+00:00:10,950 --> 00:00:21,901
+Simply put, the core idea of ​​this work is: we not only tell the robot "what to do," but also "how to do it." Not just what, but how.
+
+3
+00:00:21,901 --> 00:00:30,124
+So why do we need fine-grained instructions? Let's look at this comparison.
+
+4
+00:00:30,124 --> 00:00:38,346
+On the left are typical instructions from existing methods, such as "Pick up the cup."
+
+5
+00:00:38,346 --> 00:00:46,569
+These goal-level instructions are only one sentence, without specifying the direction of approach, which hand to use, which part of the object to contact, or the path the arm should follow.
+
+6
+00:00:46,569 --> 00:00:54,791
+The robot lacks execution-level guidance and cannot precisely control the execution method.
+
+7
+00:00:54,791 --> 00:01:03,013
+On the right are our proposed fine-grained instructions, such as "Use your right hand, approach from the left, and grasp the rim of the cup."
+
+8
+00:01:03,013 --> 00:01:11,236
+We annotate in 10 dimensions, including arm use, approach direction, contact area, movement path, and changes in object state.
+
+9
+00:01:11,236 --> 00:01:19,458
+This gives the robot controllable, fine-grained execution capabilities.
+
+10
+00:01:19,458 --> 00:01:28,214
+To achieve this goal, we built a complete open framework consisting of four pillars:
+
+11
+00:01:28,214 --> 00:01:36,970
+First, FineVLA-Tool and FineVLA-Data—a data construction toolchain and high-quality, fine-grained datasets.
+
+12
+00:01:36,970 --> 00:01:45,726
+Second, RoboFine-Bench—a benchmark specifically designed to evaluate fine-grained understanding capabilities.
+
+13
+00:01:45,726 --> 00:01:54,482
+Third, RoboFine-VLM—a scalable, deployable fine-grained video annotation model.
+
+14
+00:01:54,482 --> 00:02:03,238
+Fourth, FineVLA-Policy—a controllable execution policy trained using fine-grained data.
+
+15
+00:02:03,238 --> 00:02:11,994
+These four modules form a closed loop: first, build the data; then, evaluate the model's capabilities using the benchmark; use the evaluation results to optimize the annotation model; and finally, train the policy using high-quality labeled data.
+
+16
+00:02:11,994 --> 00:02:20,665
+Let's look at the data.
+As you can see, four key figures are displayed in the upper right corner.
+
+17
+00:02:20,665 --> 00:02:29,336
+We integrated 10 publicly available robot datasets, covering a total of 972K operation trajectories.
+
+18
+00:02:29,336 --> 00:02:38,007
+Building upon this foundation, we used our self-developed FineVLA-Tool to perform manually verified fine-grained annotations on 47K trajectories, covering 10 annotation dimensions.
+
+19
+00:02:38,007 --> 00:02:46,678
+The average length of the annotated instructions increased from 9.3 words to 96.8 words, a 10.4-fold improvement.
+
+20
+00:02:46,678 --> 00:02:55,349
+The video below showcases our data browsing interface, allowing you to intuitively appreciate the richness of the fine-grained annotations.
+
+21
+00:02:55,349 --> 00:03:04,020
+Each trajectory is accompanied by a detailed multi-step action description.
+
+22
+00:03:04,020 --> 00:03:15,262
+Next, we introduce the evaluation system, RoboFine-Bench.
+It comprises two tracks; let's look at the VQA track first.
+
+23
+00:03:15,262 --> 00:03:26,504
+We designed 1030 visual question-and-answer questions, covering 10 fine-grained dimensions, and evaluated them on 500 retained videos.
+
+24
+00:03:26,504 --> 00:03:37,746
+The evaluation is divided into two main categories: Grounding VQA examines whether the model can correctly identify specific details in the video; Reasoning VQA examines the model's reasoning ability regarding action execution logic.
+
+25
+00:03:37,746 --> 00:03:48,988
+The figure illustrates the question distribution across various dimensions and the specific design of the two evaluation types.
+
+26
+00:03:48,988 --> 00:04:00,994
+The second track is the Caption Track.
+Unlike VQA, the Caption Track evaluates the model's ability to generate complete action descriptions.
+
+27
+00:04:00,994 --> 00:04:13,000
+We decomposed the Ground Truth annotations into 11,600 atomic facts and designed two scoring modes: Easy and Hard.
+
+28
+00:04:13,000 --> 00:04:25,006
+As shown in the statistical chart on the left, the Caption GT covers multiple dimensions, including action sequences, target objects, and initial configurations.
+
+29
+00:04:25,006 --> 00:04:37,012
+The flowchart on the right illustrates the complete evaluation process: first, the GT is decomposed into atomic facts; then, consistency is measured in Easy mode; and finally, coverage and illusion rate are further evaluated in Hard mode.
+
+30
+00:04:37,012 --> 00:04:45,861
+With this benchmark, we can objectively compare the performance of various models in fine-grained understanding.
+
+31
+00:04:45,861 --> 00:04:54,709
+Based on Qwen3.5-397B-A17B, we fine-tuned it on FineVLA-Data to train RoboFine-VLM.
+
+32
+00:04:54,709 --> 00:05:03,557
+The VQA results table on the left shows RoboFine-VLM leading significantly with a total score of 68.2, surpassing GPT-5.4's 60.2, Gemini 3.1 Pro's 59.6, and Seed 2.0 Pro's 58.5.
+
+33
+00:05:03,557 --> 00:05:12,405
+The Caption-Hard results on the right also demonstrate outstanding performance.
+
+34
+00:05:12,405 --> 00:05:21,253
+RoboFine-VLM ranks first with a total score of 82.2, achieving a consistency score of 80.4, coverage of 71.5%, and a hallucination rate of only 5.2%.
+
+35
+00:05:21,253 --> 00:05:31,640
+To more intuitively illustrate the differences in annotation quality, let's look at a specific case comparison.
+
+36
+00:05:31,640 --> 00:05:42,027
+The video above shows three perspectives of the same task—a zipper task: the robot needs to use both hands to zip up a backpack.
+
+37
+00:05:42,027 --> 00:05:52,414
+On the left is the output of RoboFine-VLM: accurately and concisely describing the entire process in just 3 steps.
+
+38
+00:05:52,414 --> 00:06:02,801
+Step 1: Grasp the zipper pull from the left with your left hand and lift it up, while your right hand approaches from the right.
+
+39
+00:06:02,801 --> 00:06:13,188
+Step 2: Pull the zipper horizontally to the right with your right hand to close the bag, while your left hand stabilizes the zipper strap.
+
+40
+00:06:13,188 --> 00:06:23,575
+Step 3: Release both arms and retract them to the sides.
+Each step clearly defines the division of labor, direction of movement, and contact points between the arms.
+
+41
+00:06:23,575 --> 00:06:33,962
+Comparing this to the output of GPT-5.4 on the right, the same task is described in 5 steps, making the description significantly more verbose, and some steps lack crucial details about the coordination of both arms.
+
+42
+00:06:33,962 --> 00:06:44,350
+This example clearly illustrates the advantages of RoboFine-VLM in terms of accuracy and simplicity in fine-grained annotation.
+
+43
+00:06:44,350 --> 00:06:53,130
+Based on extensive simulations and real-world experiments, we have summarized three key findings.
+
+44
+00:06:53,130 --> 00:07:01,910
+This page introduces the first two.
+First Finding: No Sacrifice—Fine-grained data does not sacrifice performance.
+
+45
+00:07:01,910 --> 00:07:10,690
+In all experimental settings, models trained using only fine-grained data outperformed models trained using only raw data, with improvements ranging from 1.4 to 8.1 percentage points.
+
+46
+00:07:10,690 --> 00:07:19,470
+A fascinating phenomenon is that the performance gap between OFT and GR00T, originally 6.4, narrowed to only 0.8 after using fine-grained data.
+
+47
+00:07:19,470 --> 00:07:28,251
+This indicates that fine-grained data possesses stronger cross-architecture generalization capabilities.
+
+48
+00:07:28,251 --> 00:07:37,031
+The second finding: Complementary – Fine-grained data and raw data are complementary.
+
+49
+00:07:37,031 --> 00:07:45,811
+As shown in the chart on the right, we observed a clear inverted U-shaped trend.
+
+50
+00:07:45,811 --> 00:07:54,591
+Performance peaks when the mixing ratio of fine-grained data and raw data is 1:1.
+
+51
+00:07:54,591 --> 00:08:03,371
+The optimal mixing setting achieves 86.8% in Easy mode, 82.5% in Hard mode, and 62.7% in the real environment, an improvement of nearly 13 points compared to 49.9% with pure raw data.
+
+52
+00:08:03,371 --> 00:08:12,809
+The third and most important finding: Steerable – Fine-grained supervision endows the policy with true manipulability.
+
+53
+00:08:12,809 --> 00:08:22,246
+A policy trained with fine-grained methods can produce drastically different execution behaviors based on changes in a single attribute of the instruction.
+
+54
+00:08:22,246 --> 00:08:31,684
+We validated our findings on five real-world robotic tasks, as shown in the GIF demonstration on the screen.
+
+55
+00:08:31,684 --> 00:08:41,121
+The first task, approach direction: specifying grasping from above and from the right, the robot indeed demonstrated different approach paths, improving the success rate from 60% to 78%, an improvement of 18 points.
+
+56
+00:08:41,121 --> 00:08:50,559
+The second task, arm selection: specifying left or right hand, the success rate improved from 60% to 64%.
+
+57
+00:08:50,559 --> 00:08:59,996
+The third task, object posture: recognizing upside-down and upright cups, the success rate significantly improved from 24% to 47%, an improvement of 23 points.
+
+58
+00:08:59,996 --> 00:09:09,434
+The fourth task, target color: distinguishing between blue and red pens, the success rate improved from 22% to 40%.
+
+59
+00:09:09,434 --> 00:09:18,871
+The fifth task, rotation direction: clockwise and counterclockwise rotation, the success rate improved from 76% to 86%.
+
+60
+00:09:18,871 --> 00:09:28,309
+These comparisons clearly demonstrate that fine-grained instructions give the robot true controllability.
+
+61
+00:09:28,309 --> 00:09:37,746
+The same task, described differently, can produce different execution behaviors.
+
+62
+00:09:37,746 --> 00:09:43,640
+Finally, to summarize our core message: Specify how, not just what.
+
+63
+00:09:43,640 --> 00:09:49,534
+It's not just about telling the robot what to do, but also about precisely describing how to do it.
+
+64
+00:09:49,534 --> 00:09:55,428
+FineVLA provides a completely open-source framework covering fine-grained data construction, benchmarking, and manipulable strategies.
+
+65
+00:09:55,428 --> 00:10:01,322
+The code, benchmarks, and models are all open-source; we welcome your use and feedback.
+
+66
+00:10:01,322 --> 00:10:07,216
+Thank you!
+

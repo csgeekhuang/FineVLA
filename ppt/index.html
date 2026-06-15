@@ -193,25 +193,29 @@
 <div id="deck">
 
 <!-- ====== PAGE 1: Cover (hero dark) ====== -->
-<section class="slide hero dark">
+<section class="slide hero light">
   <div class="chrome">
     <div>FineVLA · 2026</div>
     <div>Vol.01</div>
   </div>
-  <div class="frame" style="display:grid; gap:4vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Fine-Grained VLA Framework</div>
+  <div class="frame" style="display:grid; gap:3vh; align-content:center; min-height:72vh">
+    <div style="display:flex;align-items:center;justify-content:flex-start;gap:2vw" data-anim>
+      <img src="assets/xlang_logo.png" alt="XLANG Lab" style="height:5vh;object-fit:contain">
+      <img src="assets/qwen_logo.png" alt="Qwen" style="height:5vh;object-fit:contain">
+    </div>
     <h1 class="h-hero" style="font-size:8.5vw" data-anim>FineVLA</h1>
     <h2 class="h-sub" data-anim>Fine-Grained Instruction Alignment<br>for Steerable Vision-Language-Action Policies</h2>
     <p class="lead" style="max-width:62vw" data-anim>
       Not just <em>what</em> to do, but <em>how</em> to do it.
     </p>
-    <div class="meta-row" data-anim>
-      <span style="font-size:.85em">Xintong Hu*, Xuhong Huang*, Jinyu Zhang, Yutong Yao, Yuchong Sun, Qiuyue Wang, Mingsheng Li, Sicheng Xie, Yitao Liu, Junhao Chen, Yixuan Chen, Yingming Zheng, Shuai Bai, Tao Yu</span><span>&middot;</span><span>2026</span>
+    <div style="display:flex;align-items:center;gap:1.5vw;margin-top:6vh" data-anim>
+      <img src="assets/finevla_logo.png" alt="FineVLA" style="height:5vh;object-fit:contain">
+      <span style="font-family:var(--mono);font-size:max(13px,.9vw);font-weight:500">https://finevla.xlang.ai/</span>
     </div>
   </div>
   <div class="foot">
-    <div>Steerable Robot Control via Fine-Grained Language</div>
-    <div>&mdash; 2026 &mdash;</div>
+    <div></div>
+    <div></div>
   </div>
 </section>
 
@@ -262,17 +266,18 @@
     <div>Framework &middot; Overview</div>
     <div>Act II &middot; 03 / 11</div>
   </div>
-  <div class="frame" style="display:grid; gap:3vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Open Framework</div>
-    <h1 class="h-hero" style="font-size:6vw" data-anim>Four Pillars</h1>
-    <p class="lead" style="max-width:60vw" data-anim>
-      A closed loop for action-instruction alignment: data construction, benchmark, VLM annotator, and steerable policy.
-    </p>
-    <div class="meta-row" data-anim>
-      <span>FineVLA-Tool + Data</span><span>&middot;</span><span>RoboFine-Bench</span><span>&middot;</span><span>RoboFine-VLM</span><span>&middot;</span><span>FineVLA-Policy</span>
+  <div class="frame" style="display:grid; grid-template-columns:35% 63%; gap:2vw; align-content:center; min-height:80vh">
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:3vh">
+      <h1 class="h-hero" style="font-size:5vw" data-anim>Four Pillars</h1>
+      <p class="lead" data-anim>
+        A closed loop for action-instruction alignment: data construction, benchmark, VLM annotator, and steerable policy.
+      </p>
+      <div class="meta-row" style="flex-wrap:wrap" data-anim>
+        <span>FineVLA-Tool + Data</span><span>&middot;</span><span>RoboFine-Bench</span><span>&middot;</span><span>RoboFine-VLM</span><span>&middot;</span><span>FineVLA-Policy</span>
+      </div>
     </div>
-    <div style="margin-top:-2vh; display:flex; justify-content:center" data-anim>
-      <img src="assets/teaser_kraft.png" alt="FineVLA Framework Overview — Four Pillars" style="width:88%; max-height:46vh; object-fit:contain">
+    <div style="display:flex;align-items:center;justify-content:center" data-anim>
+      <img src="assets/teaser_kraft.png" alt="FineVLA Framework Overview — Four Pillars" style="width:100%; max-height:70vh; object-fit:contain">
     </div>
   </div>
   <div class="foot">
@@ -318,10 +323,10 @@
     </div>
 
     <div style="margin-top:2vh; flex:1; display:flex; flex-direction:column; justify-content:center" data-anim>
-      <video autoplay loop muted playsinline style="width:100%; max-height:56vh; object-fit:contain; border-radius:4px; opacity:.92">
+      <video autoplay loop muted playsinline style="width:100%; max-height:64vh; object-fit:contain; border-radius:4px; opacity:.92">
         <source src="../static/videos/browse_examples_kraft.mp4" type="video/mp4">
       </video>
-      <div style="margin-top:1vh; font-family:var(--mono); font-size:max(10px,.78vw); letter-spacing:.22em; text-transform:uppercase; opacity:.5; text-align:center">Browse Examples &middot; Fine-Grained Annotations with Video Demonstrations</div>
+      <div style="margin-top:1.5vh; font-family:var(--mono); font-size:max(14px,1.1vw); font-weight:600; letter-spacing:.15em; text-transform:uppercase; opacity:.7; text-align:center">Browse Examples &middot; Fine-Grained Annotations with Video Demonstrations</div>
     </div>
   </div>
   <div class="foot">
@@ -370,7 +375,7 @@
       </div>
       <div style="font-family:var(--mono);font-size:1.2vw;letter-spacing:.1em;opacity:.5" data-anim>Caption Track</div>
     </div>
-    <p class="lead" style="margin-bottom:3vh" data-anim>11.6K atomic facts decomposed from ground truth — Easy &amp; Hard modes measuring consistency and coverage.</p>
+    <p class="lead" style="margin-bottom:3vh" data-anim>11.6K atomic facts decomposed from ground truth — Easy &amp; Hard modes measuring consistency, coverage, and hallucination rate.</p>
 
     <div style="margin-top:-10vh;display:flex;align-items:center;gap:2vw;margin-left:-1vw" data-anim>
       <img src="assets/CaptionTrack_left.png" alt="Caption GT Statistics" style="width:30%;object-fit:contain;display:block">
@@ -589,12 +594,12 @@
           <div class="pillar" data-anim>
             <div class="ic"><em>i</em></div>
             <div class="t">No Sacrifice</div>
-            <div class="d" style="font-size:max(12px,.9vw)">FG-only outperforms Raw-only by <strong>+1.4 to +8.1</strong> pts across all settings. OFT-vs-GR00T gap shrinks from 6.4 to just <strong>0.8</strong> under FG-only. RDT-OFT: +1.4 / +2.0, AlohaMix: +6.5 / +4.7.</div>
+            <div class="d" style="font-size:max(12px,.9vw)">Fine-grained supervision does not sacrifice goal-level task success. FG-only consistently outperforms Raw-only by <strong>+1.4 to +8.1</strong> pts. The OFT-vs-GR00T gap shrinks from 6.4 to just <strong>0.8</strong>, showing strong cross-architecture generalization.</div>
           </div>
           <div class="pillar" data-anim>
             <div class="ic"><em>ii</em></div>
             <div class="t">Complementary</div>
-            <div class="d" style="font-size:max(12px,.9vw)">Inverted-U trend — performance peaks at <strong>FG:Raw = 1:1</strong>. Best mixed setting reaches <strong>86.8% / 82.5%</strong> sim, <strong>62.7</strong> real vs 49.9 Raw-only. Real +12.8 over Raw-only.</div>
+            <div class="d" style="font-size:max(12px,.9vw)">Raw and fine-grained instructions are complementary. Performance follows a clear inverted-U trend, peaking at <strong>FG:Raw = 1:1</strong>. Best mixed setting reaches <strong>86.8% / 82.5%</strong> in simulation and <strong>62.7</strong> in real-world, a <strong>+12.8</strong> gain over Raw-only.</div>
           </div>
         </div>
       </div>
@@ -624,7 +629,7 @@
         <div class="ic"><em>iii</em></div>
         <div class="t" style="margin:0">Steerable</div>
       </div>
-      <div class="d" style="font-size:max(12px,.9vw)">Fine-grained supervision enables steerable control on underspecified attributes. Varying only the instruction produces distinctly different execution behaviors.</div>
+      <div class="d" style="font-size:max(12px,.9vw)">Fine-grained language directly improves factor-level steerability, especially on attributes underspecified by goal-level instructions. Largest gains: pose <strong>+23</strong>, approach direction <strong>+18</strong>, color <strong>+18</strong>.</div>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw;margin-top:1vh">
@@ -691,27 +696,31 @@
   </div>
 </section>
 
-<!-- ====== PAGE 11: Closing (hero dark) ====== -->
-<section class="slide hero dark">
+<!-- ====== PAGE 11: Closing (hero light) ====== -->
+<section class="slide hero light">
   <div class="chrome">
-    <div>Takeaway</div>
+    <div>Closing</div>
     <div>11 / 11</div>
   </div>
   <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>The Takeaway</div>
+    <div style="display:flex;align-items:center;justify-content:flex-start;gap:2vw" data-anim>
+      <img src="assets/xlang_logo.png" alt="XLANG Lab" style="height:5vh;object-fit:contain">
+      <img src="assets/qwen_logo.png" alt="Qwen" style="height:5vh;object-fit:contain">
+    </div>
     <h1 class="h-hero" style="font-size:7vw; line-height:1.15">
       <span data-anim style="display:block">Specify <em>how</em>,</span>
       <span data-anim style="display:block">not just <em>what</em>.</span>
     </h1>
     <p class="lead" style="max-width:55vw" data-anim>
-      FineVLA provides a fully open-source framework for scaling fine-grained VLA data, robotic video understanding, and steerable policies.
+      Open-sourcing the full stack: data annotation pipeline, VLM annotator, and fine-grained robotics benchmark.
     </p>
-    <div class="meta-row" data-anim>
-      <span>Code + Benchmark + Models</span><span>&middot;</span><span>Open Source</span><span>&middot;</span><span>2026</span>
+    <div style="display:flex;align-items:center;gap:1.5vw;margin-top:2vh" data-anim>
+      <img src="assets/finevla_logo.png" alt="FineVLA" style="height:5vh;object-fit:contain">
+      <span style="font-family:var(--mono);font-size:max(13px,.9vw);font-weight:500">https://finevla.xlang.ai/</span>
     </div>
   </div>
   <div class="foot">
-    <div>FineVLA &middot; Fine-Grained Instruction Alignment</div>
+    <div></div>
     <div>&mdash; Thank You &mdash;</div>
   </div>
 </section>

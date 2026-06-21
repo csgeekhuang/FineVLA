@@ -7,7 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FineVLA: Fine-Grained Instruction Alignment for Steerable Vision-Language-Action Policies</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Signifier';
+      src: url('./static/fonts/signifier.woff2') format('woff2');
+      font-display: swap;
+      font-weight: 400;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -34,7 +42,7 @@
 <nav class="side-nav" id="side-nav">
   <ul>
     <li><a href="#abstract" data-section="abstract">Abstract</a></li>
-    <li><a href="#method" data-section="method">Method</a></li>
+    <li><a href="#method" data-section="method">FineVLA-Tool</a></li>
     <li><a href="#data" data-section="data">Data</a></li>
     <li><a href="#vlm" data-section="vlm">VLM</a></li>
     <li><a href="#benchmark" data-section="benchmark">Benchmark</a></li>
@@ -67,7 +75,7 @@
     <div class="navbar-menu">
       <div class="navbar-end">
         <a class="navbar-item" href="#abstract">Abstract</a>
-        <a class="navbar-item" href="#method">Method</a>
+        <a class="navbar-item" href="#method">FineVLA-Tool</a>
         <a class="navbar-item" href="#data">Data</a>
         <a class="navbar-item" href="#vlm">VLM</a>
         <a class="navbar-item" href="#benchmark">Benchmark</a>
@@ -106,14 +114,9 @@
             <span class="author-block"><a href="https://taoyds.github.io/">Tao Yu</a><sup>&dagger;1</sup></span>
         </div>
 
-        <div class="is-size-6 publication-authors hero-affiliations">
-            <span class="author-block"><sup>1</sup><img src="./static/images/logos/xlang.png" alt="XLANG" style="height:1.2em;vertical-align:middle;margin-right:4px;">XLANG Lab, The University of Hong Kong,</span>
-            <span class="author-block"><sup>2</sup><img src="./static/images/logos/qwen.png" alt="Qwen" style="height:1.2em;vertical-align:middle;margin-right:4px;">Qwen Team, Alibaba Inc.</span>
-        </div>
-
-        <div class="is-size-6 publication-authors hero-notes">
-            <span class="author-block"><sup>*</sup>Equal Contribution,</span>
-            <span class="author-block"><sup>&dagger;</sup>Corresponding Author</span>
+        <div class="is-size-5 publication-authors hero-affiliations" style="font-size:1.2rem !important;">
+            <span class="author-block"><sup>1</sup><img src="./static/images/logos/xlang.png" alt="XLANG" style="height:3em;vertical-align:middle;margin-right:4px;">XLANG Lab, The University of Hong Kong,</span>
+            <span class="author-block"><sup>2</sup><img src="./static/images/logos/qwen.png" alt="Qwen" style="height:3em;vertical-align:middle;margin-right:4px;">Qwen Team, Alibaba Inc.</span>
         </div>
 
           <!-- Link Buttons -->
@@ -150,12 +153,7 @@
       </div>
 
       <div class="hero-teaser">
-        <img src="./static/images/teaser.png" alt="FineVLA Overview">
-        <p class="hero-teaser-caption">
-          <strong>FineVLA</strong> builds a closed loop for action-instruction alignment,
-          connecting fine-grained data construction, robotic video understanding,
-          scalable annotation, and steerable VLA policy learning.
-        </p>
+        <img src="./static/images/teaser.png" alt="FineVLA Overview" style="max-width:75%;width:75%">
       </div>
   </div>
 </section>
@@ -200,25 +198,40 @@
   </div>
 </section>
 
-<!-- Method -->
+<!-- FineVLA-Tool -->
 <section class="section" id="method">
   <div class="container is-max-widescreen">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Method</h2>
+        <h2 class="title is-3">FineVLA-Tool</h2>
         <div class="content has-text-justified">
           <p>
-            <strong>FineVLA-Tool</strong> unifies 972,247 trajectories across 85K tasks from 10 open-source
-            datasets, selects representative samples via DTW-based clustering, and annotates them with
-            process-level descriptions across ten fine-grained dimensions. This produces
-            <strong>FineVLA-Data</strong>, a human-verified corpus of 47,159 trajectories whose average
-            instruction length increases <strong>10.4&times;</strong> (from 9.3 to 96.8 words).
+            <strong>FineVLA-Tool</strong> converts large-scale heterogeneous robot datasets into
+            fine-grained, action-aligned instruction supervision. Its design addresses three practical
+            bottlenecks in open robot data: (1) inconsistent action/state formats across datasets,
+            (2) heavy redundancy among demonstrations of the same task, and
+            (3) sparse, task-level instruction annotations.
+          </p>
+          <p>
+            Starting from 972,247 trajectories across 10 source datasets, FineVLA-Tool operates in four stages:
+            <strong>Stage 1</strong> converts raw trajectories into a unified LeRobot-style format and filters out invalid recordings;
+            <strong>Stage 2</strong> canonicalizes action and state representations across embodiments and removes corrupted or inconsistent trajectories via an action-state consistency quality gate;
+            <strong>Stage 3</strong> applies DTW-based similarity computation and hierarchical clustering to identify representative trajectories, reducing redundancy while preserving diverse manipulation strategies;
+            <strong>Stage 4</strong> decomposes selected trajectories into step-level descriptions and annotates them with a ten-dimensional fine-grained schema, followed by human verification.
+          </p>
+          <p>
+            The resulting <strong>FineVLA-Data</strong> is a human-verified corpus of 47,159 representative
+            trajectories with process-level supervision. The average instruction length increases
+            <strong>10.4&times;</strong> (from 9.3 to 96.8 words), covering 47 unique action verbs across all sources.
           </p>
         </div>
         <img src="./static/images/method.png" alt="FineVLA-Tool Pipeline" style="width: 100%;">
-        <p class="has-text-centered" style="margin-top: 10px; color: #555;">
-          <strong>Pipeline of FineVLA-Tool.</strong> Four stages convert heterogeneous robot demonstrations
-          into action-aligned fine-grained instruction data.
+        <p class="has-text-left" style="margin-top: 10px; color: #555;">
+          <strong>Pipeline of FineVLA-Tool.</strong>
+          <strong>Stage 1:</strong> raw trajectories from 10 open-source robot datasets are converted into a unified LeRobot-style format and filtered to remove invalid videos.
+          <strong>Stage 2:</strong> action and state representations are canonicalized across embodiments, and an action-state consistency quality gate removes corrupted or inconsistent trajectories.
+          <strong>Stage 3:</strong> DTW-based similarity computation and clustering identify representative trajectories, reducing redundancy while preserving diverse manipulation strategies.
+          <strong>Stage 4:</strong> selected trajectories are decomposed into step-level descriptions and annotated with a ten-dimensional fine-grained schema, followed by human verification.
         </p>
       </div>
     </div>
@@ -615,7 +628,43 @@
             <li><strong>Fine-grained language improves factor-level steerability.</strong> Especially on attributes underspecified by goal-level instructions: pose improves from 24 to 47, color from 22 to 40, and approach from 60 to 78 under FG:Raw = 1:1.</li>
           </ol>
         </div>
-        <img src="./static/images/results.png" alt="Experimental Results" style="width: 66%; display: block; margin: 0 auto;">
+        <div style="width:100%;margin:0 auto;">
+          <canvas id="resultsChart"></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+        <script>
+        (function(){
+          var ctx = document.getElementById('resultsChart').getContext('2d');
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['Raw (0%)', '1:4 (20%)', '1:2 (33%)', '1:1 (50%)', '2:1 (67%)', '4:1 (80%)', 'FG (100%)'],
+              datasets: [
+                {label:'Aloha Mix-OFT Easy', data:[71.5,75.3,83.0,86.8,81.0,79.8,78.5], borderColor:'#7B4F9E', pointBackgroundColor:'#7B4F9E', pointStyle:'circle', pointRadius:3, borderWidth:2.2, tension:0.3},
+                {label:'Aloha Mix-OFT Hard', data:[71.0,74.5,78.5,82.5,79.3,79.0,75.8], borderColor:'#A678C8', pointBackgroundColor:'#A678C8', pointStyle:'triangle', pointRadius:3.5, borderWidth:2.2, tension:0.3},
+                {label:'RDT-OFT Easy', data:[61.5,68.3,74.2,73.8,70.3,68.5,65.0], borderColor:'#8B5E3C', pointBackgroundColor:'#8B5E3C', pointStyle:'circle', pointRadius:3, borderWidth:2.2, tension:0.3},
+                {label:'RDT-OFT Hard', data:[60.0,66.5,72.0,72.3,68.3,67.5,63.0], borderColor:'#C08B5C', pointBackgroundColor:'#C08B5C', pointStyle:'circle', pointRadius:3, borderWidth:2.2, tension:0.3},
+                {label:'RDT-GROOT Easy', data:[55.2,58.3,61.2,69.5,66.0,65.0,62.0], borderColor:'#2E6B7F', pointBackgroundColor:'#2E6B7F', pointStyle:'rect', pointRadius:3, borderWidth:2.2, tension:0.3},
+                {label:'RDT-GROOT Hard', data:[53.5,55.8,61.0,68.2,63.0,63.0,61.8], borderColor:'#5A9EB2', pointBackgroundColor:'#5A9EB2', pointStyle:'rect', pointRadius:3, borderWidth:2.2, tension:0.3}
+              ]
+            },
+            options: {
+              responsive: true,
+              aspectRatio: 1.6,
+              animation: {duration:1600, easing:'easeInOutQuart'},
+              plugins: {
+                legend: {position:'top', labels:{font:{family:'Source Serif 4',size:16}, color:'#3B2F2F', usePointStyle:true, padding:16, boxWidth:5, boxHeight:5}},
+                tooltip: {backgroundColor:'#3B2F2F', titleFont:{family:'Source Serif 4',size:16}, bodyFont:{family:'Source Serif 4',size:15}, cornerRadius:6, padding:10}
+              },
+              scales: {
+                x: {title:{display:true, text:'FG Proportion in Training Instructions (%)', font:{family:'Source Serif 4',size:17}, color:'#3B2F2F'}, ticks:{font:{family:'Source Serif 4',size:15}, color:'#5C4F4F'}, grid:{color:'rgba(60,47,47,0.08)'}},
+                y: {title:{display:true, text:'RoboTwin Success Rate (%)', font:{family:'Source Serif 4',size:17}, color:'#3B2F2F'}, min:50, max:90, ticks:{font:{family:'Source Serif 4',size:15}, color:'#5C4F4F', stepSize:5}, grid:{color:'rgba(60,47,47,0.08)'}}
+              },
+              interaction: {mode:'index', intersect:false}
+            }
+          });
+        })();
+        </script>
         <p class="has-text-centered" style="margin-top: 10px; color: #555;">
           <strong>Key experimental results.</strong> Fine-grained and raw instructions are complementary,
           with the optimal FG:Raw ratio around 1:2 to 1:1 across simulation and real-world settings.

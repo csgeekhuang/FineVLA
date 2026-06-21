@@ -157,6 +157,28 @@
     .pipeline{grid-template-columns:repeat(2,1fr)}
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
   }
+/* Typewriter + content reveal for PAGE 4 */
+@keyframes typeReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes contentUp {
+  from { opacity:0; transform:translateY(15px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.typewriter-wrap {
+  display:inline-block;
+  clip-path:inset(0 100% 0 0);
+}
+.typing-active .typewriter-wrap {
+  animation: typeReveal 1.2s steps(45) forwards;
+}
+.type-fade {
+  opacity:0;
+}
+.typing-active .type-fade {
+  animation: contentUp .8s ease 1.5s forwards;
+}
 </style>
 </head>
 <body>
@@ -219,7 +241,188 @@
   </div>
 </section>
 
-<!-- ====== PAGE 2: Motivation (light) ====== -->
+<!-- ====== PAGE 2: Fine-Grained Motivation — Video Comparison (light) ====== -->
+<section class="slide light" data-video-slide data-video-speed="1">
+  <div class="chrome">
+    <div>Motivation &middot; Fine-Grained</div>
+    <div>02 / 12</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <!-- Raw coarse instruction -->
+    <div style="text-align:center;margin-bottom:2vh" data-anim>
+      <div style="font-family:var(--mono);font-size:max(10px,0.7vw);letter-spacing:.3em;text-transform:uppercase;opacity:.5;margin-bottom:.4vh;font-weight:500">Raw coarse instruction</div>
+      <div style="font-family:var(--serif-en);font-size:max(15px,1.45vw);line-height:1.3;opacity:.7"><em>"Put the block into the bowl"</em></div>
+    </div>
+
+    <!-- Two videos side by side -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3.5vw;align-content:start">
+      <div style="display:flex;flex-direction:column;align-items:center" data-anim>
+        <video loop muted playsinline style="width:100%;max-height:42vh;object-fit:contain;border-radius:4px;border:2px solid rgba(var(--ink-rgb),.1)">
+          <source src="assets/grasp_from_above.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:2vh;width:100%;padding:1.8vh 1.6vw;border-left:3px solid var(--ink);background:rgba(var(--ink-rgb),.05)" data-anim>
+          <div style="font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8vh"><span style="color:#b8860b;font-weight:700;letter-spacing:.18em">RELABEL</span></div>
+          <div class="h-md" style="font-size:max(15px,1.45vw);line-height:1.35">The right hand grasp the purple block <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">from above</span>,<br>move forward and place it into the pink bowl.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center" data-anim>
+        <video loop muted playsinline style="width:100%;max-height:42vh;object-fit:contain;border-radius:4px;border:2px solid rgba(var(--ink-rgb),.1)">
+          <source src="assets/grasp_from_side.mp4" type="video/mp4">
+        </video>
+        <div style="margin-top:2vh;width:100%;padding:1.8vh 1.6vw;border-left:3px solid var(--ink);background:rgba(var(--ink-rgb),.05)" data-anim>
+          <div style="font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8vh"><span style="color:#b8860b;font-weight:700;letter-spacing:.18em">RELABEL</span></div>
+          <div class="h-md" style="font-size:max(15px,1.45vw);line-height:1.35">The right hand grasp the purple block <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">from the side</span>,<br>move forward and place it into the pink bowl.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 02 &middot; Why Fine-Grained?</div>
+    <div>Motivation</div>
+  </div>
+</section>
+
+
+<!-- ====== PAGE 3: Object Pose — Video Comparison (light) ====== -->
+<section class="slide light" data-video-slide>
+  <div class="chrome">
+    <div>Motivation &middot; Object Pose</div>
+    <div>03 / 13</div>
+  </div>
+  <div class="frame" style="padding-top:5vh">
+    <!-- Raw coarse instruction -->
+    <div style="text-align:center;margin-bottom:2vh" data-anim>
+      <div style="font-family:var(--mono);font-size:max(10px,0.7vw);letter-spacing:.3em;text-transform:uppercase;opacity:.5;margin-bottom:.4vh;font-weight:500">Raw coarse instruction</div>
+      <div style="font-family:var(--serif-en);font-size:max(15px,1.45vw);line-height:1.3;opacity:.7"><em>"Put the pen into the box"</em></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3.5vw;align-content:start">
+      <div style="display:flex;flex-direction:column;align-items:center" data-anim>
+        <video loop muted playsinline style="width:100%;max-height:42vh;object-fit:contain;border-radius:4px;border:2px solid rgba(var(--ink-rgb),.1)">
+          <source src="assets/pick_lying_cup.mp4?v=2" type="video/mp4">
+        </video>
+        <div style="margin-top:2vh;width:100%;padding:1.8vh 1.6vw;border-left:3px solid var(--ink);background:rgba(var(--ink-rgb),.05)" data-anim>
+          <div style="font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8vh"><span style="color:#b8860b;font-weight:700;letter-spacing:.18em">RELABEL</span></div>
+          <div class="h-md" style="font-size:max(15px,1.45vw);line-height:1.35">The <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">left</span> hand grasp the <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">lying</span> pen <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">from above</span>,<br>place it into the box.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center" data-anim>
+        <video loop muted playsinline style="width:100%;max-height:42vh;object-fit:contain;border-radius:4px;border:2px solid rgba(var(--ink-rgb),.1)">
+          <source src="assets/pick_standing_cup.mp4?v=2" type="video/mp4">
+        </video>
+        <div style="margin-top:2vh;width:100%;padding:1.8vh 1.6vw;border-left:3px solid var(--ink);background:rgba(var(--ink-rgb),.05)" data-anim>
+          <div style="font-family:var(--mono);font-size:max(11px,.85vw);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8vh"><span style="color:#b8860b;font-weight:700;letter-spacing:.18em">RELABEL</span></div>
+          <div class="h-md" style="font-size:max(15px,1.45vw);line-height:1.35">The <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">right</span> hand grasp the <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">standing</span> pen <span style="color:#1b7a6d;font-weight:800;padding:0 .15em;border-bottom:2px solid #1b7a6d">from side</span>,<br>place it into the box.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 03 &middot; Object Pose</div>
+    <div>Motivation</div>
+  </div>
+</section>
+
+<!-- ====== PAGE 4: Combined — Arm Selection / Target Color / Rotation (light) ====== -->
+<section class="slide light" data-video-slide>
+  <div class="chrome">
+    <div>Motivation &middot; More Dimensions</div>
+    <div>04 / 13</div>
+  </div>
+  <div class="frame" style="padding-top:2vh">
+    <div style="text-align:center;margin-bottom:1.5vh" data-anim>
+      <h2 class="h-xl" style="font-size:3.4vw;line-height:1.1;white-space:nowrap"><span class="typewriter-wrap"><span style="color:#b8860b;font-weight:800">Fine-Grained Instruction</span> Enables Steerability</span></h2>
+    </div>
+
+    <div class="type-fade" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2.2vw;align-content:start;margin-top:1vh">
+      <!-- Column 1: Arm Selection -->
+      <div style="display:flex;flex-direction:column;gap:1vh" data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(16px,1.35vw);text-align:center;padding-bottom:.8vh;border-bottom:1px solid rgba(var(--ink-rgb),.2)">Arm Selection</div>
+        <div style="text-align:center">
+          <video loop muted playsinline style="width:100%;max-height:22vh;object-fit:contain;border-radius:3px;border:1px solid rgba(var(--ink-rgb),.1)">
+            <source src="assets/left_pick_left_place.mp4?v=2" type="video/mp4">
+          </video>
+          <div style="font-family:var(--mono);font-size:max(13px,.95vw);margin-top:.4vh">Pick with <span style="color:#1b7a6d;font-weight:700">left hand</span>, place into <span style="color:#1b7a6d;font-weight:700">left bowl</span></div>
+        </div>
+        <div style="text-align:center">
+          <video loop muted playsinline style="width:100%;max-height:22vh;object-fit:contain;border-radius:3px;border:1px solid rgba(var(--ink-rgb),.1)">
+            <source src="assets/right_pick_right_place.mp4" type="video/mp4">
+          </video>
+          <div style="font-family:var(--mono);font-size:max(13px,.95vw);margin-top:.4vh">Pick with <span style="color:#1b7a6d;font-weight:700">right hand</span>, place into <span style="color:#1b7a6d;font-weight:700">right bowl</span></div>
+        </div>
+      </div>
+
+      <!-- Column 2: Target Color -->
+      <div style="display:flex;flex-direction:column;gap:1vh" data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(16px,1.35vw);text-align:center;padding-bottom:.8vh;border-bottom:1px solid rgba(var(--ink-rgb),.2)">Target Color</div>
+        <div style="text-align:center">
+          <video loop muted playsinline style="width:100%;max-height:22vh;object-fit:contain;border-radius:3px;border:1px solid rgba(var(--ink-rgb),.1)">
+            <source src="assets/put_blue_pen.mp4" type="video/mp4">
+          </video>
+          <div style="font-family:var(--mono);font-size:max(13px,.95vw);margin-top:.4vh"><span style="color:#1b7a6d;font-weight:700">Left</span> hand pick up The <span style="color:#1b7a6d;font-weight:700">leftest blue</span> pen and insert it into the pen holder</div>
+        </div>
+        <div style="text-align:center">
+          <video loop muted playsinline style="width:100%;max-height:22vh;object-fit:contain;border-radius:3px;border:1px solid rgba(var(--ink-rgb),.1)">
+            <source src="assets/put_red_pen.mp4" type="video/mp4">
+          </video>
+          <div style="font-family:var(--mono);font-size:max(13px,.95vw);margin-top:.4vh"><span style="color:#1b7a6d;font-weight:700">Right</span> hand pick up The <span style="color:#1b7a6d;font-weight:700">rightest red</span> pen and insert it into the pen holder</div>
+        </div>
+      </div>
+
+      <!-- Column 3: Rotation Direction -->
+      <div style="display:flex;flex-direction:column;gap:1vh" data-anim>
+        <div style="font-family:var(--serif-en);font-weight:700;font-size:max(16px,1.35vw);text-align:center;padding-bottom:.8vh;border-bottom:1px solid rgba(var(--ink-rgb),.2)">Rotation Direction</div>
+        <div style="text-align:center">
+          <video loop muted playsinline style="width:100%;max-height:22vh;object-fit:contain;border-radius:3px;border:1px solid rgba(var(--ink-rgb),.1)">
+            <source src="assets/rotate_clockwise.mp4" type="video/mp4">
+          </video>
+          <div style="font-family:var(--mono);font-size:max(13px,.95vw);margin-top:.4vh">Grasp the <span style="color:#1b7a6d;font-weight:700">black</span> pen from above and rotate it <span style="color:#1b7a6d;font-weight:700">clockwise</span></div>
+        </div>
+        <div style="text-align:center">
+          <video loop muted playsinline style="width:100%;max-height:22vh;object-fit:contain;border-radius:3px;border:1px solid rgba(var(--ink-rgb),.1)">
+            <source src="assets/rotate_counterclockwise.mp4" type="video/mp4">
+          </video>
+          <div style="font-family:var(--mono);font-size:max(13px,.95vw);margin-top:.4vh">Grasp the <span style="color:#1b7a6d;font-weight:700">red</span> pen from above and rotate it <span style="color:#1b7a6d;font-weight:700">counter-clockwise</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-fade" style="text-align:center;margin-top:2vh">
+      <p class="lead" style="font-size:max(18px,1.8vw)"><span style="color:#b8860b;font-weight:700">Same goal, different fine-grained instructions &rarr; different robot behaviors</span></p>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 04 &middot; Steerability Dimensions</div>
+    <div>Motivation</div>
+  </div>
+</section>
+
+
+
+<!-- ====== PAGE 11: Closing (hero light) ====== -->
+<section class="slide hero light">
+  <div class="chrome">
+    <div>Closing</div>
+    <div>11 / 11</div>
+  </div>
+  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
+    <div style="display:flex;align-items:center;justify-content:flex-start;gap:2vw" data-anim>
+      <img src="assets/xlang_logo.png" alt="XLANG Lab" style="height:5vh;object-fit:contain">
+      <img src="assets/qwen_logo.png" alt="Qwen" style="height:5vh;object-fit:contain">
+    </div>
+    <h1 class="h-hero" style="font-size:8.5vw" data-anim>FineVLA</h1>
+    <h2 class="h-sub" style="font-size:2.8vw" data-anim>Specify <em>how</em>, not just <em>what</em>.</h2>
+    <div style="display:flex;align-items:center;gap:1.5vw;margin-top:2vh" data-anim>
+      <img src="assets/finevla_logo.png" alt="FineVLA" style="height:5vh;object-fit:contain">
+      <span style="font-family:var(--mono);font-size:max(13px,.9vw);font-weight:500">https://finevla.xlang.ai/</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div></div>
+    <div>&mdash; Thank You &mdash;</div>
+  </div>
+</section>
+<!-- ====== PAGE 4: Motivation (light) ====== -->
 <section class="slide light" data-animate="directional">
   <div class="chrome">
     <div>Motivation &middot; The Gap</div>
@@ -509,7 +712,6 @@
     <div>Annotator</div>
   </div>
 </section>
-
 <!-- ====== PAGE 8: Caption Quality Comparison (dark) ====== -->
 <section class="slide dark">
   <div class="chrome">
@@ -696,34 +898,6 @@
   </div>
 </section>
 
-<!-- ====== PAGE 11: Closing (hero light) ====== -->
-<section class="slide hero light">
-  <div class="chrome">
-    <div>Closing</div>
-    <div>11 / 11</div>
-  </div>
-  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
-    <div style="display:flex;align-items:center;justify-content:flex-start;gap:2vw" data-anim>
-      <img src="assets/xlang_logo.png" alt="XLANG Lab" style="height:5vh;object-fit:contain">
-      <img src="assets/qwen_logo.png" alt="Qwen" style="height:5vh;object-fit:contain">
-    </div>
-    <h1 class="h-hero" style="font-size:7vw; line-height:1.15">
-      <span data-anim style="display:block">Specify <em>how</em>,</span>
-      <span data-anim style="display:block">not just <em>what</em>.</span>
-    </h1>
-    <p class="lead" style="max-width:55vw" data-anim>
-      Open-sourcing the full stack: data annotation pipeline, VLM annotator, and fine-grained robotics benchmark.
-    </p>
-    <div style="display:flex;align-items:center;gap:1.5vw;margin-top:2vh" data-anim>
-      <img src="assets/finevla_logo.png" alt="FineVLA" style="height:5vh;object-fit:contain">
-      <span style="font-family:var(--mono);font-size:max(13px,.9vw);font-weight:500">https://finevla.xlang.ai/</span>
-    </div>
-  </div>
-  <div class="foot">
-    <div></div>
-    <div>&mdash; Thank You &mdash;</div>
-  </div>
-</section>
 
 </div>
 
@@ -1079,6 +1253,35 @@ if(motion){
   window.__pipeAdvance = pipeAdvance;
   playSlide(0);
 }
+</script>
+
+<script>
+// Motivation slides: play videos at 2x only when slide is in viewport
+(function(){
+  var slides = document.querySelectorAll('[data-video-slide]');
+  if(!slides.length) return;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var videos = entry.target.querySelectorAll('video');
+      if(entry.isIntersecting){
+        var speed = parseFloat(entry.target.getAttribute('data-video-speed')) || 2;
+        videos.forEach(function(v){
+          v.playbackRate = speed;
+          v.currentTime = 0;
+          v.play();
+        });
+        entry.target.classList.add('typing-active');
+      } else {
+        videos.forEach(function(v){
+          v.pause();
+          v.currentTime = 0;
+        });
+        entry.target.classList.remove('typing-active');
+      }
+    });
+  }, {threshold: 0.5});
+  slides.forEach(function(s){ observer.observe(s); });
+})();
 </script>
 </body>
 </html>
